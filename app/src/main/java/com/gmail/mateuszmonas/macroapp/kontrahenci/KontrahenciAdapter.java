@@ -34,8 +34,10 @@ public class KontrahenciAdapter  extends RecyclerView.Adapter<KontrahenciAdapter
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Kontrahent kontrahent = kontrahenci.get(position);
         holder.item = kontrahent;
-        holder.imie.setText(kontrahent.getImie());
-        holder.nazwisko.setText(kontrahent.getNazwisko());
+        holder.numer.setText(Integer.toString(kontrahent.getNumer()));
+        holder.nip.setText(Integer.toString(kontrahent.getNIP()));
+        holder.adres.setText(kontrahent.getAdres());
+        holder.skrot.setText(kontrahent.getSkrot());
 
         final int id = position;
         holder.view.setOnClickListener(new View.OnClickListener() {
@@ -65,8 +67,10 @@ public class KontrahenciAdapter  extends RecyclerView.Adapter<KontrahenciAdapter
     public class ViewHolder extends RecyclerView.ViewHolder {
         final View view;
         Kontrahent item;
-        @BindView(R.id.imie)TextView imie;
-        @BindView(R.id.nazwisko)TextView nazwisko;
+        @BindView(R.id.numer)TextView numer;
+        @BindView(R.id.nip)TextView nip;
+        @BindView(R.id.adres)TextView adres;
+        @BindView(R.id.skrot)TextView skrot;
 
         ViewHolder(View view) {
             super(view);

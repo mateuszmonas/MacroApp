@@ -17,7 +17,7 @@ class KontrahenciPresenter implements KontrahenciContract.Presenter {
         kontrahenciView.setPresenter(this);
         kontrachenci = new ArrayList<>();
         for(int i = 0 ; i<50; i++) {
-            kontrachenci.add(new Kontrahent("Andrzej", "Kowalski"));
+            kontrachenci.add(new Kontrahent(6, "NOWAK", 1234563218, "JAN NOWAK", "katowice, ul. Korfantego 125A"));
         }
     }
 
