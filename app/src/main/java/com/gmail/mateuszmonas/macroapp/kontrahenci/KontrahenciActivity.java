@@ -11,7 +11,7 @@ import butterknife.ButterKnife;
 
 public class KontrahenciActivity extends AppCompatActivity {
 
-    KontrahenciPresenter kontrahenciPresenter;
+    private KontrahenciPresenter kontrahenciPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
