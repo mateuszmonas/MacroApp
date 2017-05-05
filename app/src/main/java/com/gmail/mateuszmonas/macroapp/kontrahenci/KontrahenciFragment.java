@@ -48,6 +48,12 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        presenter.start();
+    }
+
+    @Override
     public void setPresenter(KontrahenciContract.Presenter presenter) {
         this.presenter = presenter;
     }
