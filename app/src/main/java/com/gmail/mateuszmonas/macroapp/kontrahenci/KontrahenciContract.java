@@ -9,11 +9,18 @@ import java.util.List;
 interface KontrahenciContract {
 
     interface View extends BaseView<Presenter>{
+
         void showKontrachenci(List<Kontrahent> kontrachenci);
+
+        void showFaktura(int id);
     }
 
     interface Presenter extends BasePresenter{
+
         void loadKontrachenci(List<Kontrahent> kontrachenci);
+
+        void openFaktura(int id);
+
     }
 
 }

@@ -30,4 +30,9 @@ class KontrahenciPresenter implements KontrahenciContract.Presenter {
     public void loadKontrachenci(List<Kontrahent> kontrachenci) {
         kontrahenciView.showKontrachenci(kontrachenci);
     }
+
+    @Override
+    public void openFaktura(int id) {
+        kontrahenciView.showFaktura(id);
+    }
 }
