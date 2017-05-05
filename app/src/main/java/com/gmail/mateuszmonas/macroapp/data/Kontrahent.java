@@ -5,6 +5,13 @@ public class Kontrahent {
     private String imie;
     private String nazwisko;
 
+    public Kontrahent() {}
+
+    public Kontrahent(String imie, String nazwisko) {
+        this.imie = imie;
+        this.nazwisko = nazwisko;
+    }
+
     public String getImie() {
         return imie;
     }
