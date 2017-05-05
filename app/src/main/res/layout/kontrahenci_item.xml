@@ -7,13 +7,15 @@
     <TextView
         android:id="@+id/imie"
         android:layout_width="0dp"
-        android:layout_height="16sp"
+        android:layout_height="wrap_content"
+        android:minHeight="16sp"
         android:layout_weight="1"/>
 
     <TextView
         android:id="@+id/nazwisko"
         android:layout_width="0dp"
-        android:layout_height="16sp"
+        android:layout_height="wrap_content"
+        android:minHeight="16sp"
         android:layout_weight="1"/>
 
 </LinearLayout>
