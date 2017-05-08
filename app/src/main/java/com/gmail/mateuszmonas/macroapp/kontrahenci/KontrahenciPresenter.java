@@ -7,18 +7,25 @@ import com.gmail.mateuszmonas.macroapp.data.Kontrahent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 class KontrahenciPresenter implements KontrahenciContract.Presenter {
 
-    private KontrahenciContract.View kontrahenciView;
+    private KontrahenciContract.View view;
     private List<Kontrahent> kontrachenci;
 
-    KontrahenciPresenter(@NonNull KontrahenciContract.View kontrahenciView) {
-        this.kontrahenciView = kontrahenciView;
-        kontrahenciView.setPresenter(this);
+    @Inject
+    KontrahenciPresenter(@NonNull KontrahenciContract.View view) {
+        this.view = view;
         kontrachenci = new ArrayList<>();
         for(int i = 0 ; i<50; i++) {
             kontrachenci.add(new Kontrahent(6, "NOWAK", 1234563218, "JAN NOWAK", "katowice, ul. Korfantego 125A"));
         }
+    }
+
+    @Inject
+    void setupListeners(){
+        view.setPresenter(this);
     }
 
     @Override
@@ -28,11 +35,11 @@ class KontrahenciPresenter implements KontrahenciContract.Presenter {
 
     @Override
     public void loadKontrachenci(List<Kontrahent> kontrachenci) {
-        kontrahenciView.showKontrachenci(kontrachenci);
+        view.showKontrachenci(kontrachenci);
     }
 
     @Override
     public void openFaktura(int id) {
-        kontrahenciView.showFaktura(id);
+        view.showFaktura(id);
     }
 }

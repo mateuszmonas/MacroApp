@@ -3,7 +3,7 @@ package com.gmail.mateuszmonas.macroapp.faktura;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.gmail.mateuszmonas.macroapp.ActivityUtils;
+import com.gmail.mateuszmonas.macroapp.utils.ActivityUtils;
 import com.gmail.mateuszmonas.macroapp.R;
 
 public class FakturaActivity extends AppCompatActivity {

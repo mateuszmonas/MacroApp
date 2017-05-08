@@ -3,15 +3,17 @@ package com.gmail.mateuszmonas.macroapp.kontrahenci;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.gmail.mateuszmonas.macroapp.ActivityUtils;
+import com.gmail.mateuszmonas.macroapp.MacroApplication;
+import com.gmail.mateuszmonas.macroapp.utils.ActivityUtils;
 import com.gmail.mateuszmonas.macroapp.R;
 
-import butterknife.BindView;
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
 
 public class KontrahenciActivity extends AppCompatActivity {
 
-    private KontrahenciPresenter kontrahenciPresenter;
+    @Inject KontrahenciPresenter kontrahenciPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,11 @@ public class KontrahenciActivity extends AppCompatActivity {
         }
 
         // Create the presenter
-        kontrahenciPresenter = new KontrahenciPresenter(kontrahenciFragment);
+        DaggerKontrahenciComponent.builder()
+                .kontrahentRepositoryComponent(
+                        ((MacroApplication) getApplication()).getKontrahentRepositoryComponent()
+                ).kontrahenciPresenterModule(new KontrahenciPresenterModule(kontrahenciFragment))
+                .build().inject(this);
 
     }
 }

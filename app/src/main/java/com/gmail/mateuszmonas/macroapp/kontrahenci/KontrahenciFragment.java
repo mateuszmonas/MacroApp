@@ -18,6 +18,8 @@ import com.gmail.mateuszmonas.macroapp.faktura.FakturaActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;

@@ -1,4 +1,4 @@
-package com.gmail.mateuszmonas.macroapp;
+package com.gmail.mateuszmonas.macroapp.utils;
 
 
 import android.support.annotation.NonNull;
