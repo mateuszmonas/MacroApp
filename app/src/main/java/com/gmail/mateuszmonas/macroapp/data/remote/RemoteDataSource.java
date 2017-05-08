@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.gmail.mateuszmonas.macroapp.data.DataSource;
 import com.gmail.mateuszmonas.macroapp.data.Kontrahent;
+import com.gmail.mateuszmonas.macroapp.data.Response;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
@@ -19,6 +20,7 @@ import java.util.Scanner;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.http.Body;
@@ -29,22 +31,20 @@ public class RemoteDataSource implements DataSource {
 
     private Retrofit retrofit;
     private Gson gson;
+    private OkHttpClient okHttpClient;
 
     @Inject
-    RemoteDataSource(Retrofit retrofit, Gson gson) {
+    RemoteDataSource(Retrofit retrofit, Gson gson, OkHttpClient okHttpClient) {
         this.retrofit = retrofit;
         this.gson = gson;
+        this.okHttpClient = okHttpClient;
     }
 
     @Override
     public List<Kontrahent> getKontrahenci() {
         apiEndpoint api = retrofit.create(apiEndpoint.class);
-        Call<String> response = api.getKontrahenci("{\"exec\":[{\"@id\":\"q1\",\"sql\":\"select KOD,NAZ,NIP from KH\"}]}");
-        String a = "";
-        try {
-            a = response.execute().body();
-        }catch (Exception e){}
-        Log.d("asd", a);
+        Call<Response> response = api.getKontrahenci("{\"exec\":[{\"@id\":\"q1\",\"sql\":\"select KOD,NAZ,NIP from KH\"}]}");
+
 
         Thread t = new Thread(new Runnable() {
             @Override
@@ -102,5 +102,5 @@ public class RemoteDataSource implements DataSource {
 
 interface apiEndpoint{
     @POST("/")
-    Call<String> getKontrahenci(@Body String query);
+    Call<Response> getKontrahenci(@Body String query);
 }
