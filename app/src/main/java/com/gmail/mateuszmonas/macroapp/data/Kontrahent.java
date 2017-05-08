@@ -1,60 +1,52 @@
 package com.gmail.mateuszmonas.macroapp.data;
 
 
+import com.google.gson.annotations.SerializedName;
+
 public class Kontrahent {
-    int numer;
-    String skrot;
-    int NIP;
-    String nazwa;
-    String adres;
 
-    public Kontrahent() {}
+    /**
+     * KOD : 00000
+     * NIP :
+     * NAZ : Kontrahent jednorazowy
+     * _ : 0
+     */
 
-    public Kontrahent(int numer, String skrot, int NIP, String nazwa, String adres) {
-        this.numer = numer;
-        this.skrot = skrot;
-        this.NIP = NIP;
-        this.nazwa = nazwa;
-        this.adres = adres;
+    private String KOD;
+    private String NIP;
+    private String NAZ;
+    @SerializedName("_")
+    private int id;
+
+    public String getKOD() {
+        return KOD;
     }
 
-    public int getNumer() {
-        return numer;
+    public void setKOD(String KOD) {
+        this.KOD = KOD;
     }
 
-    public void setNumer(int numer) {
-        this.numer = numer;
-    }
-
-    public String getSkrot() {
-        return skrot;
-    }
-
-    public void setSkrot(String skrot) {
-        this.skrot = skrot;
-    }
-
-    public int getNIP() {
+    public String getNIP() {
         return NIP;
     }
 
-    public void setNIP(int NIP) {
+    public void setNIP(String NIP) {
         this.NIP = NIP;
     }
 
-    public String getNazwa() {
-        return nazwa;
+    public String getNAZ() {
+        return NAZ;
     }
 
-    public void setNazwa(String nazwa) {
-        this.nazwa = nazwa;
+    public void setNAZ(String NAZ) {
+        this.NAZ = NAZ;
     }
 
-    public String getAdres() {
-        return adres;
+    public int getId() {
+        return id;
     }
 
-    public void setAdres(String adres) {
-        this.adres = adres;
+    public void setId(int id) {
+        this.id = id;
     }
 }

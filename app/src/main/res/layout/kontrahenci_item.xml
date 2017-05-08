@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -14,40 +13,29 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:layout_margin="6dp"
-            android:id="@+id/numer"
+            android:id="@+id/kod"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/adres"
-            />
+            app:layout_constraintRight_toLeftOf="@+id/skrot" />
 
         <TextView
             android:id="@+id/skrot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/adres"
-            app:layout_constraintRight_toLeftOf="@+id/nip"
-            app:layout_constraintLeft_toRightOf="@+id/numer" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/kod"/>
 
         <TextView
             android:id="@+id/nip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/skrot"
+            app:layout_constraintLeft_toRightOf="@+id/kod"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/adres"
-            app:layout_constraintLeft_toRightOf="@+id/skrot" />
-
-        <TextView
-            android:id="@+id/adres"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/numer"
             app:layout_constraintBottom_toBottomOf="parent" />
     </android.support.constraint.ConstraintLayout>
 

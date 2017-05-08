@@ -15,6 +15,8 @@ public class RemoteDataSource implements DataSource {
     private Gson gson;
 
     @Inject
-    RemoteDataSource() {
+    RemoteDataSource(Retrofit retrofit, Gson gson) {
+        this.retrofit = retrofit;
+        this.gson = gson;
     }
 }
