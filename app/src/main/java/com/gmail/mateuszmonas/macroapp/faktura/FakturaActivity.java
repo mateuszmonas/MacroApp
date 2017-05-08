@@ -6,9 +6,11 @@ import android.os.Bundle;
 import com.gmail.mateuszmonas.macroapp.utils.ActivityUtils;
 import com.gmail.mateuszmonas.macroapp.R;
 
+import javax.inject.Inject;
+
 public class FakturaActivity extends AppCompatActivity {
 
-    FakturaPresenter fakturaPresenter;
+    @Inject FakturaPresenter fakturaPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,6 @@ public class FakturaActivity extends AppCompatActivity {
                     getSupportFragmentManager(), fakturaFragment, R.id.contentFrame);
         }
 
-        fakturaPresenter = new FakturaPresenter(fakturaFragment);
+
     }
 }

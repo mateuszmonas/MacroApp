@@ -6,7 +6,7 @@ import dagger.Provides;
 @Module
 public class KontrahenciPresenterModule {
 
-    KontrahenciContract.View view;
+    private final KontrahenciContract.View view;
 
     public KontrahenciPresenterModule(KontrahenciContract.View view) {
         this.view = view;

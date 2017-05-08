@@ -1,8 +1,7 @@
 package com.gmail.mateuszmonas.macroapp.kontrahenci;
 
-import android.support.annotation.NonNull;
-
 import com.gmail.mateuszmonas.macroapp.data.Kontrahent;
+import com.gmail.mateuszmonas.macroapp.data.KontrahentRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +11,12 @@ import javax.inject.Inject;
 class KontrahenciPresenter implements KontrahenciContract.Presenter {
 
     private KontrahenciContract.View view;
+    private KontrahentRepository repository;
     private List<Kontrahent> kontrachenci;
 
     @Inject
-    KontrahenciPresenter(@NonNull KontrahenciContract.View view) {
+    KontrahenciPresenter(KontrahentRepository repository, KontrahenciContract.View view) {
+        this.repository = repository;
         this.view = view;
         kontrachenci = new ArrayList<>();
         for(int i = 0 ; i<50; i++) {

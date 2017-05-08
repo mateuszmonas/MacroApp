@@ -5,9 +5,9 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-public class KontrahenRepository {
+public class KontrahentRepository {
 
     @Inject
-    public KontrahenRepository() {
+    public KontrahentRepository() {
     }
 }

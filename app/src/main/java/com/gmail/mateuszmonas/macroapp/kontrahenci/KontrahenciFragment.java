@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.gmail.mateuszmonas.macroapp.R;
 import com.gmail.mateuszmonas.macroapp.data.Kontrahent;
 import com.gmail.mateuszmonas.macroapp.faktura.FakturaActivity;
+import com.gmail.mateuszmonas.macroapp.utils.FragmentScope;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+@FragmentScope
 public class KontrahenciFragment extends Fragment implements KontrahenciContract.View{
 
 
