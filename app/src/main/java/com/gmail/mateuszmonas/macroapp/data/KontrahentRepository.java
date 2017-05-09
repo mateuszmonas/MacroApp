@@ -3,10 +3,10 @@ package com.gmail.mateuszmonas.macroapp.data;
 
 import com.gmail.mateuszmonas.macroapp.data.remote.Remote;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import retrofit2.Callback;
 
 @Singleton
 public class KontrahentRepository implements DataSource {
@@ -19,7 +19,12 @@ public class KontrahentRepository implements DataSource {
     }
 
     @Override
-    public List<Kontrahent> getKontrahenci() {
-        return remoteDataSource.getKontrahenci();
+    public void getKontrahenci(Callback<String> callback) {
+        remoteDataSource.getKontrahenci(callback);
+    }
+
+    @Override
+    public <T> T parseJson(String json, Class<T> classOfT) {
+        return remoteDataSource.parseJson(json, classOfT);
     }
 }

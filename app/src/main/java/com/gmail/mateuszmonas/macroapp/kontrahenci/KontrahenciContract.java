@@ -17,7 +17,7 @@ interface KontrahenciContract {
 
     interface Presenter extends BasePresenter{
 
-        void loadKontrachenci(List<Kontrahent> kontrachenci);
+        void loadKontrachenci();
 
         void openFaktura(int id);
 

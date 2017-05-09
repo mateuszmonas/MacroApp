@@ -1,10 +1,13 @@
 package com.gmail.mateuszmonas.macroapp.data;
 
 
-import java.util.List;
+import retrofit2.Callback;
 
 public interface DataSource {
 
-    List<Kontrahent> getKontrahenci();
+    void getKontrahenci(Callback<String> callback);
+
+    //parse response data from json if retrofit does not parse it automatically
+    <T> T parseJson(String json, Class<T> classOfT);
 
 }
