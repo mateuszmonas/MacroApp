@@ -1,29 +1,24 @@
 package com.gmail.mateuszmonas.macroapp.data.remote;
 
-import android.util.Base64;
 import android.util.Log;
 
 import com.gmail.mateuszmonas.macroapp.data.DataSource;
 import com.gmail.mateuszmonas.macroapp.data.Kontrahent;
-import com.gmail.mateuszmonas.macroapp.data.Response;
 import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.http.Body;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 @Singleton
@@ -42,65 +37,85 @@ public class RemoteDataSource implements DataSource {
 
     @Override
     public List<Kontrahent> getKontrahenci() {
-        apiEndpoint api = retrofit.create(apiEndpoint.class);
-        Call<Response> response = api.getKontrahenci("{\"exec\":[{\"@id\":\"q1\",\"sql\":\"select KOD,NAZ,NIP from KH\"}]}");
-
-
-        Thread t = new Thread(new Runnable() {
+        ApiEndpoint api = retrofit.create(ApiEndpoint.class);
+        Call<String> call = api.getKontrahenci("{\"exec\":[{\"@id\":\"q1\",\"sql\":\"select KOD,NAZ,NIP from KH\"}]}");
+        final List<Kontrahent> kontrahenci = new ArrayList<>();
+        call.enqueue(new Callback<String>() {
             @Override
-            public void run() {
-                try {
-                    URL url = new URL("http://89.25.160.36:8080/ProcExec/batch-query");
-                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-
-                    byte[] message = ("tablet:tablet123").getBytes("UTF-8");
-                    String encoded = Base64.encodeToString(message, Base64.DEFAULT);
-
-                    urlConnection.setRequestMethod("POST");
-                    urlConnection.setRequestProperty("Content-Type", "application/json");
-                    urlConnection.setRequestProperty("Authorization", "Basic " + encoded);
-
-                    String str = "{\"exec\":[{\"@id\":\"q1\",\"sql\":\"select KOD,NAZ,NIP from KH\"}]}";
-                    byte[] outputInBytes = str.getBytes("UTF-8");
-                    OutputStream os = urlConnection.getOutputStream();
-                    os.write( outputInBytes );
-                    os.close();
-                    InputStream in = urlConnection.getInputStream();
-
-                    Scanner s = new Scanner(in).useDelimiter("\\A");
-                    String result = s.hasNext() ? s.next() : "";
-
-                    Log.d("asd", result);
-                }catch (Exception e) {
-                    Log.d("asd", "nie dziala");
+            public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                //i have to parse json response manually
+                //because for some reason retrofit doesn't do it automatically
+                ServerResponse serverResponse = gson.fromJson(response.body(), ServerResponse.class);
+                for (Kontrahent k : serverResponse.getQ1().getData()){
+                    kontrahenci.add(k);
                 }
             }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+            }
         });
-        t.start();
 
 
-        return null;
+        return kontrahenci;
     }
 
-
-
-    private String readStream(InputStream is) {
-        try {
-            ByteArrayOutputStream bo = new ByteArrayOutputStream();
-            int i = is.read();
-            while(i != -1) {
-                bo.write(i);
-                i = is.read();
-            }
-            return bo.toString();
-        } catch (IOException e) {
-            return "";
-        }
+    interface ApiEndpoint {
+        @Headers("content-type: application/json")
+        @POST("ProcExec/batch-query")
+        Call<String> getKontrahenci(@Body String query);
     }
 }
 
+class ServerResponse {
 
-interface apiEndpoint{
-    @POST("/")
-    Call<Response> getKontrahenci(@Body String query);
+    /**
+     * q1 : {"size":4,"data":[{"KOD":"00000","NIP":"","NAZ":"Kontrahent jednorazowy","_":0},{"KOD":"00001","NIP":"1111111111111","NAZ":"Dostawca 1","_":1},{"KOD":"00002","NIP":"2222222222222","NAZ":"Dostawca 2","_":2},{"KOD":"00003","NIP":"22222222711","NAZ":"macrologic SA","_":3}],"status":0}
+     */
+
+    private Q1Bean q1;
+
+    public Q1Bean getQ1() {
+        return q1;
+    }
+
+    public void setQ1(Q1Bean q1) {
+        this.q1 = q1;
+    }
+
+    public static class Q1Bean {
+        /**
+         * size : 4
+         * data : [{"KOD":"00000","NIP":"","NAZ":"Kontrahent jednorazowy","_":0},{"KOD":"00001","NIP":"1111111111111","NAZ":"Dostawca 1","_":1},{"KOD":"00002","NIP":"2222222222222","NAZ":"Dostawca 2","_":2},{"KOD":"00003","NIP":"22222222711","NAZ":"macrologic SA","_":3}]
+         * status : 0
+         */
+
+        private int size;
+        private int status;
+        private List<Kontrahent> data;
+
+        public int getSize() {
+            return size;
+        }
+
+        public void setSize(int size) {
+            this.size = size;
+        }
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+        public List<Kontrahent> getData() {
+            return data;
+        }
+
+        public void setData(List<Kontrahent> data) {
+            this.data = data;
+        }
+    }
 }

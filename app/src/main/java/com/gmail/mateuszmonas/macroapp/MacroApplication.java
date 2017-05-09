@@ -19,7 +19,7 @@ public class MacroApplication extends Application {
 
 
         kontrahentRepositoryComponent = DaggerKontrahentRepositoryComponent.builder()
-                .netModule(new NetModule("http://89.25.160.36:8080/ProcExec/batch-query/"))
+                .netModule(new NetModule("http://89.25.160.36:8080/"))
                 .dataSourceModule(new DataSourceModule()).build();
     }
 
