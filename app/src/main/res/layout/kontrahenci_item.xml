@@ -4,6 +4,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginEnd="1dp"
     android:layout_marginBottom="1dp"
     android:background="#ffffff"
     android:id="@+id/kontrahenci_item">
@@ -16,27 +17,28 @@
             android:id="@+id/kod"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/skrot" />
+            app:layout_constraintTop_toBottomOf="@+id/skrot"
+            app:layout_constraintBottom_toTopOf="@+id/nip" />
 
         <TextView
             android:id="@+id/skrot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/kod"/>
+            app:layout_constraintBottom_toTopOf="@+id/kod" />
 
         <TextView
             android:id="@+id/nip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/skrot"
-            app:layout_constraintLeft_toRightOf="@+id/kod"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/kod" />
     </android.support.constraint.ConstraintLayout>
 
 </LinearLayout>

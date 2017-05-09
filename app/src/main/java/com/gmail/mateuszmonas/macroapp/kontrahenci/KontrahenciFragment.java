@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -56,7 +57,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_kontrahenci, container, false);
         unbinder = ButterKnife.bind(this, view);
-        kontrachenciRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        kontrachenciRecyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
         kontrachenciRecyclerView.setAdapter(adapter);
         return view;
     }
