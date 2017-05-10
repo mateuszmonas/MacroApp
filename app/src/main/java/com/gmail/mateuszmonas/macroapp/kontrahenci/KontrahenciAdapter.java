@@ -1,5 +1,6 @@
 package com.gmail.mateuszmonas.macroapp.kontrahenci;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,7 @@ public class KontrahenciAdapter  extends RecyclerView.Adapter<KontrahenciAdapter
         holder.nip.setText(kontrahent.getNIP());
         holder.kod.setText(kontrahent.getKOD());
         holder.skrot.setText(kontrahent.getNAZ());
+        holder.view.setBackgroundColor(Color.parseColor(kontrahent.getKOLOR()));
 
         final int id = position;
         holder.view.setOnClickListener(new View.OnClickListener() {

@@ -9,12 +9,14 @@ public class Kontrahent {
      * KOD : 00000
      * NIP :
      * NAZ : Kontrahent jednorazowy
+     * KOLOR : 245:100:12
      * _ : 0
      */
 
     private String KOD;
     private String NIP;
     private String NAZ;
+    private String KOLOR;
     @SerializedName("_")
     private int id;
 
@@ -40,6 +42,27 @@ public class Kontrahent {
 
     public void setNAZ(String NAZ) {
         this.NAZ = NAZ;
+    }
+
+    public String getKOLOR() {
+        String color = "#ffffff";
+        try {
+            String[] parseKolor = KOLOR.split(":");
+            String r = Integer.toHexString(Integer.valueOf(parseKolor[0]));
+            if(r.length()<2) r = "0" + r;
+            String g = Integer.toHexString(Integer.valueOf(parseKolor[1]));
+            if(g.length()<2) g = "0" + g;
+            String b = Integer.toHexString(Integer.valueOf(parseKolor[2]));
+            if(b.length()<2) b = "0" + b;
+            color = "#" + r + g + b;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return color;
+    }
+
+    public void setKOLOR(String KOLOR) {
+        this.KOLOR = KOLOR;
     }
 
     public int getId() {

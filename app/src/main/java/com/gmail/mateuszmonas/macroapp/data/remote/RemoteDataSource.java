@@ -38,7 +38,7 @@ public class RemoteDataSource implements DataSource {
     @Override
     public void getKontrahenci(Callback<String> callback) {
         ApiEndpoint api = retrofit.create(ApiEndpoint.class);
-        Call<String> call = api.getKontrahenci("{\"exec\":[{\"@id\":\"q1\",\"sql\":\"select KOD,NAZ,NIP from KH\"}]}");
+        Call<String> call = api.getKontrahenci("{\"exec\":[{\"@id\":\"q1\",\"sql\":\"select KOD,NAZ,NIP,KOLOR from KH\"}]}");
         call.enqueue(callback);
     }
 
