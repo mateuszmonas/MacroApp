@@ -1,13 +1,15 @@
 package com.gmail.mateuszmonas.macroapp.data;
 
 
+import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseFaktury;
+import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseKontrahenci;
+
 import retrofit2.Callback;
 
 public interface DataSource {
 
-    void getKontrahenci(Callback<String> callback);
+    void getKontrahenci(Callback<ServerResponseKontrahenci> callback);
 
-    //parse response data from json if retrofit does not parse it automatically
-    <T> T parseJson(String json, Class<T> classOfT);
+    void getFaktury(Callback<ServerResponseFaktury> callback);
 
 }

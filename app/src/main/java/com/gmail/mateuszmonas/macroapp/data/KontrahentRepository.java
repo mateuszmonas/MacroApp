@@ -2,6 +2,8 @@ package com.gmail.mateuszmonas.macroapp.data;
 
 
 import com.gmail.mateuszmonas.macroapp.data.remote.Remote;
+import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseFaktury;
+import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseKontrahenci;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -19,12 +21,13 @@ public class KontrahentRepository implements DataSource {
     }
 
     @Override
-    public void getKontrahenci(Callback<String> callback) {
+    public void getKontrahenci(Callback<ServerResponseKontrahenci> callback) {
         remoteDataSource.getKontrahenci(callback);
     }
 
+
     @Override
-    public <T> T parseJson(String json, Class<T> classOfT) {
-        return remoteDataSource.parseJson(json, classOfT);
+    public void getFaktury(Callback<ServerResponseFaktury> callback) {
+
     }
 }

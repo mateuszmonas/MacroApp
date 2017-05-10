@@ -1,14 +1,7 @@
 package com.gmail.mateuszmonas.macroapp.data.remote;
 
-import android.util.Log;
-
 import com.gmail.mateuszmonas.macroapp.data.DataSource;
-import com.gmail.mateuszmonas.macroapp.data.Kontrahent;
 import com.google.gson.Gson;
-import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -36,20 +29,20 @@ public class RemoteDataSource implements DataSource {
     }
 
     @Override
-    public void getKontrahenci(Callback<String> callback) {
+    public void getKontrahenci(Callback<ServerResponseKontrahenci> callback) {
         ApiEndpoint api = retrofit.create(ApiEndpoint.class);
-        Call<String> call = api.getKontrahenci("{\"exec\":[{\"@id\":\"q1\",\"sql\":\"select KOD,NAZ,NIP,KOLOR from KH\"}]}");
+        Call<ServerResponseKontrahenci> call = api.getKontrahenci("{\"exec\":[{\"@id\":\"q1\",\"sql\":\"select KOD,NAZ,NIP,KOLOR from KH\"}]}");
         call.enqueue(callback);
     }
 
     @Override
-    public <T> T parseJson(String json, Class<T> classOfT) {
-        return gson.fromJson(json, classOfT);
+    public void getFaktury(Callback<ServerResponseFaktury> callback) {
+
     }
 
     interface ApiEndpoint {
         @Headers("content-type: application/json")
         @POST("ProcExec/batch-query")
-        Call<String> getKontrahenci(@Body String query);
+        Call<ServerResponseKontrahenci> getKontrahenci(@Body String query);
     }
 }
