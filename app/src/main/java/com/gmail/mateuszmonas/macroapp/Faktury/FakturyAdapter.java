@@ -34,7 +34,6 @@ public class FakturyAdapter extends RecyclerView.Adapter<FakturyAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         Faktura faktura = faktury.get(position);
         holder.item = faktura;
-        holder.name.setText("asdasdasd");
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,8 +60,16 @@ public class FakturyAdapter extends RecyclerView.Adapter<FakturyAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder{
         final View view;
         Faktura item;
-        @BindView(R.id.name)
-        TextView name;
+        @BindView(R.id.nabywca)
+        TextView nabywca;
+        @BindView(R.id.odbiorca)
+        TextView odbiorca;
+        @BindView(R.id.wystawca)
+        TextView wystawca;
+        @BindView(R.id.data)
+        TextView data;
+        @BindView(R.id.kwota)
+        TextView kwota;
 
         ViewHolder(View view){
             super(view);
