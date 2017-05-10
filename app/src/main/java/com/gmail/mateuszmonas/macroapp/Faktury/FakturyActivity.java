@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import com.gmail.mateuszmonas.macroapp.MacroApplication;
 import com.gmail.mateuszmonas.macroapp.R;
-import com.gmail.mateuszmonas.macroapp.faktura.FakturaPresenterModule;
 import com.gmail.mateuszmonas.macroapp.utils.ActivityUtils;
 
 import javax.inject.Inject;

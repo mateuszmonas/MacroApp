@@ -1,7 +1,6 @@
-package com.gmail.mateuszmonas.macroapp.faktura;
+package com.gmail.mateuszmonas.macroapp.fakturadetail;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,16 +9,16 @@ import android.view.ViewGroup;
 
 import com.gmail.mateuszmonas.macroapp.R;
 
-public class FakturaFragment extends Fragment implements FakturaContract.View {
+public class FakturaDetailFragment extends Fragment implements FakturaDetailContract.View {
 
-    FakturaContract.Presenter presenter;
+    FakturaDetailContract.Presenter presenter;
 
-    public FakturaFragment() {
+    public FakturaDetailFragment() {
         // Required empty public constructor
     }
 
-    public static FakturaFragment newInstance() {
-        FakturaFragment fragment = new FakturaFragment();
+    public static FakturaDetailFragment newInstance() {
+        FakturaDetailFragment fragment = new FakturaDetailFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -49,7 +48,7 @@ public class FakturaFragment extends Fragment implements FakturaContract.View {
     }
 
     @Override
-    public void setPresenter(FakturaContract.Presenter presenter) {
+    public void setPresenter(FakturaDetailContract.Presenter presenter) {
         this.presenter = presenter;
     }
 }

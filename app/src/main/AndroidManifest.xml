@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".faktura.FakturaActivity" />
+        <activity android:name=".fakturadetail.FakturaDetailActivity" />
         <activity android:name=".Faktury.FakturyActivity"></activity>
     </application>
 

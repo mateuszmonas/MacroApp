@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.gmail.mateuszmonas.macroapp.R;
 import com.gmail.mateuszmonas.macroapp.data.Faktura;
-import com.gmail.mateuszmonas.macroapp.faktura.FakturaActivity;
+import com.gmail.mateuszmonas.macroapp.fakturadetail.FakturaDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +92,7 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
 
     @Override
     public void showFakturaDetails() {
-        Intent intent = new Intent(getContext(), FakturaActivity.class);
+        Intent intent = new Intent(getContext(), FakturaDetailActivity.class);
         startActivity(intent);
     }
 

@@ -59,9 +59,9 @@ class AuthenticationInterceptor implements Interceptor {
 
     private String authToken;
 
-    public AuthenticationInterceptor(String username, String password) {
+    AuthenticationInterceptor(String username, String password) {
         String pass = username+":"+password;
-        this.authToken = "Basic " + Base64.encodeToString(pass.getBytes(), Base64.NO_WRAP);;
+        this.authToken = "Basic " + Base64.encodeToString(pass.getBytes(), Base64.NO_WRAP);
     }
 
     @Override

@@ -1,10 +1,10 @@
-package com.gmail.mateuszmonas.macroapp.faktura;
+package com.gmail.mateuszmonas.macroapp.fakturadetail;
 
 
 import com.gmail.mateuszmonas.macroapp.BasePresenter;
 import com.gmail.mateuszmonas.macroapp.BaseView;
 
-interface FakturaContract {
+interface FakturaDetailContract {
 
     interface View extends BaseView<Presenter> {
     }
