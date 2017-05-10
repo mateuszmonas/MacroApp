@@ -16,7 +16,7 @@ public class FakturaDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_faktura);
+        setContentView(R.layout.activity_faktura_detail);
 
         FakturaDetailFragment fakturaDetailFragment
                 = (FakturaDetailFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);

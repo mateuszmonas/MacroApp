@@ -33,7 +33,7 @@ public class FakturaDetailFragment extends Fragment implements FakturaDetailCont
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_faktura, container, false);
+        return inflater.inflate(R.layout.fragment_faktura_detail, container, false);
     }
 
 
