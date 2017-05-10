@@ -33,8 +33,8 @@ public class KontrahenciActivity extends AppCompatActivity {
 
         // Create the presenter
         DaggerKontrahenciComponent.builder()
-                .kontrahentRepositoryComponent(
-                        ((MacroApplication) getApplication()).getKontrahentRepositoryComponent()
+                .dataRepositoryComponent(
+                        ((MacroApplication) getApplication()).getDataRepositoryComponent()
                 ).kontrahenciPresenterModule(new KontrahenciPresenterModule(kontrahenciFragment))
                 .build().inject(this);
 

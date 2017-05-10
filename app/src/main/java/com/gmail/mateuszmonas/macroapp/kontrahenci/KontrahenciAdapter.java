@@ -15,7 +15,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class KontrahenciAdapter  extends RecyclerView.Adapter<KontrahenciAdapter.ViewHolder> {
+public class KontrahenciAdapter extends RecyclerView.Adapter<KontrahenciAdapter.ViewHolder> {
 
     private List<Kontrahent> kontrahenci;
     private KontrahenciFragment.KontrahenciListListener listener;

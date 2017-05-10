@@ -2,25 +2,22 @@ package com.gmail.mateuszmonas.macroapp.kontrahenci;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gmail.mateuszmonas.macroapp.Faktury.FakturyActivity;
 import com.gmail.mateuszmonas.macroapp.R;
 import com.gmail.mateuszmonas.macroapp.data.Kontrahent;
-import com.gmail.mateuszmonas.macroapp.faktura.FakturaActivity;
 import com.gmail.mateuszmonas.macroapp.utils.FragmentScope;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -95,15 +92,15 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     }
 
     @Override
-    public void showFaktura(int id) {
-        Intent intent = new Intent(getContext(), FakturaActivity.class);
+    public void showFaktury() {
+        Intent intent = new Intent(getContext(), FakturyActivity.class);
         startActivity(intent);
     }
 
     KontrahenciListListener kontrahenciListListener = new KontrahenciListListener() {
         @Override
         public void onKontrachenClick(int id) {
-            presenter.openFaktura(id);
+            presenter.openFaktury();
         }
     };
 

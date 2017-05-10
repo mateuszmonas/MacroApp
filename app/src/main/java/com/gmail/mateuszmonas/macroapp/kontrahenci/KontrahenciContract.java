@@ -12,14 +12,14 @@ interface KontrahenciContract {
 
         void showKontrachenci(List<Kontrahent> kontrachenci);
 
-        void showFaktura(int id);
+        void showFaktury();
     }
 
     interface Presenter extends BasePresenter{
 
         void loadKontrachenci();
 
-        void openFaktura(int id);
+        void openFaktury();
 
     }
 

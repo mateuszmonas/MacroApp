@@ -1,7 +1,7 @@
 package com.gmail.mateuszmonas.macroapp.kontrahenci;
 
 
-import com.gmail.mateuszmonas.macroapp.data.KontrahentRepository;
+import com.gmail.mateuszmonas.macroapp.data.DataRepository;
 import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseKontrahenci;
 
 import retrofit2.Callback;
@@ -13,10 +13,10 @@ import retrofit2.Call;
 class KontrahenciPresenter implements KontrahenciContract.Presenter {
 
     private KontrahenciContract.View view;
-    private KontrahentRepository repository;
+    private DataRepository repository;
 
     @Inject
-    KontrahenciPresenter(KontrahentRepository repository, KontrahenciContract.View view) {
+    KontrahenciPresenter(DataRepository repository, KontrahenciContract.View view) {
         this.repository = repository;
         this.view = view;
     }
@@ -47,7 +47,7 @@ class KontrahenciPresenter implements KontrahenciContract.Presenter {
     }
 
     @Override
-    public void openFaktura(int id) {
-        view.showFaktura(id);
+    public void openFaktury() {
+        view.showFaktury();
     }
 }

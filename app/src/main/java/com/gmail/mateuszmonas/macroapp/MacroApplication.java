@@ -2,15 +2,15 @@ package com.gmail.mateuszmonas.macroapp;
 
 import android.app.Application;
 
-import com.gmail.mateuszmonas.macroapp.data.DaggerKontrahentRepositoryComponent;
-import com.gmail.mateuszmonas.macroapp.data.KontrahentRepositoryComponent;
+import com.gmail.mateuszmonas.macroapp.data.DaggerDataRepositoryComponent;
+import com.gmail.mateuszmonas.macroapp.data.DataRepositoryComponent;
 import com.gmail.mateuszmonas.macroapp.data.remote.DataSourceModule;
 import com.gmail.mateuszmonas.macroapp.utils.NetModule;
 
 
 public class MacroApplication extends Application {
 
-    KontrahentRepositoryComponent kontrahentRepositoryComponent;
+    DataRepositoryComponent dataRepositoryComponent;
 
     @Override
     public void onCreate() {
@@ -18,12 +18,12 @@ public class MacroApplication extends Application {
 
 
 
-        kontrahentRepositoryComponent = DaggerKontrahentRepositoryComponent.builder()
+        dataRepositoryComponent = DaggerDataRepositoryComponent.builder()
                 .netModule(new NetModule("http://89.25.160.36:8080/"))
                 .dataSourceModule(new DataSourceModule()).build();
     }
 
-    public KontrahentRepositoryComponent getKontrahentRepositoryComponent(){
-        return kontrahentRepositoryComponent;
+    public DataRepositoryComponent getDataRepositoryComponent(){
+        return dataRepositoryComponent;
     }
 }

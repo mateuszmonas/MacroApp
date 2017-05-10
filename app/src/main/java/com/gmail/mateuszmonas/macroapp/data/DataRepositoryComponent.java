@@ -9,8 +9,8 @@ import dagger.Component;
 
 @Singleton
 @Component(modules = {DataSourceModule.class, NetModule.class})
-public interface KontrahentRepositoryComponent {
+public interface DataRepositoryComponent {
 
-    KontrahentRepository getKontrahentRepository();
+    DataRepository getDataRepository();
 
 }

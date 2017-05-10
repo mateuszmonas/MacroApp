@@ -11,12 +11,12 @@ import javax.inject.Singleton;
 import retrofit2.Callback;
 
 @Singleton
-public class KontrahentRepository implements DataSource {
+public class DataRepository implements DataSource {
 
     private final DataSource remoteDataSource;
 
     @Inject
-    public KontrahentRepository(@Remote DataSource remoteDataSource) {
+    public DataRepository(@Remote DataSource remoteDataSource) {
         this.remoteDataSource = remoteDataSource;
     }
 
