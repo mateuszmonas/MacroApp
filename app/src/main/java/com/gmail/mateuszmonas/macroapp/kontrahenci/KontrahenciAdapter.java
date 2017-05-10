@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.gmail.mateuszmonas.macroapp.R;
 import com.gmail.mateuszmonas.macroapp.data.Kontrahent;
+import com.gmail.mateuszmonas.macroapp.utils.ActivityUtils;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class KontrahenciAdapter extends RecyclerView.Adapter<KontrahenciAdapter.
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.kontrahenci_item, parent, false);
+        view.getLayoutParams().height = ActivityUtils.getScreenWidth(parent.getContext())/3;
         return new ViewHolder(view);
     }
 
@@ -35,7 +37,8 @@ public class KontrahenciAdapter extends RecyclerView.Adapter<KontrahenciAdapter.
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Kontrahent kontrahent = kontrahenci.get(position);
         holder.item = kontrahent;
-        holder.nip.setText(kontrahent.getNIP());
+
+        holder.nip.setText(kontrahent.getNIP().isEmpty()?"-------------":kontrahent.getNIP());
         holder.kod.setText(kontrahent.getKOD());
         holder.skrot.setText(kontrahent.getNAZ());
         holder.view.setBackgroundColor(Color.parseColor(kontrahent.getKOLOR()));

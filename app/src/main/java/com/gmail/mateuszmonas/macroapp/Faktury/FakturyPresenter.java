@@ -1,8 +1,6 @@
 package com.gmail.mateuszmonas.macroapp.Faktury;
 
 
-import android.content.Intent;
-
 import com.gmail.mateuszmonas.macroapp.data.DataRepository;
 import com.gmail.mateuszmonas.macroapp.data.Faktura;
 
