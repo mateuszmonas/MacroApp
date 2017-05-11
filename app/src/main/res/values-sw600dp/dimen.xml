@@ -2,4 +2,5 @@
 <resources>
     <dimen name="textSize">32sp</dimen>
     <dimen name="margin">16sp</dimen>
+    <dimen name="appBarMargin">24dp</dimen>
 </resources>

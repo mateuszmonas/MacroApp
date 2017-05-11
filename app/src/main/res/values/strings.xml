@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">MacroApp</string>
+    <string name="kontrahenci">Kontrahenci</string>
+    <string name="faktury">faktury</string>
+    <string name="detale_faktury">Detale Faktury</string>
 </resources>
