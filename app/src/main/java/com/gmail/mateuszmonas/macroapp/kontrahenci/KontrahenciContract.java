@@ -13,6 +13,15 @@ interface KontrahenciContract {
         void showKontrachenci(List<Kontrahent> kontrachenci);
 
         void showFaktury(String kontrahentReference);
+
+        void showBrakKontrahentowView();
+
+        void hideBrakKontrahentowView();
+
+        void showBrakPolaczenia();
+
+        void hideBrakPolaczenia();
+
     }
 
     interface Presenter extends BasePresenter{

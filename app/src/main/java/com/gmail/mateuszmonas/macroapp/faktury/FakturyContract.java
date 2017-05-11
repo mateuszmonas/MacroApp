@@ -15,6 +15,14 @@ interface FakturyContract {
 
         void showFakturaDetails();
 
+        void showBrakFakturView();
+
+        void hideBrakFakturView();
+
+        void showBrakPolaczenia();
+
+        void hideBrakPolaczenia();
+
     }
 
     interface Presenter extends BasePresenter{

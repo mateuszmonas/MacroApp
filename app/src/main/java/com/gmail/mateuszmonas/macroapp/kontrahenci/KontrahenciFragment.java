@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.gmail.mateuszmonas.macroapp.faktury.FakturyActivity;
 import com.gmail.mateuszmonas.macroapp.R;
@@ -29,6 +30,10 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
 
     private KontrahenciContract.Presenter presenter;
     private KontrahenciAdapter adapter;
+    @BindView(R.id.brakPolaczenia)
+    TextView brakPolaczenia;
+    @BindView(R.id.brakKontrahentow)
+    TextView brakKontrahentow;
     @BindView(R.id.kontrahenciRecyclerView) RecyclerView kontrachenciRecyclerView;
     Unbinder unbinder;
 
@@ -89,12 +94,41 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     @Override
     public void showKontrachenci(List<Kontrahent> kontrachenci) {
         adapter.replaceData(kontrachenci);
+        hideBrakPolaczenia();
+        if (kontrachenci.isEmpty()){
+            showBrakKontrahentowView();
+        } else {
+            hideBrakKontrahentowView();
+        }
     }
 
     @Override
     public void showFaktury(String kontrahentReference) {
         Intent intent = FakturyActivity.createIntent(getContext(), kontrahentReference);
         startActivity(intent);
+    }
+
+    @Override
+    public void showBrakKontrahentowView() {
+        brakKontrahentow.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideBrakKontrahentowView() {
+        brakKontrahentow.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showBrakPolaczenia() {
+        if(adapter.getItemCount()==0) {
+            hideBrakKontrahentowView();
+            brakPolaczenia.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void hideBrakPolaczenia() {
+        brakPolaczenia.setVisibility(View.GONE);
     }
 
     KontrahenciListListener kontrahenciListListener = new KontrahenciListListener() {

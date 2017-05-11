@@ -2,7 +2,10 @@ package com.gmail.mateuszmonas.macroapp.kontrahenci;
 
 
 import com.gmail.mateuszmonas.macroapp.data.DataRepository;
+import com.gmail.mateuszmonas.macroapp.data.Kontrahent;
 import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseKontrahenci;
+
+import java.util.List;
 
 import retrofit2.Callback;
 
@@ -36,11 +39,13 @@ class KontrahenciPresenter implements KontrahenciContract.Presenter {
             Callback<ServerResponseKontrahenci> callback = new retrofit2.Callback<ServerResponseKontrahenci>() {
                 @Override
                 public void onResponse(Call<ServerResponseKontrahenci> call, retrofit2.Response<ServerResponseKontrahenci> response) {
-                    view.showKontrachenci(response.body().getQ1().getData());
+                    List<Kontrahent> kontrahenci = response.body().getQ1().getData();
+                    view.showKontrachenci(kontrahenci);
                 }
 
                 @Override
                 public void onFailure(Call<ServerResponseKontrahenci> call, Throwable t) {
+                    view.showBrakPolaczenia();
                 }
         };
         repository.getKontrahenci(callback);

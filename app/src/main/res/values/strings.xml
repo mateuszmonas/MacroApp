@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">MacroApp</string>
     <string name="kontrahenci">Kontrahenci</string>
-    <string name="faktury">faktury</string>
+    <string name="faktury">Faktury</string>
     <string name="detale_faktury">Detale Faktury</string>
+    <string name="brak_faktur">Brak Faktur Dla Tego Kontrahenta</string>
+    <string name="brak_kontrahentow">Brak Kontrahentow</string>
+    <string name="brak_polaczenia">Wystąpił Problem Z Siecią</string>
 </resources>

@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.gmail.mateuszmonas.macroapp.R;
 import com.gmail.mateuszmonas.macroapp.data.Faktura;
@@ -24,6 +25,10 @@ import butterknife.Unbinder;
 
 public class FakturyFragment extends Fragment implements FakturyContract.View {
 
+    @BindView(R.id.brakPolaczenia)
+    TextView brakPolaczenia;
+    @BindView(R.id.brakFaktur)
+    TextView brakFaktur;
     @BindView(R.id.fakturyRecyclerViewer)
     RecyclerView fakturyRecyclerViewer;
     FakturyAdapter adapter;
@@ -88,12 +93,40 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
     @Override
     public void showFaktury(List<Faktura> faktury) {
         adapter.replaceData(faktury);
+        if (faktury.isEmpty()){
+            showBrakFakturView();
+        } else {
+            hideBrakFakturView();
+        }
     }
 
     @Override
     public void showFakturaDetails() {
         Intent intent = new Intent(getContext(), FakturaDetailActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void showBrakFakturView() {
+        brakFaktur.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideBrakFakturView() {
+        brakFaktur.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showBrakPolaczenia() {
+        if(adapter.getItemCount()==0) {
+            hideBrakFakturView();
+            brakPolaczenia.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void hideBrakPolaczenia() {
+        brakPolaczenia.setVisibility(View.GONE);
     }
 
     FakturyListListener fakturyListListener = new FakturyListListener() {
