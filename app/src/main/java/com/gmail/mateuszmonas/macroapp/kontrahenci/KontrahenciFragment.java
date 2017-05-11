@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gmail.mateuszmonas.macroapp.Faktury.FakturyActivity;
+import com.gmail.mateuszmonas.macroapp.faktury.FakturyActivity;
 import com.gmail.mateuszmonas.macroapp.R;
 import com.gmail.mateuszmonas.macroapp.data.Kontrahent;
 import com.gmail.mateuszmonas.macroapp.utils.FragmentScope;

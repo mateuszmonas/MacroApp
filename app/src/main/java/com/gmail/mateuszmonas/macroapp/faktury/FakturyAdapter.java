@@ -1,4 +1,4 @@
-package com.gmail.mateuszmonas.macroapp.Faktury;
+package com.gmail.mateuszmonas.macroapp.faktury;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

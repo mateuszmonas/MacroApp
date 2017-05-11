@@ -1,4 +1,4 @@
-package com.gmail.mateuszmonas.macroapp.Faktury;
+package com.gmail.mateuszmonas.macroapp.faktury;
 
 import dagger.Module;
 import dagger.Provides;
