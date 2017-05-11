@@ -33,7 +33,7 @@ public class RemoteDataSource implements DataSource {
 
     @Override
     public void getKontrahenci(Callback<ServerResponseKontrahenci> callback) {
-        ServerQuery query = new ServerQuery("q1", "select REFERENCE, KOD,NAZ,NIP,KOLOR from KH");
+        ServerQuery query = new ServerQuery("q1", "select REFERENCE, KOD, NAZ, NIP, KOLOR from KH order by kod offset 0 rows fetch next 10 rows only");
         Call<ServerResponseKontrahenci> call = api.getKontrahenci(query);
         call.enqueue(callback);
     }

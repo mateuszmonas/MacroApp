@@ -1,7 +1,6 @@
 package com.gmail.mateuszmonas.macroapp.faktury;
 
 
-import android.util.Log;
 
 import com.gmail.mateuszmonas.macroapp.data.DataRepository;
 import com.gmail.mateuszmonas.macroapp.data.Faktura;

@@ -37,7 +37,7 @@ public class NetModule {
     @Provides
     @Singleton
     OkHttpClient provideOkHttpClient(){
-        Interceptor authInterceprot = new AuthenticationInterceptor("tablet", "tablet123");
+        Interceptor authInterceprot = new AuthenticationInterceptor("mobile", "mobile");
         return new OkHttpClient.Builder().addInterceptor(authInterceprot).build();
     }
 
