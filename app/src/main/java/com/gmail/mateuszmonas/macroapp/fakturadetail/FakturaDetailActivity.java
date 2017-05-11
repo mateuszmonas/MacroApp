@@ -1,5 +1,7 @@
 package com.gmail.mateuszmonas.macroapp.fakturadetail;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -12,6 +14,11 @@ public class FakturaDetailActivity extends AppCompatActivity {
 
     @Inject
     FakturaDetailPresenter fakturaDetailPresenter;
+
+    public static Intent createIntent(Context context){
+        Intent intent = new Intent(context, FakturaDetailActivity.class);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

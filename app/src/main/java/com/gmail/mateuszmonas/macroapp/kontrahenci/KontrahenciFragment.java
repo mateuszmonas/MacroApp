@@ -92,21 +92,21 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     }
 
     @Override
-    public void showFaktury() {
-        Intent intent = new Intent(getContext(), FakturyActivity.class);
+    public void showFaktury(String kontrahentReference) {
+        Intent intent = FakturyActivity.createIntent(getContext(), kontrahentReference);
         startActivity(intent);
     }
 
     KontrahenciListListener kontrahenciListListener = new KontrahenciListListener() {
         @Override
         public void onKontrachenClick(int id) {
-            presenter.openFaktury();
+            presenter.openFaktury(adapter.getKontrahentReference(id));
         }
     };
 
     public interface KontrahenciListListener{
 
-        void onKontrachenClick(int id);
+        void onKontrachenClick(int kontrahentReference);
 
     }
 

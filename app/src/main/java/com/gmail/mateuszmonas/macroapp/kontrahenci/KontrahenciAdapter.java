@@ -54,7 +54,11 @@ public class KontrahenciAdapter extends RecyclerView.Adapter<KontrahenciAdapter.
         });
     }
 
-    public void replaceData(List<Kontrahent> kontrahenci){
+    String getKontrahentReference(int id){
+        return kontrahenci.get(id).getREFERENCE();
+    }
+
+    void replaceData(List<Kontrahent> kontrahenci){
         setList(kontrahenci);
         notifyDataSetChanged();
     }
@@ -68,7 +72,7 @@ public class KontrahenciAdapter extends RecyclerView.Adapter<KontrahenciAdapter.
         return kontrahenci.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         final View view;
         Kontrahent item;
         @BindView(R.id.kod)TextView kod;

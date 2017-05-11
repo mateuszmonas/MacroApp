@@ -3,4 +3,5 @@
     <color name="colorPrimary">#F16F2D</color>
     <color name="colorPrimaryDark">#707070</color>
     <color name="colorAccent">#606264</color>
+    <color name="windowBackground">#fff9c4</color>
 </resources>

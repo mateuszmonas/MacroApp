@@ -1,5 +1,7 @@
 package com.gmail.mateuszmonas.macroapp.kontrahenci;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -14,6 +16,11 @@ import butterknife.ButterKnife;
 public class KontrahenciActivity extends AppCompatActivity {
 
     @Inject KontrahenciPresenter kontrahenciPresenter;
+
+    public static Intent createIntent(Context context){
+        Intent intent = new Intent(context, KontrahenciActivity.class);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

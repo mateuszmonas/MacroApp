@@ -47,7 +47,7 @@ class KontrahenciPresenter implements KontrahenciContract.Presenter {
     }
 
     @Override
-    public void openFaktury() {
-        view.showFaktury();
+    public void openFaktury(String kontrahentReference) {
+        view.showFaktury(kontrahentReference);
     }
 }

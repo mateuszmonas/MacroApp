@@ -10,6 +10,6 @@ public interface DataSource {
 
     void getKontrahenci(Callback<ServerResponseKontrahenci> callback);
 
-    void getFaktury(Callback<ServerResponseFaktury> callback);
+    void getFaktury(Callback<ServerResponseFaktury> callback, String kontrahentReference);
 
 }

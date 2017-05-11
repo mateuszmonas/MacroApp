@@ -12,14 +12,14 @@ interface KontrahenciContract {
 
         void showKontrachenci(List<Kontrahent> kontrachenci);
 
-        void showFaktury();
+        void showFaktury(String kontrahentReference);
     }
 
     interface Presenter extends BasePresenter{
 
         void loadKontrachenci();
 
-        void openFaktury();
+        void openFaktury(String kontrahentReference);
 
     }
 

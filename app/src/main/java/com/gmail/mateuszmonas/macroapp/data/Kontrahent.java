@@ -9,6 +9,7 @@ public class Kontrahent {
      * KOD : 00000
      * NIP :
      * NAZ : Kontrahent jednorazowy
+     * REFERENCE : kontr   00000001
      * KOLOR : 245:100:12
      * _ : 0
      */
@@ -16,6 +17,7 @@ public class Kontrahent {
     private String KOD;
     private String NIP;
     private String NAZ;
+    private String REFERENCE;
     private String KOLOR;
     @SerializedName("_")
     private int id;
@@ -42,6 +44,14 @@ public class Kontrahent {
 
     public void setNAZ(String NAZ) {
         this.NAZ = NAZ;
+    }
+
+    public String getREFERENCE() {
+        return REFERENCE;
+    }
+
+    public void setREFERENCE(String REFERENCE) {
+        this.REFERENCE = REFERENCE;
     }
 
     public String getKOLOR() {

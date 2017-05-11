@@ -7,13 +7,20 @@ import dagger.Provides;
 public class FakturyPresenterModule {
 
     FakturyContract.View view;
+    String kontrahentReference;
 
-    public FakturyPresenterModule(FakturyContract.View view) {
+    public FakturyPresenterModule(FakturyContract.View view, String kontrahentReference) {
         this.view = view;
+        this.kontrahentReference = kontrahentReference;
     }
 
     @Provides
     FakturyContract.View getView(){
         return view;
+    }
+
+    @Provides
+    public String getKontrahentReference() {
+        return kontrahentReference;
     }
 }

@@ -16,8 +16,6 @@ public class MacroApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-
-
         dataRepositoryComponent = DaggerDataRepositoryComponent.builder()
                 .netModule(new NetModule("http://89.25.160.36:8080/"))
                 .dataSourceModule(new DataSourceModule()).build();

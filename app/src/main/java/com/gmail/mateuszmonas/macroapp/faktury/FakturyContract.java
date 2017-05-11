@@ -24,5 +24,4 @@ interface FakturyContract {
         void openFakturaDetails();
 
     }
-
 }
