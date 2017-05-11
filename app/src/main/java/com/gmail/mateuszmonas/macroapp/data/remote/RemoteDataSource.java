@@ -1,7 +1,6 @@
 package com.gmail.mateuszmonas.macroapp.data.remote;
 
 import com.gmail.mateuszmonas.macroapp.data.DataSource;
-import com.gmail.mateuszmonas.macroapp.data.Faktura;
 import com.google.gson.Gson;
 
 import javax.inject.Inject;
@@ -21,7 +20,7 @@ public class RemoteDataSource implements DataSource {
     private Retrofit retrofit;
     private Gson gson;
     private OkHttpClient okHttpClient;
-    ApiEndpoint api;
+    private ApiEndpoint api;
 
     @Inject
     RemoteDataSource(Retrofit retrofit, Gson gson, OkHttpClient okHttpClient) {
@@ -40,7 +39,7 @@ public class RemoteDataSource implements DataSource {
 
     @Override
     public void getFaktury(Callback<ServerResponseFaktury> callback, String kontrahentReference) {
-        ServerQuery query = new ServerQuery("q1", "select d, netto, vat, brutto, han from faks where kh='" + kontrahentReference + "'");
+        ServerQuery query = new ServerQuery("q1", "select faks.naz, faks.ul, faks.tz, faks.netto, faks.vat, faks.brutto, han.naz as han from faks join han on han.reference=faks.han where kh='" + kontrahentReference + "' order by d offset 0 rows FETCH NEXT 10 ROWS ONLY");
         Call<ServerResponseFaktury> call = api.getFaktury(query);
         call.enqueue(callback);
     }
