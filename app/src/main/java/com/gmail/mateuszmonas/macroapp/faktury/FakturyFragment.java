@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.gmail.mateuszmonas.macroapp.R;
@@ -29,6 +30,8 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
     TextView brakPolaczenia;
     @BindView(R.id.brakFaktur)
     TextView brakFaktur;
+    @BindView(R.id.loader)
+    ProgressBar loader;
     @BindView(R.id.fakturyRecyclerViewer)
     RecyclerView fakturyRecyclerViewer;
     FakturyAdapter adapter;
@@ -102,23 +105,25 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
 
     @Override
     public void showFakturaDetails() {
-        Intent intent = new Intent(getContext(), FakturaDetailActivity.class);
+        Intent intent = FakturaDetailActivity.createIntent(getContext());
         startActivity(intent);
     }
 
     @Override
     public void showBrakFakturView() {
+        if(getView()!=null)
         brakFaktur.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideBrakFakturView() {
+        if(getView()!=null)
         brakFaktur.setVisibility(View.GONE);
     }
 
     @Override
     public void showBrakPolaczenia() {
-        if(adapter.getItemCount()==0) {
+        if(getView()!=null && adapter.getItemCount()==0) {
             hideBrakFakturView();
             brakPolaczenia.setVisibility(View.VISIBLE);
         }
@@ -126,7 +131,20 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
 
     @Override
     public void hideBrakPolaczenia() {
+        if(getView()!=null)
         brakPolaczenia.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showLoadingView() {
+        if(getView()!=null && adapter.getItemCount()==0)
+        loader.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoadingView() {
+        if(getView()!=null)
+        loader.setVisibility(View.GONE);
     }
 
     FakturyListListener fakturyListListener = new FakturyListListener() {

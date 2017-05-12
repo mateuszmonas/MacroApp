@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.gmail.mateuszmonas.macroapp.faktury.FakturyActivity;
@@ -32,6 +33,8 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     private KontrahenciAdapter adapter;
     @BindView(R.id.brakPolaczenia)
     TextView brakPolaczenia;
+    @BindView(R.id.loader)
+    ProgressBar loader;
     @BindView(R.id.brakKontrahentow)
     TextView brakKontrahentow;
     @BindView(R.id.kontrahenciRecyclerView) RecyclerView kontrachenciRecyclerView;
@@ -110,24 +113,39 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
 
     @Override
     public void showBrakKontrahentowView() {
+        if(getView()!=null)
         brakKontrahentow.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideBrakKontrahentowView() {
+        if(getView()!=null)
         brakKontrahentow.setVisibility(View.GONE);
     }
 
     @Override
     public void showBrakPolaczenia() {
-        if(adapter.getItemCount()==0) {
+        if(getView() != null && adapter.getItemCount()==0) {
             hideBrakKontrahentowView();
             brakPolaczenia.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
+    public void showLoadingView() {
+        if(getView()!=null && adapter.getItemCount()==0)
+        loader.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoadingView() {
+        if(getView()!=null)
+        loader.setVisibility(View.GONE);
+    }
+
+    @Override
     public void hideBrakPolaczenia() {
+        if(getView()!=null)
         brakPolaczenia.setVisibility(View.GONE);
     }
 

@@ -55,19 +55,18 @@ public class Kontrahent {
     }
 
     public String getKOLOR() {
-        String color = "#ffffff";
-        try {
+        String color = "#ffa05b";
+        if(!KOLOR.equals("")) {
             String[] parseKolor = KOLOR.split(":");
             String r = Integer.toHexString(Integer.valueOf(parseKolor[0]));
-            if(r.length()<2) r = "0" + r;
+            if (r.length() < 2) r = "0" + r;
             String g = Integer.toHexString(Integer.valueOf(parseKolor[1]));
-            if(g.length()<2) g = "0" + g;
+            if (g.length() < 2) g = "0" + g;
             String b = Integer.toHexString(Integer.valueOf(parseKolor[2]));
-            if(b.length()<2) b = "0" + b;
+            if (b.length() < 2) b = "0" + b;
             color = "#" + r + g + b;
-        }catch (Exception e){
-            e.printStackTrace();
         }
+
         return color;
     }
 

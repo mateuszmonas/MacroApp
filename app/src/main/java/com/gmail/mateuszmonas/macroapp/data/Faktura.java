@@ -17,7 +17,7 @@ public class Faktura {
      */
 
     private double BRUTTO;
-    private int NETTO;
+    private double NETTO;
     private String HAN;
     private String NAZ;
     private String TZ;
@@ -34,11 +34,11 @@ public class Faktura {
         this.BRUTTO = BRUTTO;
     }
 
-    public int getNETTO() {
+    public double getNETTO() {
         return NETTO;
     }
 
-    public void setNETTO(int NETTO) {
+    public void setNETTO(double NETTO) {
         this.NETTO = NETTO;
     }
 

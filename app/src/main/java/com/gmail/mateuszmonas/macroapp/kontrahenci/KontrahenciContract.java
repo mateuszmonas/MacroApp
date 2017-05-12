@@ -22,6 +22,10 @@ interface KontrahenciContract {
 
         void hideBrakPolaczenia();
 
+        void showLoadingView();
+
+        void hideLoadingView();
+
     }
 
     interface Presenter extends BasePresenter{

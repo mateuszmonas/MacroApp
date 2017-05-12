@@ -36,15 +36,20 @@ class KontrahenciPresenter implements KontrahenciContract.Presenter {
 
     @Override
     public void loadKontrachenci() {
+
+        view.showLoadingView();
+
             Callback<ServerResponseKontrahenci> callback = new retrofit2.Callback<ServerResponseKontrahenci>() {
                 @Override
                 public void onResponse(Call<ServerResponseKontrahenci> call, retrofit2.Response<ServerResponseKontrahenci> response) {
+                    view.hideLoadingView();
                     List<Kontrahent> kontrahenci = response.body().getQ1().getData();
                     view.showKontrachenci(kontrahenci);
                 }
 
                 @Override
                 public void onFailure(Call<ServerResponseKontrahenci> call, Throwable t) {
+                    view.hideLoadingView();
                     view.showBrakPolaczenia();
                 }
         };

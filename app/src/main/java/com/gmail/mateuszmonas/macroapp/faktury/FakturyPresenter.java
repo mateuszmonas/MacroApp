@@ -2,6 +2,8 @@ package com.gmail.mateuszmonas.macroapp.faktury;
 
 
 
+import android.util.Log;
+
 import com.gmail.mateuszmonas.macroapp.data.DataRepository;
 import com.gmail.mateuszmonas.macroapp.data.Faktura;
 import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseFaktury;
@@ -39,24 +41,23 @@ public class FakturyPresenter implements FakturyContract.Presenter {
 
     @Override
     public void loadFaktury() {
-        List<Faktura> faktury = new ArrayList<>();
-        faktury.add(new Faktura());
-        faktury.add(new Faktura());
-        faktury.add(new Faktura());
-        view.showFaktury(faktury);
+
+        view.showLoadingView();
 
         Callback<ServerResponseFaktury> callback = new Callback<ServerResponseFaktury>() {
             @Override
             public void onResponse(Call<ServerResponseFaktury> call, Response<ServerResponseFaktury> response) {
-                view.showFaktury(response.body().getFaktury());
+                view.hideLoadingView();
+                view.showFaktury(response.body().getQ1().getData());
             }
 
             @Override
             public void onFailure(Call<ServerResponseFaktury> call, Throwable t) {
+                view.hideLoadingView();
                 view.showBrakPolaczenia();
             }
         };
-        //repository.getFaktury(callback, kontrahentReference);
+        repository.getFaktury(callback, kontrahentReference);
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.gmail.mateuszmonas.macroapp.R;
 import com.gmail.mateuszmonas.macroapp.data.Faktura;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +34,10 @@ public class FakturyAdapter extends RecyclerView.Adapter<FakturyAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Faktura faktura = faktury.get(position);
+        holder.data.setText(faktura.getTZ());
+        holder.nabywca.setText(faktura.getNAZ());
+        holder.kwota.setText(String.format(Locale.getDefault(), "%f", faktura.getBRUTTO()));
+        holder.handlowiec.setText(faktura.getHAN());
         holder.item = faktura;
 
         holder.view.setOnClickListener(new View.OnClickListener() {
@@ -62,10 +67,8 @@ public class FakturyAdapter extends RecyclerView.Adapter<FakturyAdapter.ViewHold
         Faktura item;
         @BindView(R.id.nabywca)
         TextView nabywca;
-        @BindView(R.id.odbiorca)
-        TextView odbiorca;
-        @BindView(R.id.wystawca)
-        TextView wystawca;
+        @BindView(R.id.handlowiec)
+        TextView handlowiec;
         @BindView(R.id.data)
         TextView data;
         @BindView(R.id.kwota)

@@ -3,65 +3,52 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="1dp"
-    android:background="@color/colorPrimaryDark"
+    android:layout_margin="3dp"
+    android:background="@color/colorPrimaryLight"
     android:id="@+id/fakturyItem">
 
     <TextView
         android:id="@+id/nabywca"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Domsad"
         android:layout_margin="@dimen/margin"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/data"
-        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/handlowiec"
         app:layout_constraintHorizontal_bias="0.0" />
 
     <TextView
         android:id="@+id/data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2009-02-04"
         android:layout_margin="@dimen/margin"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/kwota"/>
+        app:layout_constraintBottom_toTopOf="@+id/kwota"
+        app:layout_constraintLeft_toRightOf="@id/nabywca"
+        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginRight="7dp" />
 
     <TextView
         android:id="@+id/kwota"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="342.00 PLN"
         android:layout_margin="@dimen/margin"
         app:layout_constraintTop_toBottomOf="@+id/data"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
-        android:id="@+id/wystawca"
+        android:id="@+id/handlowiec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Jan Kowalski"
         android:layout_margin="@dimen/margin"
         app:layout_constraintTop_toBottomOf="@+id/nabywca"
-        app:layout_constraintBottom_toTopOf="@+id/odbiorca"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/kwota"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintVertical_bias="0.501" />
-
-    <TextView
-        android:id="@+id/odbiorca"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Wojciech Adamczyk"
-        android:layout_margin="@dimen/margin"
-        app:layout_constraintTop_toBottomOf="@+id/wystawca"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/kwota"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintVertical_bias="0.5" />
 
 </android.support.constraint.ConstraintLayout>
