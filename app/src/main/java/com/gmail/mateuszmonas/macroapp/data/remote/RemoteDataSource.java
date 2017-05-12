@@ -38,8 +38,8 @@ public class RemoteDataSource implements DataSource {
     }
 
     @Override
-    public void getFaktury(Callback<ServerResponseFaktury> callback, String kontrahentReference) {
-        ServerQuery query = new ServerQuery("q1", "select kh.naz as naz, faks.ul, faks.tz, faks.netto, faks.vat, faks.brutto, han.naz as han from faks join kh on kh.reference=faks.kh join han on han.reference=faks.han where kh='" + kontrahentReference + "' order by d offset 0 rows FETCH NEXT 10 ROWS ONLY");
+    public void getFaktury(Callback<ServerResponseFaktury> callback, String kontrahentReference, int offset) {
+        ServerQuery query = new ServerQuery("q1", "select kh.naz as naz, faks.ul, faks.tz, faks.netto, faks.vat, faks.brutto, han.naz as han from faks join kh on kh.reference=faks.kh join han on han.reference=faks.han where kh='" + kontrahentReference + "' order by d offset " + offset + " rows FETCH NEXT 10 ROWS ONLY");
         Call<ServerResponseFaktury> call = api.getFaktury(query);
         call.enqueue(callback);
     }

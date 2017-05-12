@@ -27,7 +27,7 @@ public class DataRepository implements DataSource {
 
 
     @Override
-    public void getFaktury(Callback<ServerResponseFaktury> callback, String kontrahentReference) {
-        remoteDataSource.getFaktury(callback, kontrahentReference);
+    public void getFaktury(Callback<ServerResponseFaktury> callback, String kontrahentReference, int offset) {
+        remoteDataSource.getFaktury(callback, kontrahentReference, offset);
     }
 }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,11 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
     Unbinder unbinder;
     FakturyContract.Presenter presenter;
 
+    private int previousTotal = 0;
+    private boolean loading = true;
+    private int visibleThreshold = 5;
+    int firstVisibleItem, visibleItemCount, totalItemCount;
+
     public FakturyFragment() {
         // Required empty public constructor
     }
@@ -61,8 +67,33 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
         View view = inflater.inflate(R.layout.fragment_faktury, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        fakturyRecyclerViewer.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
+        fakturyRecyclerViewer.setLayoutManager(layoutManager);
         fakturyRecyclerViewer.setAdapter(adapter);
+        fakturyRecyclerViewer.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                visibleItemCount = fakturyRecyclerViewer.getChildCount();
+                totalItemCount = layoutManager.getItemCount();
+                firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
+
+                if(loading) {
+                    if(totalItemCount > previousTotal){
+                        loading = false;
+                        previousTotal = totalItemCount;
+                    }
+                }
+                if(!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)){
+
+                    presenter.loadFaktury(adapter.getItemCount());
+
+                    loading = true;
+
+                }
+            }
+        });
 
         return view;
     }
@@ -96,7 +127,7 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
     @Override
     public void showFaktury(List<Faktura> faktury) {
         adapter.replaceData(faktury);
-        if (faktury.isEmpty()){
+        if (adapter.getItemCount()==0){
             showBrakFakturView();
         } else {
             hideBrakFakturView();
@@ -111,13 +142,13 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
 
     @Override
     public void showBrakFakturView() {
-        if(getView()!=null)
+        if(getView()!=null && adapter.getItemCount()==0)
         brakFaktur.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideBrakFakturView() {
-        if(getView()!=null)
+        if(getView()!=null && adapter.getItemCount()!=0)
         brakFaktur.setVisibility(View.GONE);
     }
 
@@ -137,7 +168,7 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
 
     @Override
     public void showLoadingView() {
-        if(getView()!=null && adapter.getItemCount()==0)
+        if(getView()!=null)
         loader.setVisibility(View.VISIBLE);
     }
 

@@ -31,7 +31,7 @@ interface FakturyContract {
 
     interface Presenter extends BasePresenter{
 
-        void loadFaktury();
+        void loadFaktury(int offset);
 
         void openFakturaDetails();
 

@@ -1,15 +1,7 @@
 package com.gmail.mateuszmonas.macroapp.faktury;
 
-
-
-import android.util.Log;
-
 import com.gmail.mateuszmonas.macroapp.data.DataRepository;
-import com.gmail.mateuszmonas.macroapp.data.Faktura;
 import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseFaktury;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -36,11 +28,11 @@ public class FakturyPresenter implements FakturyContract.Presenter {
     }
 
     public void start() {
-        loadFaktury();
+        loadFaktury(0);
     }
 
     @Override
-    public void loadFaktury() {
+    public void loadFaktury(int offset) {
 
         view.showLoadingView();
 
@@ -57,7 +49,7 @@ public class FakturyPresenter implements FakturyContract.Presenter {
                 view.showBrakPolaczenia();
             }
         };
-        repository.getFaktury(callback, kontrahentReference);
+        repository.getFaktury(callback, kontrahentReference, offset);
     }
 
     @Override
