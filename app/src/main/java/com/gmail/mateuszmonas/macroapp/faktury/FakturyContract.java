@@ -13,7 +13,7 @@ interface FakturyContract {
 
         void showFaktury(List<Faktura> faktury);
 
-        void showFakturaDetails();
+        void showFakturaDetails(String fakturaReference);
 
         void showBrakFakturView();
 
@@ -33,7 +33,7 @@ interface FakturyContract {
 
         void loadFaktury(int offset);
 
-        void openFakturaDetails();
+        void openFakturaDetails(String fakturaReference);
 
     }
 }

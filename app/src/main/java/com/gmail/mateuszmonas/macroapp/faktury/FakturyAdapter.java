@@ -34,7 +34,7 @@ public class FakturyAdapter extends RecyclerView.Adapter<FakturyAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Faktura faktura = faktury.get(position);
+        final Faktura faktura = faktury.get(position);
         holder.data.setText(faktura.getTZ());
         holder.symbol.setText(faktura.getSYM());
         holder.kwota.setText(new DecimalFormat("#.00").format(faktura.getBRUTTO()));
@@ -44,7 +44,7 @@ public class FakturyAdapter extends RecyclerView.Adapter<FakturyAdapter.ViewHold
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onFakturaClick();
+                listener.onFakturaClick(faktura.getREFERENCE());
             }
         });
     }

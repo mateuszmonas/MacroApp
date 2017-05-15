@@ -54,7 +54,7 @@ public class FakturyPresenter implements FakturyContract.Presenter {
     }
 
     @Override
-    public void openFakturaDetails() {
-        view.showFakturaDetails();
+    public void openFakturaDetails(String fakturaReference) {
+        view.showFakturaDetails(fakturaReference);
     }
 }

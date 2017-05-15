@@ -41,7 +41,7 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
 
     private int previousTotal = 0;
     private boolean loading = true;
-    private int visibleThreshold = 10;
+    private int visibleThreshold = 5;
     int firstVisibleItem, visibleItemCount, totalItemCount;
 
     public FakturyFragment() {
@@ -137,8 +137,8 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
     }
 
     @Override
-    public void showFakturaDetails() {
-        Intent intent = FakturaDetailActivity.createIntent(getContext());
+    public void showFakturaDetails(String fakturaReference) {
+        Intent intent = FakturaDetailActivity.createIntent(getContext(), fakturaReference);
         startActivity(intent);
     }
 
@@ -182,14 +182,14 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
 
     FakturyListListener fakturyListListener = new FakturyListListener() {
         @Override
-        public void onFakturaClick() {
-            showFakturaDetails();
+        public void onFakturaClick(String fakturaReference) {
+            presenter.openFakturaDetails(fakturaReference);
         }
     };
 
     interface FakturyListListener{
 
-        void onFakturaClick();
+        void onFakturaClick(String fakturaReference);
 
     }
 

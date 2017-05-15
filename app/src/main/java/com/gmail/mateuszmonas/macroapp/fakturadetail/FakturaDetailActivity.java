@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.gmail.mateuszmonas.macroapp.MacroApplication;
 import com.gmail.mateuszmonas.macroapp.utils.ActivityUtils;
 import com.gmail.mateuszmonas.macroapp.R;
 
@@ -12,11 +13,14 @@ import javax.inject.Inject;
 
 public class FakturaDetailActivity extends AppCompatActivity {
 
+    private static final String EXTRA_FAKTURA_REFERENCE = "FAKTURA_REFERENCE";
+
     @Inject
     FakturaDetailPresenter fakturaDetailPresenter;
 
-    public static Intent createIntent(Context context){
+    public static Intent createIntent(Context context, String fakturaReference){
         Intent intent = new Intent(context, FakturaDetailActivity.class);
+        intent.putExtra(EXTRA_FAKTURA_REFERENCE, fakturaReference);
         return intent;
     }
 
@@ -33,6 +37,9 @@ public class FakturaDetailActivity extends AppCompatActivity {
                     getSupportFragmentManager(), fakturaDetailFragment, R.id.contentFrame);
         }
 
+        String fakturaReference = getIntent().getStringExtra(EXTRA_FAKTURA_REFERENCE);
 
+        DaggerFakturaDetailComponent.builder().dataRepositoryComponent(((MacroApplication) getApplication()).getDataRepositoryComponent())
+                .fakturaDetailPresenterModule(new FakturaDetailPresenterModule(fakturaDetailFragment, fakturaReference)).build();
     }
 }

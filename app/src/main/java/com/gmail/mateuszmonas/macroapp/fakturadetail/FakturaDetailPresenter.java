@@ -9,11 +9,13 @@ public class FakturaDetailPresenter implements FakturaDetailContract.Presenter {
 
     private final DataRepository repository;
     private final FakturaDetailContract.View view;
+    private final String fakturaReference;
 
     @Inject
-    FakturaDetailPresenter(DataRepository repository, FakturaDetailContract.View view){
+    FakturaDetailPresenter(DataRepository repository, FakturaDetailContract.View view, String fakturaReference){
         this.repository = repository;
         this.view=view;
+        this.fakturaReference = fakturaReference;
     }
 
     @Inject
@@ -23,6 +25,11 @@ public class FakturaDetailPresenter implements FakturaDetailContract.Presenter {
 
     @Override
     public void start() {
+
+    }
+
+    @Override
+    public void loadFakturaDetails() {
 
     }
 }
