@@ -11,6 +11,7 @@ import com.gmail.mateuszmonas.macroapp.R;
 import com.gmail.mateuszmonas.macroapp.data.PozycjaFaktury;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -19,12 +20,10 @@ import butterknife.ButterKnife;
 
 public class FakturaDetailAdapter extends RecyclerView.Adapter<FakturaDetailAdapter.ViewHolder> {
 
-    private List<PozycjaFaktury> pozycjeFaktury;
+    private List<PozycjaFaktury> pozycjeFaktury = new ArrayList<>();
 
     public FakturaDetailAdapter(List<PozycjaFaktury> pozycjeFaktury) {
-        this.pozycjeFaktury = pozycjeFaktury;
-        //add header
-        this.pozycjeFaktury.add(0, new PozycjaFaktury());
+        setList(pozycjeFaktury);
     }
 
     @Override
@@ -51,10 +50,10 @@ public class FakturaDetailAdapter extends RecyclerView.Adapter<FakturaDetailAdap
             holder.nazwa.setText(pozycjaFaktury.getNazwa());
             holder.ilosc.setText(String.format(Locale.getDefault(), "%d", pozycjaFaktury.getIlosc()));
             holder.jednostka.setText(pozycjaFaktury.getJednostka());
-            holder.cenaNetto.setText(new DecimalFormat("#.00").format(pozycjaFaktury.getCenaNetto()));
-            holder.wartNetto.setText(new DecimalFormat("#.00").format(pozycjaFaktury.getWartoscNetto()));
-            holder.wartVAT.setText(new DecimalFormat("#.00").format(pozycjaFaktury.getWartoscVat()));
-            holder.wartBrutto.setText(new DecimalFormat("#.00").format(pozycjaFaktury.getWartoscBrutto()));
+            holder.cenaNetto.setText(new DecimalFormat("0.00").format(pozycjaFaktury.getCenaNetto()));
+            holder.wartNetto.setText(new DecimalFormat("0.00").format(pozycjaFaktury.getWartoscNetto()));
+            holder.wartVAT.setText(new DecimalFormat("0.00").format(pozycjaFaktury.getWartoscVat()));
+            holder.wartBrutto.setText(new DecimalFormat("0.00").format(pozycjaFaktury.getWartoscBrutto()));
         }
     }
 
@@ -69,7 +68,9 @@ public class FakturaDetailAdapter extends RecyclerView.Adapter<FakturaDetailAdap
     }
 
     private void setList(List<PozycjaFaktury> pozycjeFaktury){
-        this.pozycjeFaktury = pozycjeFaktury;
+        this.pozycjeFaktury.clear();
+        this.pozycjeFaktury.add(new PozycjaFaktury());
+        this.pozycjeFaktury.addAll(pozycjeFaktury);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

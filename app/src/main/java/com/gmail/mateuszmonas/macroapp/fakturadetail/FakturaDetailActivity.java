@@ -40,6 +40,6 @@ public class FakturaDetailActivity extends AppCompatActivity {
         String fakturaReference = getIntent().getStringExtra(EXTRA_FAKTURA_REFERENCE);
 
         DaggerFakturaDetailComponent.builder().dataRepositoryComponent(((MacroApplication) getApplication()).getDataRepositoryComponent())
-                .fakturaDetailPresenterModule(new FakturaDetailPresenterModule(fakturaDetailFragment, fakturaReference)).build();
+                .fakturaDetailPresenterModule(new FakturaDetailPresenterModule(fakturaDetailFragment, fakturaReference)).build().inject(this);
     }
 }

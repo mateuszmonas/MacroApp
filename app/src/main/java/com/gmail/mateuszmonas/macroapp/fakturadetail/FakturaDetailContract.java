@@ -12,7 +12,7 @@ interface FakturaDetailContract {
 
     interface View extends BaseView<Presenter> {
 
-        void showFakturaDetails(List<PozycjaFaktury> pozycje);
+        void showPozycjeFaktury(List<PozycjaFaktury> pozycje);
 
         void showBrakPolaczenia();
 

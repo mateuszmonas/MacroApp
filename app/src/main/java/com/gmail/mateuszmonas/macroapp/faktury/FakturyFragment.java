@@ -41,7 +41,7 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
 
     private int previousTotal = 0;
     private boolean loading = true;
-    private int visibleThreshold = 5;
+    private int visibleThreshold = 11;
     int firstVisibleItem, visibleItemCount, totalItemCount;
 
     public FakturyFragment() {

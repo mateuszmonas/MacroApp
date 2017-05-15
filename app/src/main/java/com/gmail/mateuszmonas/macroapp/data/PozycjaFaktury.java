@@ -23,7 +23,7 @@ public class PozycjaFaktury {
     private String jednostka;
     @SerializedName("WN")
     private double wartoscNetto;
-    @SerializedName("NX")
+    @SerializedName("N")
     private String nazwa;
     @SerializedName("POZ")
     private int pozycja;

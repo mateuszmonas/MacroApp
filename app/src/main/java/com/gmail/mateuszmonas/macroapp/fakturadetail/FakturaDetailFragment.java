@@ -60,7 +60,7 @@ public class FakturaDetailFragment extends Fragment implements FakturaDetailCont
             pozycjaFaktury.setWartoscVat(10.54);
             a.add(pozycjaFaktury);
         }
-        adapter=new FakturaDetailAdapter(a);
+        adapter=new FakturaDetailAdapter(new ArrayList<PozycjaFaktury>());
     }
 
     @Override
@@ -75,8 +75,8 @@ public class FakturaDetailFragment extends Fragment implements FakturaDetailCont
     }
 
     @Override
-    public void showFakturaDetails(List<PozycjaFaktury> pozycje) {
-
+    public void showPozycjeFaktury(List<PozycjaFaktury> pozycje) {
+        adapter.replaceData(pozycje);
     }
 
     @Override
@@ -105,6 +105,12 @@ public class FakturaDetailFragment extends Fragment implements FakturaDetailCont
         if(getView()!=null) {
             brakPolaczenia.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.start();
     }
 
     @Override

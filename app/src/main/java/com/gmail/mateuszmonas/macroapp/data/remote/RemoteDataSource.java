@@ -44,6 +44,13 @@ public class RemoteDataSource implements DataSource {
         call.enqueue(callback);
     }
 
+    @Override
+    public void getPozycjeFaktury(Callback<ServerResponsePozycjeFaktury> callback, String fakturaReference) {
+        ServerQuery query = new ServerQuery("q1", "select m.n, fap.cn, fap.il, fap.poz, fap.wn, fap.wb, fap.wv, jm.naz from fap join jm on jm.reference=fap.jm join m on m.reference=fap.m where fap.faks='" + fakturaReference + "'");
+        Call<ServerResponsePozycjeFaktury> call = api.getPozycjeFaktury(query);
+        call.enqueue(callback);
+    }
+
     interface ApiEndpoint {
         @Headers("content-type: application/json")
         @POST("ProcExec/batch-query")
@@ -52,5 +59,9 @@ public class RemoteDataSource implements DataSource {
         @Headers("content-type: application/json")
         @POST("ProcExec/batch-query")
         Call<ServerResponseFaktury> getFaktury(@Body ServerQuery query);
+
+        @Headers("content-type: application/json")
+        @POST("ProcExec/batch-query")
+        Call<ServerResponsePozycjeFaktury> getPozycjeFaktury(@Body ServerQuery query);
     }
 }
