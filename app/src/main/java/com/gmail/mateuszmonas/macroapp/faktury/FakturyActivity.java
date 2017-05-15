@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.gmail.mateuszmonas.macroapp.MacroApplication;
 import com.gmail.mateuszmonas.macroapp.R;
@@ -12,16 +13,22 @@ import com.gmail.mateuszmonas.macroapp.utils.ActivityUtils;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FakturyActivity extends AppCompatActivity {
 
-    private static final String EXTRA_KONTRAHENT_REFERENCE = "KONTRAHENT_ID";
+    private static final String EXTRA_KONTRAHENT_REFERENCE = "KONTRAHENT_REFERENCE";
+    private static final String EXTRA_KONTRAHENT_NAME = "KONTRAHENT_NAME";
 
     @Inject FakturyPresenter presenter;
 
-    public static Intent createIntent(Context context, String kontrahentReference){
+    @BindView(R.id.title)
+    TextView title;
+
+    public static Intent createIntent(Context context, String kontrahentReference, String kontrahentName){
         Intent intent = new Intent(context, FakturyActivity.class);
+        intent.putExtra(EXTRA_KONTRAHENT_NAME, kontrahentName);
         intent.putExtra(EXTRA_KONTRAHENT_REFERENCE, kontrahentReference);
         return intent;
     }
@@ -31,6 +38,8 @@ public class FakturyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_faktury);
 
         ButterKnife.bind(this);
+
+        title.setText(getIntent().getStringExtra(EXTRA_KONTRAHENT_NAME));
 
         String kontrahentReference = getIntent().getStringExtra(EXTRA_KONTRAHENT_REFERENCE);
 

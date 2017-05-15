@@ -41,7 +41,7 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
 
     private int previousTotal = 0;
     private boolean loading = true;
-    private int visibleThreshold = 5;
+    private int visibleThreshold = 10;
     int firstVisibleItem, visibleItemCount, totalItemCount;
 
     public FakturyFragment() {
@@ -73,6 +73,7 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
         fakturyRecyclerViewer.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
                 super.onScrolled(recyclerView, dx, dy);
 
                 visibleItemCount = fakturyRecyclerViewer.getChildCount();
@@ -110,7 +111,7 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
     @Override
     public void onResume() {
         super.onResume();
-        presenter.start();
+        presenter.loadFaktury(adapter.getItemCount());
     }
 
     @Override
@@ -127,6 +128,7 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
     @Override
     public void showFaktury(List<Faktura> faktury) {
         adapter.replaceData(faktury);
+        hideBrakPolaczenia();
         if (adapter.getItemCount()==0){
             showBrakFakturView();
         } else {

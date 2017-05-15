@@ -45,6 +45,7 @@ public class FakturyPresenter implements FakturyContract.Presenter {
 
             @Override
             public void onFailure(Call<ServerResponseFaktury> call, Throwable t) {
+                t.printStackTrace();
                 view.hideLoadingView();
                 view.showBrakPolaczenia();
             }

@@ -31,15 +31,15 @@ public class RemoteDataSource implements DataSource {
     }
 
     @Override
-    public void getKontrahenci(Callback<ServerResponseKontrahenci> callback) {
-        ServerQuery query = new ServerQuery("q1", "select REFERENCE, KOD, NAZ, NIP, KOLOR from KH order by kod offset 0 rows fetch next 10 rows only");
+    public void getKontrahenci(Callback<ServerResponseKontrahenci> callback, int offset) {
+        ServerQuery query = new ServerQuery("q1", "select REFERENCE, KOD, NAZ, NIP, KOLOR from KH order by kod offset "+ offset +" rows fetch next 10 rows only");
         Call<ServerResponseKontrahenci> call = api.getKontrahenci(query);
         call.enqueue(callback);
     }
 
     @Override
     public void getFaktury(Callback<ServerResponseFaktury> callback, String kontrahentReference, int offset) {
-        ServerQuery query = new ServerQuery("q1", "select kh.naz as naz, faks.ul, faks.tz, faks.netto, faks.vat, faks.brutto, han.naz as han from faks join kh on kh.reference=faks.kh join han on han.reference=faks.han where kh='" + kontrahentReference + "' order by d offset " + offset + " rows FETCH NEXT 10 ROWS ONLY");
+        ServerQuery query = new ServerQuery("q1", "select faks.reference, faks.sym, faks.brutto, faks.netto, faks.tz, faks.vat, han.naz from faks join han on han.reference=faks.han where kh='" + kontrahentReference + "' order by d offset " + offset + " rows FETCH NEXT 10 ROWS ONLY");
         Call<ServerResponseFaktury> call = api.getFaktury(query);
         call.enqueue(callback);
     }

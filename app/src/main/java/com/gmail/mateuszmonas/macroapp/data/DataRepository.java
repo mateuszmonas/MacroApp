@@ -21,8 +21,8 @@ public class DataRepository implements DataSource {
     }
 
     @Override
-    public void getKontrahenci(Callback<ServerResponseKontrahenci> callback) {
-        remoteDataSource.getKontrahenci(callback);
+    public void getKontrahenci(Callback<ServerResponseKontrahenci> callback, int offset) {
+        remoteDataSource.getKontrahenci(callback, offset);
     }
 
 

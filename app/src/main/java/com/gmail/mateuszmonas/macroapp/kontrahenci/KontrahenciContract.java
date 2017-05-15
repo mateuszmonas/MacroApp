@@ -12,7 +12,7 @@ interface KontrahenciContract {
 
         void showKontrachenci(List<Kontrahent> kontrachenci);
 
-        void showFaktury(String kontrahentReference);
+        void showFaktury(String kontrahentReference, String kontrahentName);
 
         void showBrakKontrahentowView();
 
@@ -30,9 +30,9 @@ interface KontrahenciContract {
 
     interface Presenter extends BasePresenter{
 
-        void loadKontrachenci();
+        void loadKontrachenci(int offset);
 
-        void openFaktury(String kontrahentReference);
+        void openFaktury(Kontrahent kontrahent);
 
     }
 

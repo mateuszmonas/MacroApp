@@ -9,8 +9,8 @@ import android.widget.TextView;
 import com.gmail.mateuszmonas.macroapp.R;
 import com.gmail.mateuszmonas.macroapp.data.Faktura;
 
+import java.text.DecimalFormat;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,8 +36,8 @@ public class FakturyAdapter extends RecyclerView.Adapter<FakturyAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         Faktura faktura = faktury.get(position);
         holder.data.setText(faktura.getTZ());
-        holder.nabywca.setText(faktura.getNAZ());
-        holder.kwota.setText(String.format(Locale.getDefault(), "%f", faktura.getBRUTTO()));
+        holder.symbol.setText(faktura.getSYM());
+        holder.kwota.setText(new DecimalFormat("#.00").format(faktura.getBRUTTO()));
         holder.handlowiec.setText(faktura.getHAN());
         holder.item = faktura;
 
@@ -71,8 +71,8 @@ public class FakturyAdapter extends RecyclerView.Adapter<FakturyAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder{
         final View view;
         Faktura item;
-        @BindView(R.id.nabywca)
-        TextView nabywca;
+        @BindView(R.id.symbol)
+        TextView symbol;
         @BindView(R.id.handlowiec)
         TextView handlowiec;
         @BindView(R.id.data)

@@ -40,6 +40,11 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     @BindView(R.id.kontrahenciRecyclerView) RecyclerView kontrachenciRecyclerView;
     Unbinder unbinder;
 
+    private int previousTotal = 0;
+    private boolean loading = true;
+    private int visibleThreshold = 10;
+    int firstVisibleItem, visibleItemCount, totalItemCount;
+
     public KontrahenciFragment() {
         // Required empty public constructor
     }
@@ -62,8 +67,33 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_kontrahenci, container, false);
         unbinder = ButterKnife.bind(this, view);
-        kontrachenciRecyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
+        final GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        kontrachenciRecyclerView.setLayoutManager(layoutManager);
         kontrachenciRecyclerView.setAdapter(adapter);
+        kontrachenciRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                visibleItemCount = kontrachenciRecyclerView.getChildCount();
+                totalItemCount = layoutManager.getItemCount();
+                firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
+
+                if(loading) {
+                    if(totalItemCount > previousTotal){
+                        loading = false;
+                        previousTotal = totalItemCount;
+                    }
+                }
+                if(!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)){
+
+                    presenter.loadKontrachenci(adapter.getItemCount());
+
+                    loading = true;
+
+                }
+            }
+        });
         return view;
     }
 
@@ -80,7 +110,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     @Override
     public void onResume() {
         super.onResume();
-        presenter.start();
+        presenter.loadKontrachenci(adapter.getItemCount());
     }
 
     @Override
@@ -98,7 +128,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     public void showKontrachenci(List<Kontrahent> kontrachenci) {
         adapter.replaceData(kontrachenci);
         hideBrakPolaczenia();
-        if (kontrachenci.isEmpty()){
+        if (adapter.getItemCount()==0){
             showBrakKontrahentowView();
         } else {
             hideBrakKontrahentowView();
@@ -106,20 +136,20 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     }
 
     @Override
-    public void showFaktury(String kontrahentReference) {
-        Intent intent = FakturyActivity.createIntent(getContext(), kontrahentReference);
+    public void showFaktury(String kontrahentReference, String kontrahentName) {
+        Intent intent = FakturyActivity.createIntent(getContext(), kontrahentReference, kontrahentName);
         startActivity(intent);
     }
 
     @Override
     public void showBrakKontrahentowView() {
-        if(getView()!=null)
+        if(getView()!=null && adapter.getItemCount()==0)
         brakKontrahentow.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideBrakKontrahentowView() {
-        if(getView()!=null)
+        if(getView()!=null && adapter.getItemCount()!=0)
         brakKontrahentow.setVisibility(View.GONE);
     }
 
@@ -133,7 +163,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
 
     @Override
     public void showLoadingView() {
-        if(getView()!=null && adapter.getItemCount()==0)
+        if(getView()!=null)
         loader.setVisibility(View.VISIBLE);
     }
 
@@ -152,7 +182,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     KontrahenciListListener kontrahenciListListener = new KontrahenciListListener() {
         @Override
         public void onKontrachenClick(int id) {
-            presenter.openFaktury(adapter.getKontrahentReference(id));
+            presenter.openFaktury(adapter.getKontrahent(id));
         }
     };
 

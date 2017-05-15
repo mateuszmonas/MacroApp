@@ -6,22 +6,23 @@ import com.google.gson.annotations.SerializedName;
 public class Faktura {
 
     /**
-     * BRUTTO : 60.83
-     * NETTO : 0
-     * HAN : DOK
-     * NAZ : ***
-     * TZ : 2003-07-20
-     * UL :
-     * VAT : 60.83
+     * BRUTTO : 234.12
+     * NETTO : 216.78
+     * TZ : 2017-01-09
+     * SYM : 16/SPR/01/17
+     * NAZ : ŚLĄSKIE 3-Bożena Kwiatkowska
+     * REFERENCE : faktuc1700000010
+     * VAT : 17.34
      * _ : 0
      */
 
     private double BRUTTO;
     private double NETTO;
-    private String HAN;
-    private String NAZ;
     private String TZ;
-    private String UL;
+    private String SYM;
+    @SerializedName("NAZ")
+    private String HAN;
+    private String REFERENCE;
     private double VAT;
     @SerializedName("_")
     private int id;
@@ -42,6 +43,22 @@ public class Faktura {
         this.NETTO = NETTO;
     }
 
+    public String getTZ() {
+        return TZ;
+    }
+
+    public void setTZ(String D) {
+        this.TZ = D;
+    }
+
+    public String getSYM() {
+        return SYM;
+    }
+
+    public void setSYM(String SYM) {
+        this.SYM = SYM;
+    }
+
     public String getHAN() {
         return HAN;
     }
@@ -50,28 +67,12 @@ public class Faktura {
         this.HAN = HAN;
     }
 
-    public String getNAZ() {
-        return NAZ;
+    public String getREFERENCE() {
+        return REFERENCE;
     }
 
-    public void setNAZ(String NAZ) {
-        this.NAZ = NAZ;
-    }
-
-    public String getTZ() {
-        return TZ;
-    }
-
-    public void setTZ(String TZ) {
-        this.TZ = TZ;
-    }
-
-    public String getUL() {
-        return UL;
-    }
-
-    public void setUL(String UL) {
-        this.UL = UL;
+    public void setREFERENCE(String REFERENCE) {
+        this.REFERENCE = REFERENCE;
     }
 
     public double getVAT() {

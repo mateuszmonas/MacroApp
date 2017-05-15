@@ -8,7 +8,7 @@
     android:id="@+id/fakturyItem">
 
     <TextView
-        android:id="@+id/nabywca"
+        android:id="@+id/symbol"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin"
@@ -26,7 +26,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/kwota"
-        app:layout_constraintLeft_toRightOf="@id/nabywca"
+        app:layout_constraintLeft_toRightOf="@id/symbol"
         app:layout_constraintHorizontal_bias="1.0"
         android:layout_marginRight="7dp" />
 
@@ -41,10 +41,10 @@
 
     <TextView
         android:id="@+id/handlowiec"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin"
-        app:layout_constraintTop_toBottomOf="@+id/nabywca"
+        app:layout_constraintTop_toBottomOf="@+id/symbol"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/kwota"

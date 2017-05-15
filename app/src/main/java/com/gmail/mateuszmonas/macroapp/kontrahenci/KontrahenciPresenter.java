@@ -12,6 +12,7 @@ import retrofit2.Callback;
 import javax.inject.Inject;
 
 import retrofit2.Call;
+import retrofit2.Response;
 
 class KontrahenciPresenter implements KontrahenciContract.Presenter {
 
@@ -31,33 +32,35 @@ class KontrahenciPresenter implements KontrahenciContract.Presenter {
 
     @Override
     public void start() {
-        loadKontrachenci();
+        loadKontrachenci(0);
     }
 
     @Override
-    public void loadKontrachenci() {
+    public void loadKontrachenci(int offset) {
 
         view.showLoadingView();
 
-            Callback<ServerResponseKontrahenci> callback = new retrofit2.Callback<ServerResponseKontrahenci>() {
-                @Override
-                public void onResponse(Call<ServerResponseKontrahenci> call, retrofit2.Response<ServerResponseKontrahenci> response) {
-                    view.hideLoadingView();
-                    List<Kontrahent> kontrahenci = response.body().getQ1().getData();
-                    view.showKontrachenci(kontrahenci);
-                }
+        Callback<ServerResponseKontrahenci> callback = new Callback<ServerResponseKontrahenci>() {
+            @Override
+            public void onResponse(Call<ServerResponseKontrahenci> call, Response<ServerResponseKontrahenci> response) {
+                view.hideLoadingView();
+                List<Kontrahent> kontrahenci = response.body().getQ1().getData();
+                view.showKontrachenci(kontrahenci);
+            }
 
-                @Override
-                public void onFailure(Call<ServerResponseKontrahenci> call, Throwable t) {
-                    view.hideLoadingView();
-                    view.showBrakPolaczenia();
-                }
+            @Override
+            public void onFailure(Call<ServerResponseKontrahenci> call, Throwable t) {
+                view.hideLoadingView();
+                view.showBrakPolaczenia();
+            }
         };
-        repository.getKontrahenci(callback);
+        repository.getKontrahenci(callback, offset);
     }
 
     @Override
-    public void openFaktury(String kontrahentReference) {
-        view.showFaktury(kontrahentReference);
+    public void openFaktury(Kontrahent kontrahent) {
+        String kontrahentReference = kontrahent.getREFERENCE();
+        String kontrahentName = kontrahent.getNAZ();
+        view.showFaktury(kontrahentReference, kontrahentName);
     }
 }
