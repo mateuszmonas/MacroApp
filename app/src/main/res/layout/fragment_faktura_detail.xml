@@ -1,13 +1,16 @@
 <android.support.v4.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 <android.support.constraint.ConstraintLayout
+    android:padding="8dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <TextView
         android:id="@+id/brakPolaczenia"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_marginBottom="@dimen/margin"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -32,6 +35,8 @@
 
     <LinearLayout
         android:id="@+id/sprzedawcaView"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_marginBottom="@dimen/margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -64,6 +69,8 @@
 
     <LinearLayout
         android:id="@+id/nabywcaView"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_marginBottom="@dimen/margin"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sprzedawcaView"
         app:layout_constraintBottom_toTopOf="@+id/fakturaDetailRecyclerView"
@@ -90,9 +97,12 @@
 
     <android.support.v7.widget.RecyclerView
         android:nestedScrollingEnabled="false"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_marginBottom="@dimen/margin"
         android:id="@+id/fakturaDetailRecyclerView"
         android:layout_height="wrap_content"
         android:layout_width="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/suma"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nabywcaView"
         app:layout_constraintRight_toRightOf="parent"
@@ -101,9 +111,12 @@
 
     <TextView
         android:id="@+id/suma"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_marginBottom="@dimen/margin"
         android:text="Razem do zapłaty: 2583,00 zł"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fakturaDetailRecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/fakturaDetailRecyclerView"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

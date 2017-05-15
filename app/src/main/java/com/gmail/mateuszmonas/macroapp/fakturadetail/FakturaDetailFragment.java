@@ -53,7 +53,7 @@ public class FakturaDetailFragment extends Fragment implements FakturaDetailCont
             pozycjaFaktury.setIlosc(2);
             pozycjaFaktury.setCenaNetto(65.89);
             pozycjaFaktury.setJednostka("sztuka");
-            pozycjaFaktury.setNazwa("laptop");
+            pozycjaFaktury.setNazwa("Zestaw do kaniulacji dużych naczyń III-kanałowy 7F/15");
             pozycjaFaktury.setPozycja(i);
             pozycjaFaktury.setWartoscBrutto(142.32);
             pozycjaFaktury.setWartoscNetto(131.78);

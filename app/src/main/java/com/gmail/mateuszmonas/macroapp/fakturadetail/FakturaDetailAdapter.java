@@ -37,24 +37,24 @@ public class FakturaDetailAdapter extends RecyclerView.Adapter<FakturaDetailAdap
     public void onBindViewHolder(ViewHolder holder, int position) {
         if(position == 0){
             PozycjaFaktury pozycjaFaktury = pozycjeFaktury.get(position);
-            holder.lp.setText("Lp.");
-            holder.nazwa.setText("Nazwa towaru lub usługi");
-            holder.ilosc.setText("ilość");
+            holder.lp.setText("Lp");
+            holder.nazwa.setText("Nazwa");
+            holder.ilosc.setText("#");
             holder.jednostka.setText("JM");
-            holder.cenaNetto.setText("C. nett");
-            holder.wartNetto.setText("W. netto");
+            holder.cenaNetto.setText("C. net.");
+            holder.wartNetto.setText("W. net.");
             holder.wartVAT.setText("VAT");
-            holder.wartBrutto.setText("W. brutto");
+            holder.wartBrutto.setText("W. brut.");
         }else {
             PozycjaFaktury pozycjaFaktury = pozycjeFaktury.get(position);
             holder.lp.setText(String.format(Locale.getDefault(), "%d", pozycjaFaktury.getPozycja()));
             holder.nazwa.setText(pozycjaFaktury.getNazwa());
             holder.ilosc.setText(String.format(Locale.getDefault(), "%d", pozycjaFaktury.getIlosc()));
             holder.jednostka.setText(pozycjaFaktury.getJednostka());
-            holder.cenaNetto.setText(new DecimalFormat("#.00").format(pozycjaFaktury.getCenaNetto()) + "PLN");
-            holder.wartNetto.setText(new DecimalFormat("#.00").format(pozycjaFaktury.getWartoscNetto()) + "PLN");
-            holder.wartVAT.setText(new DecimalFormat("#.00").format(pozycjaFaktury.getWartoscVat()) + "PLN");
-            holder.wartBrutto.setText(new DecimalFormat("#.00").format(pozycjaFaktury.getWartoscBrutto()) + "PLN");
+            holder.cenaNetto.setText(new DecimalFormat("#.00").format(pozycjaFaktury.getCenaNetto()));
+            holder.wartNetto.setText(new DecimalFormat("#.00").format(pozycjaFaktury.getWartoscNetto()));
+            holder.wartVAT.setText(new DecimalFormat("#.00").format(pozycjaFaktury.getWartoscVat()));
+            holder.wartBrutto.setText(new DecimalFormat("#.00").format(pozycjaFaktury.getWartoscBrutto()));
         }
     }
 
