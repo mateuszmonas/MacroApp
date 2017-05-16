@@ -1,87 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:weightSum="100">
 
     <TextView
-        android:background="@drawable/border"
-        android:textSize="12sp"
+        android:textSize="@dimen/pozycjaFakturyTextSize"
         android:gravity="center"
         android:id="@+id/lp"
-        android:layout_width="0dp"
+        app:layout_widthPercent="5%"
         android:layout_height="match_parent"
-        android:text="Lp"
-        android:layout_weight="5" />
+        android:layout_centerVertical="true"
+        android:foregroundGravity="left"
+        android:text="Lp" />
 
     <TextView
-        android:background="@drawable/border"
-        android:textSize="12sp"
+        android:textSize="@dimen/pozycjaFakturyTextSize"
         android:gravity="center"
         android:id="@+id/nazwa"
-        android:layout_width="0dp"
+        app:layout_widthPercent="20%"
         android:layout_height="match_parent"
-        android:text="Nazwa"
-        android:layout_weight="20"/>
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/lp"
+        android:text="Nazwa"/>
 
     <TextView
-        android:background="@drawable/border"
-        android:textSize="12sp"
+        android:textSize="@dimen/pozycjaFakturyTextSize"
         android:gravity="center"
         android:id="@+id/ilosc"
-        android:layout_width="0dp"
+        app:layout_widthPercent="5%"
         android:layout_height="match_parent"
-        android:text="#"
-        android:layout_weight="5" />
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/nazwa"
+        android:text="#"/>
 
     <TextView
-        android:background="@drawable/border"
-        android:textSize="12sp"
+        android:textSize="@dimen/pozycjaFakturyTextSize"
         android:gravity="center"
         android:id="@+id/jednostka"
-        android:layout_width="0dp"
+        app:layout_widthPercent="15%"
         android:layout_height="match_parent"
-        android:text="JM"
-        android:layout_weight="15" />
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/ilosc"
+        android:text="JM" />
 
     <TextView
-        android:background="@drawable/border"
-        android:textSize="12sp"
+        android:textSize="@dimen/pozycjaFakturyTextSize"
         android:gravity="center"
         android:id="@+id/cenaNetto"
-        android:layout_width="0dp"
+        app:layout_widthPercent="15%"
         android:layout_height="match_parent"
-        android:text="C. net."
-        android:layout_weight="15" />
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/jednostka"
+        android:text="C. net." />
 
     <TextView
-        android:background="@drawable/border"
-        android:textSize="12sp"
+        android:textSize="@dimen/pozycjaFakturyTextSize"
         android:gravity="center"
         android:id="@+id/wartNetto"
-        android:layout_width="0dp"
+        app:layout_widthPercent="15%"
         android:layout_height="match_parent"
-        android:text="W.net."
-        android:layout_weight="15" />
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/cenaNetto"
+        android:text="W.net." />
 
     <TextView
-        android:background="@drawable/border"
-        android:textSize="12sp"
+        android:textSize="@dimen/pozycjaFakturyTextSize"
         android:gravity="center"
         android:id="@+id/wartVAT"
-        android:layout_width="0dp"
+        app:layout_widthPercent="10%"
         android:layout_height="match_parent"
-        android:text="VAT"
-        android:layout_weight="10" />
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/wartNetto"
+        android:text="VAT" />
 
     <TextView
-        android:background="@drawable/border"
-        android:textSize="12sp"
+        android:textSize="@dimen/pozycjaFakturyTextSize"
         android:gravity="center"
         android:id="@+id/wartBrutto"
-        android:layout_width="0dp"
+        app:layout_widthPercent="15%"
         android:layout_height="match_parent"
-        android:text="W. brut."
-        android:layout_weight="15" />
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/wartVAT"
+        android:text="W. brut." />
 
-</android.support.v7.widget.LinearLayoutCompat>
+</android.support.percent.PercentRelativeLayout>
