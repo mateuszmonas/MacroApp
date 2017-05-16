@@ -41,7 +41,7 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
 
     private int previousTotal = 0;
     private boolean loading = true;
-    private int visibleThreshold = 11;
+    private int visibleThreshold = 3;
     int firstVisibleItem, visibleItemCount, totalItemCount;
 
     public FakturyFragment() {
@@ -76,22 +76,24 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
 
                 super.onScrolled(recyclerView, dx, dy);
 
-                visibleItemCount = fakturyRecyclerViewer.getChildCount();
-                totalItemCount = layoutManager.getItemCount();
-                firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
+                if(dy>0){
+                    visibleItemCount = fakturyRecyclerViewer.getChildCount();
+                    totalItemCount = layoutManager.getItemCount();
+                    firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
 
-                if(loading) {
-                    if(totalItemCount > previousTotal){
-                        loading = false;
-                        previousTotal = totalItemCount;
+                    if(loading) {
+                        if(totalItemCount>previousTotal){
+                            loading = false;
+                            previousTotal = totalItemCount;
+                        }
                     }
-                }
-                if(!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)){
+                    if(!loading && (totalItemCount - visibleItemCount) < (firstVisibleItem + visibleThreshold)){
 
-                    presenter.loadFaktury(adapter.getItemCount());
+                        presenter.loadFaktury(adapter.getItemCount());
 
-                    loading = true;
+                        loading = true;
 
+                    }
                 }
             }
         });

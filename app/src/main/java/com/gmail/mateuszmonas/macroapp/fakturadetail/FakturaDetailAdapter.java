@@ -35,7 +35,6 @@ public class FakturaDetailAdapter extends RecyclerView.Adapter<FakturaDetailAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         if(position == 0){
-            PozycjaFaktury pozycjaFaktury = pozycjeFaktury.get(position);
             holder.lp.setText("Lp");
             holder.nazwa.setText("Nazwa");
             holder.ilosc.setText("#");

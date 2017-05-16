@@ -42,7 +42,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
 
     private int previousTotal = 0;
     private boolean loading = true;
-    private int visibleThreshold = 10;
+    private int visibleThreshold = 4;
     int firstVisibleItem, visibleItemCount, totalItemCount;
 
     public KontrahenciFragment() {
@@ -75,22 +75,24 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                visibleItemCount = kontrachenciRecyclerView.getChildCount();
-                totalItemCount = layoutManager.getItemCount();
-                firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
+                if(dy>0){
+                    visibleItemCount = kontrachenciRecyclerView.getChildCount();
+                    totalItemCount = layoutManager.getItemCount();
+                    firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
 
-                if(loading) {
-                    if(totalItemCount > previousTotal){
-                        loading = false;
-                        previousTotal = totalItemCount;
+                    if(loading) {
+                        if(totalItemCount>previousTotal){
+                            loading = false;
+                            previousTotal = totalItemCount;
+                        }
                     }
-                }
-                if(!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)){
+                    if(!loading && (totalItemCount - visibleItemCount) < (firstVisibleItem + visibleThreshold)){
 
-                    presenter.loadKontrachenci(adapter.getItemCount());
+                        presenter.loadKontrachenci(adapter.getItemCount());
 
-                    loading = true;
+                        loading = true;
 
+                    }
                 }
             }
         });

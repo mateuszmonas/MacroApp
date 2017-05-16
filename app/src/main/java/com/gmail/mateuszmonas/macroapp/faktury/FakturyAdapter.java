@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 
 public class FakturyAdapter extends RecyclerView.Adapter<FakturyAdapter.ViewHolder>{
 
-    boolean firstLoad = true;
+    private boolean firstLoad = true;
     private List<Faktura> faktury;
     private FakturyFragment.FakturyListListener listener;
 

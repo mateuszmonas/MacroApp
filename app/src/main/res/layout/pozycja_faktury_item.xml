@@ -4,82 +4,82 @@
     android:layout_height="wrap_content">
 
     <TextView
+        android:background="@drawable/border"
         android:textSize="12sp"
         android:gravity="center"
         android:id="@+id/lp"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="1dp"
+        android:layout_height="match_parent"
         android:text="Lp"
         android:layout_weight="1" />
 
     <TextView
+        android:background="@drawable/border"
         android:textSize="12sp"
         android:gravity="center"
         android:id="@+id/nazwa"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="1dp"
+        android:layout_height="match_parent"
         android:text="Nazwa"
         android:layout_weight="5"/>
 
     <TextView
+        android:background="@drawable/border"
         android:textSize="12sp"
         android:gravity="center"
         android:id="@+id/ilosc"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="1dp"
+        android:layout_height="match_parent"
         android:text="#"
         android:layout_weight="1" />
 
     <TextView
+        android:background="@drawable/border"
         android:textSize="12sp"
         android:gravity="center"
         android:id="@+id/jednostka"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="1dp"
+        android:layout_height="match_parent"
         android:text="JM"
         android:layout_weight="3" />
 
     <TextView
+        android:background="@drawable/border"
         android:textSize="12sp"
         android:gravity="center"
         android:id="@+id/cenaNetto"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="1dp"
+        android:layout_height="match_parent"
         android:text="C. net."
         android:layout_weight="3" />
 
     <TextView
+        android:background="@drawable/border"
         android:textSize="12sp"
         android:gravity="center"
         android:id="@+id/wartNetto"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="1dp"
+        android:layout_height="match_parent"
         android:text="W.net."
         android:layout_weight="3" />
 
     <TextView
+        android:background="@drawable/border"
         android:textSize="12sp"
         android:gravity="center"
         android:id="@+id/wartVAT"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="1dp"
+        android:layout_height="match_parent"
         android:text="VAT"
         android:layout_weight="2" />
 
     <TextView
+        android:background="@drawable/border"
         android:textSize="12sp"
         android:gravity="center"
         android:id="@+id/wartBrutto"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="1dp"
+        android:layout_height="match_parent"
         android:text="W. brut."
         android:layout_weight="3" />
 

@@ -47,19 +47,6 @@ public class FakturaDetailFragment extends Fragment implements FakturaDetailCont
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ArrayList<PozycjaFaktury> a = new ArrayList<>();
-        for(int i = 0 ; i<3 ; i++) {
-            PozycjaFaktury pozycjaFaktury = new PozycjaFaktury();
-            pozycjaFaktury.setIlosc(2);
-            pozycjaFaktury.setCenaNetto(65.89);
-            pozycjaFaktury.setJednostka("sztuka");
-            pozycjaFaktury.setNazwa("Zestaw do kaniulacji dużych naczyń III-kanałowy 7F/15");
-            pozycjaFaktury.setPozycja(i);
-            pozycjaFaktury.setWartoscBrutto(142.32);
-            pozycjaFaktury.setWartoscNetto(131.78);
-            pozycjaFaktury.setWartoscVat(10.54);
-            a.add(pozycjaFaktury);
-        }
         adapter=new FakturaDetailAdapter(new ArrayList<PozycjaFaktury>());
     }
 
