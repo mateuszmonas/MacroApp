@@ -6,4 +6,5 @@
     <string name="brak_faktur">Brak Faktur Dla Tego Kontrahenta</string>
     <string name="brak_kontrahentow">Brak Kontrahentow</string>
     <string name="brak_polaczenia">Wystąpił Problem Z Siecią</string>
+    <string name="nabywca">Nabywca</string>
 </resources>

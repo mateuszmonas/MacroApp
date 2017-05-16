@@ -2,7 +2,7 @@ package com.gmail.mateuszmonas.macroapp.fakturadetail;
 
 
 import com.gmail.mateuszmonas.macroapp.data.DataRepository;
-import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseFaktury;
+import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseDetaleFaktury;
 import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponsePozycjeFaktury;
 
 import javax.inject.Inject;
@@ -31,13 +31,25 @@ public class FakturaDetailPresenter implements FakturaDetailContract.Presenter {
 
     @Override
     public void start() {
-        loadFakturaDetails();
+        loadDetaleFaktury();
     }
 
     @Override
-    public void loadFakturaDetails() {
+    public void loadDetaleFaktury() {
 
-        Callback<ServerResponsePozycjeFaktury> callback =  new Callback<ServerResponsePozycjeFaktury>() {
+        Callback<ServerResponseDetaleFaktury> detaleFakturyCallback = new Callback<ServerResponseDetaleFaktury>() {
+            @Override
+            public void onResponse(Call<ServerResponseDetaleFaktury> call, Response<ServerResponseDetaleFaktury> response) {
+                view.showDetaleFaktury(response.body().getQ1().getData().get(0));
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponseDetaleFaktury> call, Throwable t) {
+
+            }
+        };
+
+        Callback<ServerResponsePozycjeFaktury> pozycjeFakturyCallback = new Callback<ServerResponsePozycjeFaktury>() {
             @Override
             public void onResponse(Call<ServerResponsePozycjeFaktury> call, Response<ServerResponsePozycjeFaktury> response) {
                 view.showPozycjeFaktury(response.body().getQ1().getData());
@@ -45,9 +57,11 @@ public class FakturaDetailPresenter implements FakturaDetailContract.Presenter {
 
             @Override
             public void onFailure(Call<ServerResponsePozycjeFaktury> call, Throwable t) {
-
+                t.printStackTrace();
             }
         };
-        repository.getPozycjeFaktury(callback, fakturaReference);
+
+        repository.getDetaleFaktury(detaleFakturyCallback, pozycjeFakturyCallback, fakturaReference);
+
     }
 }

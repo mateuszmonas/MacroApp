@@ -1,6 +1,7 @@
 package com.gmail.mateuszmonas.macroapp.data;
 
 
+import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseDetaleFaktury;
 import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseFaktury;
 import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseKontrahenci;
 import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponsePozycjeFaktury;
@@ -13,6 +14,6 @@ public interface DataSource {
 
     void getFaktury(Callback<ServerResponseFaktury> callback, String kontrahentReference, int offset);
 
-    void getPozycjeFaktury(Callback<ServerResponsePozycjeFaktury> callback, String fakturaReference);
+    void getDetaleFaktury(Callback<ServerResponseDetaleFaktury> detaleFakturyCallback, Callback<ServerResponsePozycjeFaktury> pozycjeFakturyCallback,String fakturaReference);
 
 }

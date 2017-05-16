@@ -39,16 +39,19 @@ public class RemoteDataSource implements DataSource {
 
     @Override
     public void getFaktury(Callback<ServerResponseFaktury> callback, String kontrahentReference, int offset) {
-        ServerQuery query = new ServerQuery("q1", "select faks.reference, faks.sym, faks.brutto, faks.netto, faks.tz, faks.vat, han.naz from faks join han on han.reference=faks.han where kh='" + kontrahentReference + "' order by d offset " + offset + " rows FETCH NEXT 10 ROWS ONLY");
+        ServerQuery query = new ServerQuery("q1", "select faks.reference, faks.sym, faks.brutto, faks.netto, faks.tz, faks.vat, han.naz from faks join han on han.reference=faks.han where faks.brutto>0 and  kh='" + kontrahentReference + "' order by d offset " + offset + " rows FETCH NEXT 10 ROWS ONLY");
         Call<ServerResponseFaktury> call = api.getFaktury(query);
         call.enqueue(callback);
     }
 
     @Override
-    public void getPozycjeFaktury(Callback<ServerResponsePozycjeFaktury> callback, String fakturaReference) {
-        ServerQuery query = new ServerQuery("q1", "select m.n, fap.cn, fap.il, fap.poz, fap.wn, fap.wb, fap.wv, jm.naz from fap join jm on jm.reference=fap.jm join m on m.reference=fap.m where fap.faks='" + fakturaReference + "'");
-        Call<ServerResponsePozycjeFaktury> call = api.getPozycjeFaktury(query);
-        call.enqueue(callback);
+    public void getDetaleFaktury(Callback<ServerResponseDetaleFaktury> detaleFakturyCallback, Callback<ServerResponsePozycjeFaktury> pozycjeFakturyCallback, String fakturaReference) {
+        ServerQuery detaleFakturyQuery = new ServerQuery("q1", "select faks.brutto, faks.netto, faks.vat, kh.naz, kh.ul, kh.miasto, kh.kpocz, kh.nip from faks join kh on kh.reference=faks.kh where faks.reference='" + fakturaReference + "'");
+        Call<ServerResponseDetaleFaktury> detaleFakturyCall = api.getDetaleKontrahenta(detaleFakturyQuery);
+        detaleFakturyCall.enqueue(detaleFakturyCallback);
+        ServerQuery pozycjeFakturyQuery = new ServerQuery("q1", "select m.n, fap.cn, fap.il, fap.poz, fap.wn, fap.wb, fap.wv, jm.naz from fap join jm on jm.reference=fap.jm join m on m.reference=fap.m where fap.faks='" + fakturaReference + "'");
+        Call<ServerResponsePozycjeFaktury> pozycjeFakturyCall = api.getPozycjeFaktury(pozycjeFakturyQuery);
+        pozycjeFakturyCall.enqueue(pozycjeFakturyCallback);
     }
 
     interface ApiEndpoint {
@@ -63,5 +66,9 @@ public class RemoteDataSource implements DataSource {
         @Headers("content-type: application/json")
         @POST("ProcExec/batch-query")
         Call<ServerResponsePozycjeFaktury> getPozycjeFaktury(@Body ServerQuery query);
+
+        @Headers("content-type: application/json")
+        @POST("ProcExec/batch-query")
+        Call<ServerResponseDetaleFaktury> getDetaleKontrahenta(@Body ServerQuery query);
     }
 }

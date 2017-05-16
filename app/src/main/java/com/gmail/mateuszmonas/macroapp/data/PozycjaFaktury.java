@@ -18,7 +18,7 @@ public class PozycjaFaktury {
      */
 
     @SerializedName("IL")
-    private int ilosc;
+    private double ilosc;
     @SerializedName("NAZ")
     private String jednostka;
     @SerializedName("WN")
@@ -36,11 +36,11 @@ public class PozycjaFaktury {
     @SerializedName("_")
     private int id;
 
-    public int getIlosc() {
+    public double getIlosc() {
         return ilosc;
     }
 
-    public void setIlosc(int ilosc) {
+    public void setIlosc(double ilosc) {
         this.ilosc = ilosc;
     }
 

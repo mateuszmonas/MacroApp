@@ -34,20 +34,11 @@ public class FakturaDetailAdapter extends RecyclerView.Adapter<FakturaDetailAdap
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        if(position == 0){
-            holder.lp.setText("Lp");
-            holder.nazwa.setText("Nazwa");
-            holder.ilosc.setText("#");
-            holder.jednostka.setText("JM");
-            holder.cenaNetto.setText("C. net.");
-            holder.wartNetto.setText("W. net.");
-            holder.wartVAT.setText("VAT");
-            holder.wartBrutto.setText("W. brut.");
-        }else {
+        if(position != 0){
             PozycjaFaktury pozycjaFaktury = pozycjeFaktury.get(position);
             holder.lp.setText(String.format(Locale.getDefault(), "%d", pozycjaFaktury.getPozycja()));
             holder.nazwa.setText(pozycjaFaktury.getNazwa());
-            holder.ilosc.setText(String.format(Locale.getDefault(), "%d", pozycjaFaktury.getIlosc()));
+            holder.ilosc.setText(new DecimalFormat("#.##").format(pozycjaFaktury.getIlosc()));
             holder.jednostka.setText(pozycjaFaktury.getJednostka());
             holder.cenaNetto.setText(new DecimalFormat("0.00").format(pozycjaFaktury.getCenaNetto()));
             holder.wartNetto.setText(new DecimalFormat("0.00").format(pozycjaFaktury.getWartoscNetto()));

@@ -12,8 +12,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.gmail.mateuszmonas.macroapp.R;
+import com.gmail.mateuszmonas.macroapp.data.DetaleFaktury;
 import com.gmail.mateuszmonas.macroapp.data.PozycjaFaktury;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +32,10 @@ public class FakturaDetailFragment extends Fragment implements FakturaDetailCont
     ProgressBar loader;
     @BindView(R.id.fakturaDetailRecyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.nazwaNabywcy)TextView nazwaNabywcy;
+    @BindView(R.id.adresNabywcy) TextView adresNabywcy;
+    @BindView(R.id.nip) TextView nip;
+    @BindView(R.id.suma) TextView suma;
     FakturaDetailAdapter adapter;
     Unbinder unbinder;
 
@@ -64,6 +70,17 @@ public class FakturaDetailFragment extends Fragment implements FakturaDetailCont
     @Override
     public void showPozycjeFaktury(List<PozycjaFaktury> pozycje) {
         adapter.replaceData(pozycje);
+    }
+
+    @Override
+    public void showDetaleFaktury(DetaleFaktury detaleFaktury) {
+        String adres = detaleFaktury.getKodPocztowy() + " "  + detaleFaktury.getMiasto() + ", " + detaleFaktury.getUlica();
+        String nipText = "NIP: " + detaleFaktury.getNip();
+        String sumaText = "Razem do zapłaty: " + new DecimalFormat("0.00").format(detaleFaktury.getBrutto()) + "zł";
+        nazwaNabywcy.setText(detaleFaktury.getNazwa());
+        adresNabywcy.setText(adres);
+        nip.setText(nipText);
+        suma.setText(sumaText);
     }
 
     @Override

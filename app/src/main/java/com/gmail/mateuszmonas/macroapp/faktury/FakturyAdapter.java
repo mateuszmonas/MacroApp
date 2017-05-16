@@ -65,6 +65,7 @@ public class FakturyAdapter extends RecyclerView.Adapter<FakturyAdapter.ViewHold
 
     @Override
     public int getItemCount() {
+        if(faktury==null) return 0;
         return faktury.size();
     }
 
