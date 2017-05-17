@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.gmail.mateuszmonas.macroapp.MacroApplication;
 import com.gmail.mateuszmonas.macroapp.R;
@@ -11,8 +12,12 @@ import com.gmail.mateuszmonas.macroapp.utils.ActivityUtils;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+
 public class FakturaDetailActivity extends AppCompatActivity {
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     private static final String EXTRA_FAKTURA_REFERENCE = "FAKTURA_REFERENCE";
 
     @Inject
@@ -28,6 +33,9 @@ public class FakturaDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faktura_detail);
+
+        toolbar.setTitle(R.string.detale_faktury);
+        setSupportActionBar(toolbar);
 
         FakturaDetailFragment fakturaDetailFragment
                 = (FakturaDetailFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);

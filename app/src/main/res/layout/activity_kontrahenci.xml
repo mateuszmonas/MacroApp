@@ -20,6 +20,7 @@
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
     </android.support.design.widget.AppBarLayout>
 
     <FrameLayout

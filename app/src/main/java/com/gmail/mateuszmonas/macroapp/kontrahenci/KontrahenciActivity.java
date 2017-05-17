@@ -19,11 +19,9 @@ import butterknife.ButterKnife;
 
 public class KontrahenciActivity extends AppCompatActivity {
 
+    boolean searched = false;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.appBar)
-    AppBarLayout appBarLayout;
-    boolean searched = false;
     @Inject
     KontrahenciPresenter presenter;
     private SearchView searchView;

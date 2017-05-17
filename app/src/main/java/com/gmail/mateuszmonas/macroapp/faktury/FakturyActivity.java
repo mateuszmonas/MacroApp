@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.gmail.mateuszmonas.macroapp.MacroApplication;
@@ -20,11 +24,13 @@ public class FakturyActivity extends AppCompatActivity {
     private static final String EXTRA_KONTRAHENT_REFERENCE = "KONTRAHENT_REFERENCE";
     private static final String EXTRA_KONTRAHENT_NAME = "KONTRAHENT_NAME";
 
+    boolean searched = false;
     @Inject
     FakturyPresenter presenter;
-
-    @BindView(R.id.title)
-    TextView title;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    private SearchView searchView;
+    private MenuItem menuItem;
 
     public static Intent createIntent(Context context, String kontrahentReference, String kontrahentName) {
         Intent intent = new Intent(context, FakturyActivity.class);
@@ -33,13 +39,15 @@ public class FakturyActivity extends AppCompatActivity {
         return intent;
     }
 
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faktury);
 
         ButterKnife.bind(this);
 
-        title.setText(getIntent().getStringExtra(EXTRA_KONTRAHENT_NAME));
+        toolbar.setTitle(getIntent().getStringExtra(EXTRA_KONTRAHENT_NAME));
+        setSupportActionBar(toolbar);
 
         String kontrahentReference = getIntent().getStringExtra(EXTRA_KONTRAHENT_REFERENCE);
 
@@ -52,5 +60,44 @@ public class FakturyActivity extends AppCompatActivity {
 
         DaggerFakturyComponent.builder().dataRepositoryComponent(((MacroApplication) getApplication()).getDataRepositoryComponent())
                 .fakturyPresenterModule(new FakturyPresenterModule(fragment, kontrahentReference)).build().inject(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (searched || !searchView.isIconified()) {
+            searched = false;
+            hideSerch();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.options_menu, menu);
+
+        this.menuItem = menu.findItem(R.id.search);
+        this.searchView = (SearchView) menuItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searched=true;
+                hideSerch();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+        return true;
+    }
+
+    private void hideSerch() {
+        searchView.setQuery("", false);
+        searchView.setIconified(true);
+        menuItem.collapseActionView();
     }
 }
