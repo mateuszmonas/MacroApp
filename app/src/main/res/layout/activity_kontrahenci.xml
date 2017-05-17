@@ -7,19 +7,18 @@
     tools:context="com.gmail.mateuszmonas.macroapp.kontrahenci.KontrahenciActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:theme="@style/AppTheme.AppBarOverlay"
         android:gravity="center_vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/kontrahenci"
-            android:layout_marginStart="@dimen/appBarMargin"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"/>
-
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
     </android.support.design.widget.AppBarLayout>
 
     <FrameLayout

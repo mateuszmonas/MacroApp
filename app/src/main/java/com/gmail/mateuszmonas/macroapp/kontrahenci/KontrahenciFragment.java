@@ -34,7 +34,6 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
 
     private KontrahenciContract.Presenter presenter;
     private KontrahenciAdapter adapter;
-    private boolean forceUpdate;
     @BindView(R.id.brakPolaczenia)
     TextView brakPolaczenia;
     @BindView(R.id.brakKontrahentow)
@@ -42,6 +41,8 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     @BindView(R.id.kontrahenciRecyclerView) RecyclerView kontrachenciRecyclerView;
     @BindView(R.id.swipeRefresh) ScrollChildSwipeRefreshLayout swipeRefreshLayout;
     Unbinder unbinder;
+    //nazwa szukanego kontrahenta
+    private String nazwa = "";
 
     private int previousTotal = 0;
     private boolean loading = true;
@@ -91,7 +92,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
                     }
                     if(!loading && (totalItemCount - visibleItemCount) < (firstVisibleItem + visibleThreshold)){
 
-                        presenter.loadKontrachenci(adapter.getItemCount());
+                        presenter.loadKontrachenci(adapter.getItemCount(), nazwa);
 
                         loading = true;
 
@@ -110,8 +111,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                forceUpdate=true;
-                presenter.loadKontrachenci(0);
+                presenter.loadKontrachenci(0, nazwa);
             }
         });
 
@@ -131,7 +131,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     @Override
     public void onResume() {
         super.onResume();
-        presenter.loadKontrachenci(adapter.getItemCount());
+        presenter.loadKontrachenci(adapter.getItemCount(), nazwa);
     }
 
     @Override
@@ -146,9 +146,8 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     }
 
     @Override
-    public void showKontrachenci(List<Kontrahent> kontrachenci) {
+    public void showKontrachenci(List<Kontrahent> kontrachenci, boolean forceUpdate) {
         adapter.replaceData(kontrachenci, forceUpdate);
-        forceUpdate=false;
         setBrakPolaczeniaView(false);
         if (adapter.getItemCount()==0){
             setBrakKontrahentowView(true);
@@ -161,6 +160,11 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     public void showFaktury(String kontrahentReference, String kontrahentName) {
         Intent intent = FakturyActivity.createIntent(getContext(), kontrahentReference, kontrahentName);
         startActivity(intent);
+    }
+
+    @Override
+    public void setNazwa(String nazwa) {
+        this.nazwa = nazwa;
     }
 
     @Override

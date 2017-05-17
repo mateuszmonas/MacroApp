@@ -32,11 +32,15 @@ class KontrahenciPresenter implements KontrahenciContract.Presenter {
 
     @Override
     public void start() {
-        loadKontrachenci(0);
+        loadKontrachenci(0, "");
     }
 
+
+
     @Override
-    public void loadKontrachenci(int offset) {
+    public void loadKontrachenci(int offset, String nazwa) {
+
+        final boolean forceUpdate = offset==0;
 
         view.setLoadingView(true);
 
@@ -45,7 +49,7 @@ class KontrahenciPresenter implements KontrahenciContract.Presenter {
             public void onResponse(Call<ServerResponseKontrahenci> call, Response<ServerResponseKontrahenci> response) {
                 view.setLoadingView(false);
                 List<Kontrahent> kontrahenci = response.body().getQ1().getData();
-                view.showKontrachenci(kontrahenci);
+                view.showKontrachenci(kontrahenci, forceUpdate);
             }
 
             @Override
@@ -54,7 +58,7 @@ class KontrahenciPresenter implements KontrahenciContract.Presenter {
                 view.setBrakPolaczeniaView(true);
             }
         };
-        repository.getKontrahenci(callback, offset);
+        repository.getKontrahenci(callback, offset, nazwa);
     }
 
     @Override
@@ -62,5 +66,10 @@ class KontrahenciPresenter implements KontrahenciContract.Presenter {
         String kontrahentReference = kontrahent.getREFERENCE();
         String kontrahentName = kontrahent.getNAZ();
         view.showFaktury(kontrahentReference, kontrahentName);
+    }
+
+    @Override
+    public void setNazwa(String nazwa) {
+        view.setNazwa(nazwa);
     }
 }

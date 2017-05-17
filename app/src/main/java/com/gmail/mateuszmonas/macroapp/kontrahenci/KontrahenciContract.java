@@ -10,7 +10,7 @@ interface KontrahenciContract {
 
     interface View extends BaseView<Presenter>{
 
-        void showKontrachenci(List<Kontrahent> kontrachenci);
+        void showKontrachenci(List<Kontrahent> kontrachenci, boolean forceUpdate);
 
         void showFaktury(String kontrahentReference, String kontrahentName);
 
@@ -20,13 +20,17 @@ interface KontrahenciContract {
 
         void setLoadingView(boolean visible);
 
+        void setNazwa(String nazwa);
+
     }
 
     interface Presenter extends BasePresenter{
 
-        void loadKontrachenci(int offset);
+        void loadKontrachenci(int offset, String nazwa);
 
         void openFaktury(Kontrahent kontrahent);
+
+        void setNazwa(String nazwa);
 
     }
 

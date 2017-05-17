@@ -31,8 +31,8 @@ public class RemoteDataSource implements DataSource {
     }
 
     @Override
-    public void getKontrahenci(Callback<ServerResponseKontrahenci> callback, int offset) {
-        ServerQuery query = new ServerQuery("q1", "select REFERENCE, KOD, NAZ, NIP, KOLOR from KH order by kod offset "+ offset +" rows fetch next 10 rows only");
+    public void getKontrahenci(Callback<ServerResponseKontrahenci> callback, int offset, String nazwa) {
+        ServerQuery query = new ServerQuery("q1", "select REFERENCE, KOD, NAZ, NIP, KOLOR from KH where lower(naz) like lower('%" + nazwa + "%') order by kod offset "+ offset +" rows fetch next 10 rows only");
         Call<ServerResponseKontrahenci> call = api.getKontrahenci(query);
         call.enqueue(callback);
     }
@@ -52,13 +52,6 @@ public class RemoteDataSource implements DataSource {
         ServerQuery pozycjeFakturyQuery = new ServerQuery("q1", "select m.n, fap.cn, fap.il, fap.poz, fap.wn, fap.wb, fap.wv, jm.naz from fap join jm on jm.reference=fap.jm join m on m.reference=fap.m where fap.faks='" + fakturaReference + "'");
         Call<ServerResponsePozycjeFaktury> pozycjeFakturyCall = api.getPozycjeFaktury(pozycjeFakturyQuery);
         pozycjeFakturyCall.enqueue(pozycjeFakturyCallback);
-    }
-
-    @Override
-    public void searchKontrahenci(Callback<ServerResponseKontrahenci> callback, int offset, String nazwa) {
-        ServerQuery query = new ServerQuery("q1", "select REFERENCE, KOD, NAZ, NIP, KOLOR from KH where naz like '%" + nazwa + "%' order by kod offset "+ offset +" rows fetch next 10 rows only");
-        Call<ServerResponseKontrahenci> call = api.searchKontrahenci(query);
-        call.enqueue(callback);
     }
 
     interface ApiEndpoint {
