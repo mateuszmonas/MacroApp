@@ -18,8 +18,6 @@ import butterknife.ButterKnife;
 
 public class KontrahenciAdapter extends RecyclerView.Adapter<KontrahenciAdapter.ViewHolder> {
 
-    private boolean firstLoad = true;
-
     private List<Kontrahent> kontrahenci;
     private KontrahenciFragment.KontrahenciListListener listener;
 
@@ -60,15 +58,14 @@ public class KontrahenciAdapter extends RecyclerView.Adapter<KontrahenciAdapter.
         return kontrahenci.get(id);
     }
 
-    void replaceData(List<Kontrahent> kontrahenci){
-        setList(kontrahenci);
+    void replaceData(List<Kontrahent> kontrahenci, boolean forceUpdate){
+        setList(kontrahenci, forceUpdate);
         notifyDataSetChanged();
     }
 
-    private void setList(List<Kontrahent> kontrahenci){
-        if(firstLoad) {
+    private void setList(List<Kontrahent> kontrahenci, boolean forceUpdate){
+        if(forceUpdate) {
             this.kontrahenci = kontrahenci;
-            firstLoad = false;
         } else {
             this.kontrahenci.addAll(kontrahenci);
         }

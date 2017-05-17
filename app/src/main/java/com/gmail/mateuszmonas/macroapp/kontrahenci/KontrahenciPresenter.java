@@ -38,20 +38,20 @@ class KontrahenciPresenter implements KontrahenciContract.Presenter {
     @Override
     public void loadKontrachenci(int offset) {
 
-        view.showLoadingView();
+        view.setLoadingView(true);
 
         Callback<ServerResponseKontrahenci> callback = new Callback<ServerResponseKontrahenci>() {
             @Override
             public void onResponse(Call<ServerResponseKontrahenci> call, Response<ServerResponseKontrahenci> response) {
-                view.hideLoadingView();
+                view.setLoadingView(false);
                 List<Kontrahent> kontrahenci = response.body().getQ1().getData();
                 view.showKontrachenci(kontrahenci);
             }
 
             @Override
             public void onFailure(Call<ServerResponseKontrahenci> call, Throwable t) {
-                view.hideLoadingView();
-                view.showBrakPolaczenia();
+                view.setLoadingView(false);
+                view.setBrakPolaczeniaView(true);
             }
         };
         repository.getKontrahenci(callback, offset);

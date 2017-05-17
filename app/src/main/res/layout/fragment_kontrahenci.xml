@@ -1,5 +1,10 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.gmail.mateuszmonas.macroapp.utils.ScrollChildSwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefresh"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+<FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.gmail.mateuszmonas.macroapp.kontrahenci.KontrahenciFragment">
@@ -38,3 +43,4 @@
         android:indeterminate="true" />
 
 </FrameLayout>
+</com.gmail.mateuszmonas.macroapp.utils.ScrollChildSwipeRefreshLayout>

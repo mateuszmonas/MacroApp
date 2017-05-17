@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import com.gmail.mateuszmonas.macroapp.faktury.FakturyActivity;
 import com.gmail.mateuszmonas.macroapp.R;
 import com.gmail.mateuszmonas.macroapp.data.Kontrahent;
 import com.gmail.mateuszmonas.macroapp.utils.FragmentScope;
+import com.gmail.mateuszmonas.macroapp.utils.ScrollChildSwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +34,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
 
     private KontrahenciContract.Presenter presenter;
     private KontrahenciAdapter adapter;
+    private boolean forceUpdate;
     @BindView(R.id.brakPolaczenia)
     TextView brakPolaczenia;
     @BindView(R.id.loader)
@@ -38,6 +42,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     @BindView(R.id.brakKontrahentow)
     TextView brakKontrahentow;
     @BindView(R.id.kontrahenciRecyclerView) RecyclerView kontrachenciRecyclerView;
+    @BindView(R.id.swipeRefresh) ScrollChildSwipeRefreshLayout swipeRefreshLayout;
     Unbinder unbinder;
 
     private int previousTotal = 0;
@@ -96,6 +101,22 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
                 }
             }
         });
+        swipeRefreshLayout.setColorSchemeColors(
+                ContextCompat.getColor(getActivity(), R.color.colorPrimary),
+                ContextCompat.getColor(getActivity(), R.color.colorAccent),
+                ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark)
+        );
+
+        swipeRefreshLayout.setScrollUpChild(kontrachenciRecyclerView);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                forceUpdate=true;
+                presenter.loadKontrachenci(0);
+            }
+        });
+
         return view;
     }
 
@@ -128,12 +149,13 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
 
     @Override
     public void showKontrachenci(List<Kontrahent> kontrachenci) {
-        adapter.replaceData(kontrachenci);
-        hideBrakPolaczenia();
+        adapter.replaceData(kontrachenci, forceUpdate);
+        forceUpdate=false;
+        setBrakPolaczeniaView(false);
         if (adapter.getItemCount()==0){
-            showBrakKontrahentowView();
+            setBrakKontrahentowView(true);
         } else {
-            hideBrakKontrahentowView();
+            setBrakKontrahentowView(false);
         }
     }
 
@@ -144,41 +166,32 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     }
 
     @Override
-    public void showBrakKontrahentowView() {
-        if(getView()!=null && adapter.getItemCount()==0)
-        brakKontrahentow.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideBrakKontrahentowView() {
-        if(getView()!=null && adapter.getItemCount()!=0)
-        brakKontrahentow.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showBrakPolaczenia() {
-        if(getView() != null && adapter.getItemCount()==0) {
-            hideBrakKontrahentowView();
-            brakPolaczenia.setVisibility(View.VISIBLE);
+    public void setBrakKontrahentowView(boolean visible) {
+        if(getView()!=null) {
+            if (visible && adapter.getItemCount() == 0) {
+                brakKontrahentow.setVisibility(View.VISIBLE);
+            } else {
+                brakKontrahentow.setVisibility(View.GONE);
+            }
         }
     }
 
     @Override
-    public void showLoadingView() {
-        if(getView()!=null)
-        loader.setVisibility(View.VISIBLE);
+    public void setBrakPolaczeniaView(boolean visible) {
+        if(getView()!=null) {
+            if (visible && adapter.getItemCount() == 0) {
+                brakPolaczenia.setVisibility(View.VISIBLE);
+            } else {
+                brakPolaczenia.setVisibility(View.GONE);
+            }
+        }
     }
 
     @Override
-    public void hideLoadingView() {
-        if(getView()!=null)
-        loader.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void hideBrakPolaczenia() {
-        if(getView()!=null)
-        brakPolaczenia.setVisibility(View.GONE);
+    public void setLoadingView(boolean visible) {
+        if(getView()!=null) {
+            swipeRefreshLayout.setRefreshing(visible);
+        }
     }
 
     KontrahenciListListener kontrahenciListListener = new KontrahenciListListener() {

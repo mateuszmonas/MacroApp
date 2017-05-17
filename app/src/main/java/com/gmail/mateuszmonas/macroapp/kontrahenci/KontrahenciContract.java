@@ -14,17 +14,11 @@ interface KontrahenciContract {
 
         void showFaktury(String kontrahentReference, String kontrahentName);
 
-        void showBrakKontrahentowView();
+        void setBrakKontrahentowView(boolean visible);
 
-        void hideBrakKontrahentowView();
+        void setBrakPolaczeniaView(boolean visible);
 
-        void showBrakPolaczenia();
-
-        void hideBrakPolaczenia();
-
-        void showLoadingView();
-
-        void hideLoadingView();
+        void setLoadingView(boolean visible);
 
     }
 
