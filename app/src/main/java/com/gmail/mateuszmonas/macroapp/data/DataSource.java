@@ -10,6 +10,8 @@ import retrofit2.Callback;
 
 public interface DataSource {
 
+    void searchKontrahenci(Callback<ServerResponseKontrahenci> callback, int offset, String nazwa);
+
     void getKontrahenci(Callback<ServerResponseKontrahenci> callback, int offset);
 
     void getFaktury(Callback<ServerResponseFaktury> callback, String kontrahentReference, int offset);

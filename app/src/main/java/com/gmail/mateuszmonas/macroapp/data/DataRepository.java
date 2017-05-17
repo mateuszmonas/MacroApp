@@ -36,4 +36,9 @@ public class DataRepository implements DataSource {
     public void getDetaleFaktury(Callback<ServerResponseDetaleFaktury> detaleFakturyCallback, Callback<ServerResponsePozycjeFaktury> pozycjeFakturyCallback, String fakturaReference) {
         remoteDataSource.getDetaleFaktury(detaleFakturyCallback, pozycjeFakturyCallback, fakturaReference);
     }
+
+    @Override
+    public void searchKontrahenci(Callback<ServerResponseKontrahenci> callback, int offset, String nazwa) {
+        remoteDataSource.searchKontrahenci(callback, offset, nazwa);
+    }
 }

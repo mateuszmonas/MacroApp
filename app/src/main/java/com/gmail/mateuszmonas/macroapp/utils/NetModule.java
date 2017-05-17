@@ -22,10 +22,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 @Module
 public class NetModule {
 
-    private String baseURL;
-
-    public NetModule(String baseURL) {
-        this.baseURL = baseURL;
+    public NetModule() {
     }
 
     @Provides
@@ -37,15 +34,17 @@ public class NetModule {
     @Provides
     @Singleton
     OkHttpClient provideOkHttpClient(){
-        Interceptor authInterceprot = new AuthenticationInterceptor("mobile", "mobile");
+        Interceptor authInterceprot = new AuthenticationInterceptor("tablet", "tablet123");
         return new OkHttpClient.Builder().addInterceptor(authInterceprot).build();
     }
-
+    //login: mobile
+    //haslo: mobile
+    //adres: http://10.0.1.233:8080/
     @Provides
     @Singleton
     Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseURL)
+                .baseUrl("http://89.25.160.36:8080")
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)

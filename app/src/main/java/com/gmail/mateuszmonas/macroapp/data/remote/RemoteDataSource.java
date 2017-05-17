@@ -54,10 +54,21 @@ public class RemoteDataSource implements DataSource {
         pozycjeFakturyCall.enqueue(pozycjeFakturyCallback);
     }
 
+    @Override
+    public void searchKontrahenci(Callback<ServerResponseKontrahenci> callback, int offset, String nazwa) {
+        ServerQuery query = new ServerQuery("q1", "select REFERENCE, KOD, NAZ, NIP, KOLOR from KH where naz like '%" + nazwa + "%' order by kod offset "+ offset +" rows fetch next 10 rows only");
+        Call<ServerResponseKontrahenci> call = api.searchKontrahenci(query);
+        call.enqueue(callback);
+    }
+
     interface ApiEndpoint {
         @Headers("content-type: application/json")
         @POST("ProcExec/batch-query")
         Call<ServerResponseKontrahenci> getKontrahenci(@Body ServerQuery query);
+
+        @Headers("content-type: application/json")
+        @POST("ProcExec/batch-query")
+        Call<ServerResponseKontrahenci> searchKontrahenci(@Body ServerQuery query);
 
         @Headers("content-type: application/json")
         @POST("ProcExec/batch-query")
