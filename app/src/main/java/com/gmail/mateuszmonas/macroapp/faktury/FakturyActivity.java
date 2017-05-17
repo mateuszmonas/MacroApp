@@ -2,9 +2,8 @@ package com.gmail.mateuszmonas.macroapp.faktury;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.gmail.mateuszmonas.macroapp.MacroApplication;
@@ -21,12 +20,13 @@ public class FakturyActivity extends AppCompatActivity {
     private static final String EXTRA_KONTRAHENT_REFERENCE = "KONTRAHENT_REFERENCE";
     private static final String EXTRA_KONTRAHENT_NAME = "KONTRAHENT_NAME";
 
-    @Inject FakturyPresenter presenter;
+    @Inject
+    FakturyPresenter presenter;
 
     @BindView(R.id.title)
     TextView title;
 
-    public static Intent createIntent(Context context, String kontrahentReference, String kontrahentName){
+    public static Intent createIntent(Context context, String kontrahentReference, String kontrahentName) {
         Intent intent = new Intent(context, FakturyActivity.class);
         intent.putExtra(EXTRA_KONTRAHENT_NAME, kontrahentName);
         intent.putExtra(EXTRA_KONTRAHENT_REFERENCE, kontrahentReference);
@@ -45,7 +45,7 @@ public class FakturyActivity extends AppCompatActivity {
 
         FakturyFragment fragment =
                 (FakturyFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-        if(fragment == null){
+        if (fragment == null) {
             fragment = FakturyFragment.newInstance();
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), fragment, R.id.contentFrame);
         }

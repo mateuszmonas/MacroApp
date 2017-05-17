@@ -4,94 +4,96 @@
     android:layout_height="wrap_content"
     android:shrinkColumns="*"
     android:stretchColumns="*">
+
     <TableRow
         android:id="@+id/tableRow1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="100">
 
             <TextView
-                android:background="@drawable/border"
-                android:textSize="12sp"
-                android:gravity="center"
                 android:id="@+id/lp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:background="@drawable/border"
+                android:gravity="center"
                 android:text="Lp"
-                android:layout_weight="5" />
+                android:textSize="12sp" />
 
             <TextView
-                android:background="@drawable/border"
-                android:textSize="12sp"
-                android:gravity="center"
                 android:id="@+id/nazwa"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:background="@drawable/border"
+                android:gravity="center"
                 android:text="Nazwa"
-                android:layout_weight="20"/>
+                android:textSize="12sp" />
 
             <TextView
-                android:background="@drawable/border"
-                android:textSize="12sp"
-                android:gravity="center"
                 android:id="@+id/ilosc"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:background="@drawable/border"
+                android:gravity="center"
                 android:text="#"
-                android:layout_weight="5" />
+                android:textSize="12sp" />
 
             <TextView
-                android:background="@drawable/border"
-                android:textSize="12sp"
-                android:gravity="center"
                 android:id="@+id/jednostka"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="15"
+                android:background="@drawable/border"
+                android:gravity="center"
                 android:text="JM"
-                android:layout_weight="15" />
+                android:textSize="12sp" />
 
             <TextView
-                android:background="@drawable/border"
-                android:textSize="12sp"
-                android:gravity="center"
                 android:id="@+id/cenaNetto"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="15"
+                android:background="@drawable/border"
+                android:gravity="center"
                 android:text="C. net."
-                android:layout_weight="15" />
+                android:textSize="12sp" />
 
             <TextView
-                android:background="@drawable/border"
-                android:textSize="12sp"
-                android:gravity="center"
                 android:id="@+id/wartNetto"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="15"
+                android:background="@drawable/border"
+                android:gravity="center"
                 android:text="W.net."
-                android:layout_weight="15" />
+                android:textSize="12sp" />
 
             <TextView
-                android:background="@drawable/border"
-                android:textSize="12sp"
-                android:gravity="center"
                 android:id="@+id/wartVAT"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:background="@drawable/border"
+                android:gravity="center"
                 android:text="VAT"
-                android:layout_weight="10" />
+                android:textSize="12sp" />
 
             <TextView
-                android:background="@drawable/border"
-                android:textSize="12sp"
-                android:gravity="center"
                 android:id="@+id/wartBrutto"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="15"
+                android:background="@drawable/border"
+                android:gravity="center"
                 android:text="W. brut."
-                android:layout_weight="15" />
+                android:textSize="12sp" />
 
         </android.support.v7.widget.LinearLayoutCompat>
     </TableRow>

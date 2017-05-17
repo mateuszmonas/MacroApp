@@ -8,7 +8,7 @@ import java.util.List;
 
 interface KontrahenciContract {
 
-    interface View extends BaseView<Presenter>{
+    interface View extends BaseView<Presenter> {
 
         void showKontrachenci(List<Kontrahent> kontrachenci, boolean forceUpdate);
 
@@ -24,7 +24,7 @@ interface KontrahenciContract {
 
     }
 
-    interface Presenter extends BasePresenter{
+    interface Presenter extends BasePresenter {
 
         void loadKontrachenci(int offset, String nazwa);
 

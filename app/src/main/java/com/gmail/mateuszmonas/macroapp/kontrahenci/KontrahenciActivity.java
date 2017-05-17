@@ -1,16 +1,16 @@
 package com.gmail.mateuszmonas.macroapp.kontrahenci;
 
+import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.gmail.mateuszmonas.macroapp.MacroApplication;
-import com.gmail.mateuszmonas.macroapp.utils.ActivityUtils;
 import com.gmail.mateuszmonas.macroapp.R;
+import com.gmail.mateuszmonas.macroapp.utils.ActivityUtils;
 
 import javax.inject.Inject;
 
@@ -23,11 +23,11 @@ public class KontrahenciActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.appBar)
     AppBarLayout appBarLayout;
+    boolean searched = false;
+    @Inject
+    KontrahenciPresenter presenter;
     private SearchView searchView;
     private MenuItem menuItem;
-    boolean searched = false;
-
-    @Inject KontrahenciPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +57,11 @@ public class KontrahenciActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(searched){
-            searched=false;
+        if (searched || !searchView.isIconified()) {
+            searched = false;
             presenter.setNazwa("");
             presenter.loadKontrachenci(0, "");
-            searchView.setQuery("", false);
-            searchView.setIconified(true);
-            menuItem.collapseActionView();
+            hideSerch();
         } else {
             super.onBackPressed();
         }
@@ -73,24 +71,29 @@ public class KontrahenciActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.options_menu, menu);
 
-        this.menuItem = menu.findItem( R.id.search);
+        this.menuItem = menu.findItem(R.id.search);
         this.searchView = (SearchView) menuItem.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 presenter.setNazwa(query);
                 presenter.loadKontrachenci(0, query);
-                searchView.setQuery("", false);
-                searchView.setIconified(true);
-                menuItem.collapseActionView();
-                searched=true;
+                hideSerch();
+                searched = true;
                 return false;
             }
+
             @Override
             public boolean onQueryTextChange(String s) {
                 return false;
             }
         });
         return true;
+    }
+
+    private void hideSerch() {
+        searchView.setQuery("", false);
+        searchView.setIconified(true);
+        menuItem.collapseActionView();
     }
 }

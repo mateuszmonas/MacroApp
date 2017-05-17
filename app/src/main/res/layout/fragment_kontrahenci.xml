@@ -1,9 +1,9 @@
-<com.gmail.mateuszmonas.macroapp.utils.ScrollChildSwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.gmail.mateuszmonas.macroapp.utils.ScrollChildSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipeRefresh"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,27 +12,25 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/kontrahenciRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/brakKontrahentow"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="32sp"
             android:text="@string/brak_kontrahentow"
-            android:visibility="gone"
-            />
+            android:textSize="32sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/brakPolaczenia"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="32sp"
             android:text="@string/brak_polaczenia"
-            android:visibility="gone"
-            />
+            android:textSize="32sp"
+            android:visibility="gone" />
 
     </FrameLayout>
 </com.gmail.mateuszmonas.macroapp.utils.ScrollChildSwipeRefreshLayout>

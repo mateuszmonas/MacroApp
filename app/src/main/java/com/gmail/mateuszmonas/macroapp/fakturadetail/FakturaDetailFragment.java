@@ -9,13 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.gmail.mateuszmonas.macroapp.R;
 import com.gmail.mateuszmonas.macroapp.data.DetaleFaktury;
 import com.gmail.mateuszmonas.macroapp.data.PozycjaFaktury;
-import com.gmail.mateuszmonas.macroapp.utils.ScrollChildSwipeRefreshLayout;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -34,10 +32,14 @@ public class FakturaDetailFragment extends Fragment implements FakturaDetailCont
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.fakturaDetailRecyclerView)
     RecyclerView recyclerView;
-    @BindView(R.id.nazwaNabywcy)TextView nazwaNabywcy;
-    @BindView(R.id.adresNabywcy) TextView adresNabywcy;
-    @BindView(R.id.nip) TextView nip;
-    @BindView(R.id.suma) TextView suma;
+    @BindView(R.id.nazwaNabywcy)
+    TextView nazwaNabywcy;
+    @BindView(R.id.adresNabywcy)
+    TextView adresNabywcy;
+    @BindView(R.id.nip)
+    TextView nip;
+    @BindView(R.id.suma)
+    TextView suma;
     FakturaDetailAdapter adapter;
     Unbinder unbinder;
 
@@ -55,7 +57,7 @@ public class FakturaDetailFragment extends Fragment implements FakturaDetailCont
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adapter=new FakturaDetailAdapter(new ArrayList<PozycjaFaktury>());
+        adapter = new FakturaDetailAdapter(new ArrayList<PozycjaFaktury>());
     }
 
     @Override
@@ -84,7 +86,7 @@ public class FakturaDetailFragment extends Fragment implements FakturaDetailCont
 
     @Override
     public void showDetaleFaktury(DetaleFaktury detaleFaktury) {
-        String adres = detaleFaktury.getKodPocztowy() + " "  + detaleFaktury.getMiasto() + ", " + detaleFaktury.getUlica();
+        String adres = detaleFaktury.getKodPocztowy() + " " + detaleFaktury.getMiasto() + ", " + detaleFaktury.getUlica();
         String nipText = "NIP: " + detaleFaktury.getNip();
         String sumaText = "Razem do zapłaty: " + new DecimalFormat("0.00").format(detaleFaktury.getBrutto()) + "zł";
         nazwaNabywcy.setText(detaleFaktury.getNazwa());
@@ -95,7 +97,7 @@ public class FakturaDetailFragment extends Fragment implements FakturaDetailCont
 
     @Override
     public void setBrakPolaczeniaView(boolean visible) {
-        if(getView()!=null) {
+        if (getView() != null) {
             if (visible && adapter.getItemCount() == 0) {
                 brakPolaczenia.setVisibility(View.VISIBLE);
             } else {
@@ -106,7 +108,7 @@ public class FakturaDetailFragment extends Fragment implements FakturaDetailCont
 
     @Override
     public void setLoadingView(boolean visible) {
-        if(getView()!=null) {
+        if (getView() != null) {
             swipeRefreshLayout.setRefreshing(visible);
         }
     }

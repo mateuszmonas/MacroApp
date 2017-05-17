@@ -34,7 +34,7 @@ public class FakturaDetailAdapter extends RecyclerView.Adapter<FakturaDetailAdap
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        if(position != 0){
+        if (position != 0) {
             PozycjaFaktury pozycjaFaktury = pozycjeFaktury.get(position);
             holder.lp.setText(String.format(Locale.getDefault(), "%d", pozycjaFaktury.getPozycja()));
             holder.nazwa.setText(pozycjaFaktury.getNazwa());
@@ -52,12 +52,12 @@ public class FakturaDetailAdapter extends RecyclerView.Adapter<FakturaDetailAdap
         return pozycjeFaktury.size();
     }
 
-    void replaceData(List<PozycjaFaktury> pozycjeFaktury){
+    void replaceData(List<PozycjaFaktury> pozycjeFaktury) {
         setList(pozycjeFaktury);
         notifyDataSetChanged();
     }
 
-    private void setList(List<PozycjaFaktury> pozycjeFaktury){
+    private void setList(List<PozycjaFaktury> pozycjeFaktury) {
         this.pozycjeFaktury.clear();
         this.pozycjeFaktury.add(new PozycjaFaktury());
         this.pozycjeFaktury.addAll(pozycjeFaktury);
@@ -65,17 +65,26 @@ public class FakturaDetailAdapter extends RecyclerView.Adapter<FakturaDetailAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         final View view;
-        @BindView(R.id.lp)TextView lp;
-        @BindView(R.id.nazwa)TextView nazwa;
-        @BindView(R.id.ilosc)TextView ilosc;
-        @BindView(R.id.jednostka)TextView jednostka;
-        @BindView(R.id.cenaNetto)TextView cenaNetto;
-        @BindView(R.id.wartNetto)TextView wartNetto;
-        @BindView(R.id.wartVAT)TextView wartVAT;
-        @BindView(R.id.wartBrutto)TextView wartBrutto;
+        @BindView(R.id.lp)
+        TextView lp;
+        @BindView(R.id.nazwa)
+        TextView nazwa;
+        @BindView(R.id.ilosc)
+        TextView ilosc;
+        @BindView(R.id.jednostka)
+        TextView jednostka;
+        @BindView(R.id.cenaNetto)
+        TextView cenaNetto;
+        @BindView(R.id.wartNetto)
+        TextView wartNetto;
+        @BindView(R.id.wartVAT)
+        TextView wartVAT;
+        @BindView(R.id.wartBrutto)
+        TextView wartBrutto;
+
         public ViewHolder(View view) {
             super(view);
-            this.view =  view;
+            this.view = view;
             ButterKnife.bind(this, view);
         }
     }

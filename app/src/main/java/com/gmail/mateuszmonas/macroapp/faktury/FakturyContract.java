@@ -9,7 +9,7 @@ import java.util.List;
 
 interface FakturyContract {
 
-    interface View extends BaseView<Presenter>{
+    interface View extends BaseView<Presenter> {
 
         void showFaktury(List<Faktura> faktury);
 
@@ -23,7 +23,7 @@ interface FakturyContract {
 
     }
 
-    interface Presenter extends BasePresenter{
+    interface Presenter extends BasePresenter {
 
         void loadFaktury(int offset);
 

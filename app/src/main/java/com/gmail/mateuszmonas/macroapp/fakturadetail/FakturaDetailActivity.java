@@ -2,12 +2,12 @@ package com.gmail.mateuszmonas.macroapp.fakturadetail;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.gmail.mateuszmonas.macroapp.MacroApplication;
-import com.gmail.mateuszmonas.macroapp.utils.ActivityUtils;
 import com.gmail.mateuszmonas.macroapp.R;
+import com.gmail.mateuszmonas.macroapp.utils.ActivityUtils;
 
 import javax.inject.Inject;
 
@@ -18,7 +18,7 @@ public class FakturaDetailActivity extends AppCompatActivity {
     @Inject
     FakturaDetailPresenter fakturaDetailPresenter;
 
-    public static Intent createIntent(Context context, String fakturaReference){
+    public static Intent createIntent(Context context, String fakturaReference) {
         Intent intent = new Intent(context, FakturaDetailActivity.class);
         intent.putExtra(EXTRA_FAKTURA_REFERENCE, fakturaReference);
         return intent;
@@ -31,7 +31,7 @@ public class FakturaDetailActivity extends AppCompatActivity {
 
         FakturaDetailFragment fakturaDetailFragment
                 = (FakturaDetailFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-        if(fakturaDetailFragment == null){
+        if (fakturaDetailFragment == null) {
             fakturaDetailFragment = FakturaDetailFragment.newInstance();
             ActivityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), fakturaDetailFragment, R.id.contentFrame);

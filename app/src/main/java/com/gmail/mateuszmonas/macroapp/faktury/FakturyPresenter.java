@@ -23,7 +23,7 @@ public class FakturyPresenter implements FakturyContract.Presenter {
     }
 
     @Inject
-    void setupListener(){
+    void setupListener() {
         view.setPresenter(this);
     }
 

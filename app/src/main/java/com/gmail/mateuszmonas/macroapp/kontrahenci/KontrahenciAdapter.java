@@ -29,7 +29,7 @@ public class KontrahenciAdapter extends RecyclerView.Adapter<KontrahenciAdapter.
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.kontrahenci_item, parent, false);
-        view.getLayoutParams().height = ActivityUtils.getScreenWidth(parent.getContext())/3;
+        view.getLayoutParams().height = ActivityUtils.getScreenWidth(parent.getContext()) / 3;
         return new ViewHolder(view);
     }
 
@@ -38,7 +38,7 @@ public class KontrahenciAdapter extends RecyclerView.Adapter<KontrahenciAdapter.
         Kontrahent kontrahent = kontrahenci.get(position);
         holder.item = kontrahent;
 
-        holder.nip.setText(kontrahent.getNIP().isEmpty()?"-------------":kontrahent.getNIP());
+        holder.nip.setText(kontrahent.getNIP().isEmpty() ? "-------------" : kontrahent.getNIP());
         holder.kod.setText(kontrahent.getKOD());
         holder.skrot.setText(kontrahent.getNAZ());
         holder.view.setBackgroundColor(Color.parseColor(kontrahent.getKOLOR()));
@@ -54,17 +54,17 @@ public class KontrahenciAdapter extends RecyclerView.Adapter<KontrahenciAdapter.
         });
     }
 
-    Kontrahent getKontrahent(int id){
+    Kontrahent getKontrahent(int id) {
         return kontrahenci.get(id);
     }
 
-    void replaceData(List<Kontrahent> kontrahenci, boolean forceUpdate){
+    void replaceData(List<Kontrahent> kontrahenci, boolean forceUpdate) {
         setList(kontrahenci, forceUpdate);
         notifyDataSetChanged();
     }
 
-    private void setList(List<Kontrahent> kontrahenci, boolean forceUpdate){
-        if(forceUpdate) {
+    private void setList(List<Kontrahent> kontrahenci, boolean forceUpdate) {
+        if (forceUpdate) {
             this.kontrahenci = kontrahenci;
         } else {
             this.kontrahenci.addAll(kontrahenci);
@@ -79,9 +79,12 @@ public class KontrahenciAdapter extends RecyclerView.Adapter<KontrahenciAdapter.
     class ViewHolder extends RecyclerView.ViewHolder {
         final View view;
         Kontrahent item;
-        @BindView(R.id.kod)TextView kod;
-        @BindView(R.id.nip)TextView nip;
-        @BindView(R.id.skrot)TextView skrot;
+        @BindView(R.id.kod)
+        TextView kod;
+        @BindView(R.id.nip)
+        TextView nip;
+        @BindView(R.id.skrot)
+        TextView skrot;
 
         ViewHolder(View view) {
             super(view);

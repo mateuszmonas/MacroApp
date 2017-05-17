@@ -15,7 +15,7 @@ public class FakturyPresenterModule {
     }
 
     @Provides
-    FakturyContract.View getView(){
+    FakturyContract.View getView() {
         return view;
     }
 

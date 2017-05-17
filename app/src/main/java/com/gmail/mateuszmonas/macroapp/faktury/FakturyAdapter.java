@@ -15,7 +15,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FakturyAdapter extends RecyclerView.Adapter<FakturyAdapter.ViewHolder>{
+public class FakturyAdapter extends RecyclerView.Adapter<FakturyAdapter.ViewHolder> {
 
     private List<Faktura> faktury;
     private FakturyFragment.FakturyListListener listener;
@@ -48,13 +48,13 @@ public class FakturyAdapter extends RecyclerView.Adapter<FakturyAdapter.ViewHold
         });
     }
 
-    void replaceData(List<Faktura> faktury, boolean forceUpdate){
+    void replaceData(List<Faktura> faktury, boolean forceUpdate) {
         setList(faktury, forceUpdate);
         notifyDataSetChanged();
     }
 
-    private void setList(List<Faktura> faktury, boolean forceUpdate){
-        if(forceUpdate) {
+    private void setList(List<Faktura> faktury, boolean forceUpdate) {
+        if (forceUpdate) {
             this.faktury = faktury;
         } else {
             this.faktury.addAll(faktury);
@@ -63,11 +63,11 @@ public class FakturyAdapter extends RecyclerView.Adapter<FakturyAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        if(faktury==null) return 0;
+        if (faktury == null) return 0;
         return faktury.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         final View view;
         Faktura item;
         @BindView(R.id.symbol)
@@ -79,9 +79,9 @@ public class FakturyAdapter extends RecyclerView.Adapter<FakturyAdapter.ViewHold
         @BindView(R.id.kwota)
         TextView kwota;
 
-        ViewHolder(View view){
+        ViewHolder(View view) {
             super(view);
-            this.view =  view;
+            this.view = view;
             ButterKnife.bind(this, view);
         }
     }

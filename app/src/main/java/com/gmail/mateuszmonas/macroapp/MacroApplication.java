@@ -31,7 +31,7 @@ public class MacroApplication extends Application {
                 .dataSourceModule(new DataSourceModule()).build();
     }
 
-    public DataRepositoryComponent getDataRepositoryComponent(){
+    public DataRepositoryComponent getDataRepositoryComponent() {
         return dataRepositoryComponent;
     }
 }

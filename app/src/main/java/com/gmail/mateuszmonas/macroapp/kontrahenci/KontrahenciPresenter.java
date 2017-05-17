@@ -7,11 +7,10 @@ import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseKontrahenci;
 
 import java.util.List;
 
-import retrofit2.Callback;
-
 import javax.inject.Inject;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 class KontrahenciPresenter implements KontrahenciContract.Presenter {
@@ -26,7 +25,7 @@ class KontrahenciPresenter implements KontrahenciContract.Presenter {
     }
 
     @Inject
-    void setupListeners(){
+    void setupListeners() {
         view.setPresenter(this);
     }
 
@@ -36,11 +35,10 @@ class KontrahenciPresenter implements KontrahenciContract.Presenter {
     }
 
 
-
     @Override
     public void loadKontrachenci(int offset, String nazwa) {
 
-        final boolean forceUpdate = offset==0;
+        final boolean forceUpdate = offset == 0;
 
         view.setLoadingView(true);
 

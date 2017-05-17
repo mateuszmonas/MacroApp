@@ -56,7 +56,7 @@ public class Kontrahent {
 
     public String getKOLOR() {
         String color = "#ffa05b";
-        if(!KOLOR.equals("")) {
+        if (!KOLOR.equals("")) {
             String[] parseKolor = KOLOR.split(":");
             String r = Integer.toHexString(Integer.valueOf(parseKolor[0]));
             if (r.length() < 2) r = "0" + r;

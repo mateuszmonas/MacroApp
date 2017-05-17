@@ -4,7 +4,6 @@ package com.gmail.mateuszmonas.macroapp.fakturadetail;
 import com.gmail.mateuszmonas.macroapp.BasePresenter;
 import com.gmail.mateuszmonas.macroapp.BaseView;
 import com.gmail.mateuszmonas.macroapp.data.DetaleFaktury;
-import com.gmail.mateuszmonas.macroapp.data.Faktura;
 import com.gmail.mateuszmonas.macroapp.data.PozycjaFaktury;
 
 import java.util.List;

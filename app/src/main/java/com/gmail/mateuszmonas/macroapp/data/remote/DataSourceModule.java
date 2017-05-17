@@ -16,7 +16,7 @@ public class DataSourceModule {
     @Singleton
     @Provides
     @Remote
-    DataSource provideRemoteDataSource(Retrofit retrofit, Gson gson, OkHttpClient okHttpClient){
+    DataSource provideRemoteDataSource(Retrofit retrofit, Gson gson, OkHttpClient okHttpClient) {
         return new RemoteDataSource(retrofit, gson, okHttpClient);
     }
 

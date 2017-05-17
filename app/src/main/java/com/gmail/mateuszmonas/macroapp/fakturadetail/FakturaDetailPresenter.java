@@ -18,14 +18,14 @@ public class FakturaDetailPresenter implements FakturaDetailContract.Presenter {
     private final String fakturaReference;
 
     @Inject
-    FakturaDetailPresenter(DataRepository repository, FakturaDetailContract.View view, String fakturaReference){
+    FakturaDetailPresenter(DataRepository repository, FakturaDetailContract.View view, String fakturaReference) {
         this.repository = repository;
-        this.view=view;
+        this.view = view;
         this.fakturaReference = fakturaReference;
     }
 
     @Inject
-    void setupListeners(){
+    void setupListeners() {
         view.setPresenter(this);
     }
 

@@ -11,7 +11,7 @@ public class ServerQuery {
     @SerializedName("exec")
     private List<sqlBean> sql;
 
-    ServerQuery(String id, String sql){
+    ServerQuery(String id, String sql) {
         ArrayList<sqlBean> bean = new ArrayList<>();
         bean.add(new sqlBean(id, sql));
         this.sql = bean;

@@ -27,22 +27,23 @@ public class NetModule {
 
     @Provides
     @Singleton
-    Gson provideGson(){
+    Gson provideGson() {
         return new GsonBuilder().create();
     }
 
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient(){
+    OkHttpClient provideOkHttpClient() {
         Interceptor authInterceprot = new AuthenticationInterceptor("tablet", "tablet123");
         return new OkHttpClient.Builder().addInterceptor(authInterceprot).build();
     }
+
     //login: mobile
     //haslo: mobile
     //adres: http://10.0.1.233:8080/
     @Provides
     @Singleton
-    Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient){
+    Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://89.25.160.36:8080")
                 .addConverterFactory(ScalarsConverterFactory.create())
@@ -59,7 +60,7 @@ class AuthenticationInterceptor implements Interceptor {
     private String authToken;
 
     AuthenticationInterceptor(String username, String password) {
-        String pass = username+":"+password;
+        String pass = username + ":" + password;
         this.authToken = "Basic " + Base64.encodeToString(pass.getBytes(), Base64.NO_WRAP);
     }
 

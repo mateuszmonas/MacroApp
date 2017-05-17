@@ -19,9 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".fakturadetail.FakturaDetailActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".faktury.FakturyActivity"/>
+        <activity
+            android:name=".fakturadetail.FakturaDetailActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".faktury.FakturyActivity" />
     </application>
 
 </manifest>

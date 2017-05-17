@@ -14,6 +14,6 @@ public interface DataSource {
 
     void getFaktury(Callback<ServerResponseFaktury> callback, String kontrahentReference, int offset);
 
-    void getDetaleFaktury(Callback<ServerResponseDetaleFaktury> detaleFakturyCallback, Callback<ServerResponsePozycjeFaktury> pozycjeFakturyCallback,String fakturaReference);
+    void getDetaleFaktury(Callback<ServerResponseDetaleFaktury> detaleFakturyCallback, Callback<ServerResponsePozycjeFaktury> pozycjeFakturyCallback, String fakturaReference);
 
 }
