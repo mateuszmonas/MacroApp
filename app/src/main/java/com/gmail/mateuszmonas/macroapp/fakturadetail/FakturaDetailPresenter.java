@@ -37,15 +37,19 @@ public class FakturaDetailPresenter implements FakturaDetailContract.Presenter {
     @Override
     public void loadDetaleFaktury() {
 
+        view.setLoadingView(true);
+
         Callback<ServerResponseDetaleFaktury> detaleFakturyCallback = new Callback<ServerResponseDetaleFaktury>() {
             @Override
             public void onResponse(Call<ServerResponseDetaleFaktury> call, Response<ServerResponseDetaleFaktury> response) {
                 view.showDetaleFaktury(response.body().getQ1().getData().get(0));
+                view.setLoadingView(false);
             }
 
             @Override
             public void onFailure(Call<ServerResponseDetaleFaktury> call, Throwable t) {
-
+                view.setBrakPolaczeniaView(true);
+                view.setLoadingView(false);
             }
         };
 
@@ -53,11 +57,14 @@ public class FakturaDetailPresenter implements FakturaDetailContract.Presenter {
             @Override
             public void onResponse(Call<ServerResponsePozycjeFaktury> call, Response<ServerResponsePozycjeFaktury> response) {
                 view.showPozycjeFaktury(response.body().getQ1().getData());
+                view.setLoadingView(false);
             }
 
             @Override
             public void onFailure(Call<ServerResponsePozycjeFaktury> call, Throwable t) {
                 t.printStackTrace();
+                view.setBrakPolaczeniaView(true);
+                view.setLoadingView(false);
             }
         };
 

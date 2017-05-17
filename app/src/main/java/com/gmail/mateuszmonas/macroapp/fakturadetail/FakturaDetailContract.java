@@ -17,13 +17,9 @@ interface FakturaDetailContract {
 
         void showDetaleFaktury(DetaleFaktury detaleFaktury);
 
-        void showBrakPolaczenia();
+        void setBrakPolaczeniaView(boolean visible);
 
-        void hideBrakPolaczenia();
-
-        void showLoadingView();
-
-        void hideLoadingView();
+        void setLoadingView(boolean visible);
 
     }
 

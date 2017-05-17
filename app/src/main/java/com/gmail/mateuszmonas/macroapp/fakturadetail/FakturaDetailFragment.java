@@ -3,6 +3,7 @@ package com.gmail.mateuszmonas.macroapp.fakturadetail;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.gmail.mateuszmonas.macroapp.R;
 import com.gmail.mateuszmonas.macroapp.data.DetaleFaktury;
 import com.gmail.mateuszmonas.macroapp.data.PozycjaFaktury;
+import com.gmail.mateuszmonas.macroapp.utils.ScrollChildSwipeRefreshLayout;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -28,8 +30,8 @@ public class FakturaDetailFragment extends Fragment implements FakturaDetailCont
     FakturaDetailContract.Presenter presenter;
     @BindView(R.id.brakPolaczenia)
     TextView brakPolaczenia;
-    @BindView(R.id.loader)
-    ProgressBar loader;
+    @BindView(R.id.swipeRefresh)
+    SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.fakturaDetailRecyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.nazwaNabywcy)TextView nazwaNabywcy;
@@ -64,6 +66,14 @@ public class FakturaDetailFragment extends Fragment implements FakturaDetailCont
         unbinder = ButterKnife.bind(this, view);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(adapter);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.loadDetaleFaktury();
+            }
+        });
+
         return view;
     }
 
@@ -84,30 +94,20 @@ public class FakturaDetailFragment extends Fragment implements FakturaDetailCont
     }
 
     @Override
-    public void showBrakPolaczenia() {
-        if(getView() != null) {
-            brakPolaczenia.setVisibility(View.VISIBLE);
+    public void setBrakPolaczeniaView(boolean visible) {
+        if(getView()!=null) {
+            if (visible && adapter.getItemCount() == 0) {
+                brakPolaczenia.setVisibility(View.VISIBLE);
+            } else {
+                brakPolaczenia.setVisibility(View.GONE);
+            }
         }
     }
 
     @Override
-    public void showLoadingView() {
+    public void setLoadingView(boolean visible) {
         if(getView()!=null) {
-            loader.setVisibility(View.VISIBLE);
-        }
-    }
-
-    @Override
-    public void hideLoadingView() {
-        if(getView()!=null) {
-            loader.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    public void hideBrakPolaczenia() {
-        if(getView()!=null) {
-            brakPolaczenia.setVisibility(View.GONE);
+            swipeRefreshLayout.setRefreshing(visible);
         }
     }
 
