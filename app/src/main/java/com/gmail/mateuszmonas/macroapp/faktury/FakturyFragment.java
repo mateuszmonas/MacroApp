@@ -46,7 +46,6 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
             presenter.openFakturaDetails(fakturaReference);
         }
     };
-    private boolean forceUpdate = true;
     private int previousTotal = 0;
     private boolean loading = true;
     private int visibleThreshold = 3;
@@ -116,7 +115,6 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                forceUpdate = true;
                 presenter.loadFaktury(0);
             }
         });
@@ -142,10 +140,9 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
     }
 
     @Override
-    public void showFaktury(List<Faktura> faktury) {
+    public void showFaktury(List<Faktura> faktury, boolean forceUpdate) {
         adapter.replaceData(faktury, forceUpdate);
         setBrakPolaczeniaView(false);
-        forceUpdate = false;
         if (adapter.getItemCount() == 0) {
             setBrakFakturView(true);
         } else {

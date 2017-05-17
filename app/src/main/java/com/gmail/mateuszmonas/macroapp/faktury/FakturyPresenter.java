@@ -9,14 +9,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FakturyPresenter implements FakturyContract.Presenter {
+class FakturyPresenter implements FakturyContract.Presenter {
 
     private DataRepository repository;
     private FakturyContract.View view;
     private String kontrahentReference;
 
     @Inject
-    public FakturyPresenter(DataRepository repository, FakturyContract.View view, String kontrahentReference) {
+    FakturyPresenter(DataRepository repository, FakturyContract.View view, String kontrahentReference) {
         this.repository = repository;
         this.view = view;
         this.kontrahentReference = kontrahentReference;
@@ -34,13 +34,14 @@ public class FakturyPresenter implements FakturyContract.Presenter {
     @Override
     public void loadFaktury(int offset) {
 
+        final boolean forceUpdate = offset==0;
         view.setLoadingView(true);
 
         Callback<ServerResponseFaktury> callback = new Callback<ServerResponseFaktury>() {
             @Override
             public void onResponse(Call<ServerResponseFaktury> call, Response<ServerResponseFaktury> response) {
                 view.setLoadingView(false);
-                view.showFaktury(response.body().getQ1().getData());
+                view.showFaktury(response.body().getQ1().getData(), forceUpdate);
             }
 
             @Override

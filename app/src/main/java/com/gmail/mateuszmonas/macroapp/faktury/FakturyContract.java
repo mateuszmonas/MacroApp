@@ -11,7 +11,7 @@ interface FakturyContract {
 
     interface View extends BaseView<Presenter> {
 
-        void showFaktury(List<Faktura> faktury);
+        void showFaktury(List<Faktura> faktury, boolean forceUpdate);
 
         void showFakturaDetails(String fakturaReference);
 
