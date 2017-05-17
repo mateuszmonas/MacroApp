@@ -23,7 +23,7 @@
                 android:background="@drawable/border"
                 android:gravity="center"
                 android:text="Lp"
-                android:textSize="12sp" />
+                android:textSize="@dimen/pozycjaFakturyTextSize" />
 
             <TextView
                 android:id="@+id/nazwa"
@@ -33,7 +33,7 @@
                 android:background="@drawable/border"
                 android:gravity="center"
                 android:text="Nazwa"
-                android:textSize="12sp" />
+                android:textSize="@dimen/pozycjaFakturyTextSize" />
 
             <TextView
                 android:id="@+id/ilosc"
@@ -43,7 +43,7 @@
                 android:background="@drawable/border"
                 android:gravity="center"
                 android:text="#"
-                android:textSize="12sp" />
+                android:textSize="@dimen/pozycjaFakturyTextSize" />
 
             <TextView
                 android:id="@+id/jednostka"
@@ -53,7 +53,7 @@
                 android:background="@drawable/border"
                 android:gravity="center"
                 android:text="JM"
-                android:textSize="12sp" />
+                android:textSize="@dimen/pozycjaFakturyTextSize" />
 
             <TextView
                 android:id="@+id/cenaNetto"
@@ -63,7 +63,7 @@
                 android:background="@drawable/border"
                 android:gravity="center"
                 android:text="C. net."
-                android:textSize="12sp" />
+                android:textSize="@dimen/pozycjaFakturyTextSize" />
 
             <TextView
                 android:id="@+id/wartNetto"
@@ -73,7 +73,7 @@
                 android:background="@drawable/border"
                 android:gravity="center"
                 android:text="W.net."
-                android:textSize="12sp" />
+                android:textSize="@dimen/pozycjaFakturyTextSize" />
 
             <TextView
                 android:id="@+id/wartVAT"
@@ -83,7 +83,7 @@
                 android:background="@drawable/border"
                 android:gravity="center"
                 android:text="VAT"
-                android:textSize="12sp" />
+                android:textSize="@dimen/pozycjaFakturyTextSize" />
 
             <TextView
                 android:id="@+id/wartBrutto"
@@ -93,7 +93,7 @@
                 android:background="@drawable/border"
                 android:gravity="center"
                 android:text="W. brut."
-                android:textSize="12sp" />
+                android:textSize="@dimen/pozycjaFakturyTextSize" />
 
         </android.support.v7.widget.LinearLayoutCompat>
     </TableRow>

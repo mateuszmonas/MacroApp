@@ -23,14 +23,14 @@ public class ActivityUtils {
         transaction.commit();
     }
 
-    public static int getScreenWidth(Context context) {
-        int screenWidth;
+    public static int getScreenHeight(Context context) {
+        int screenHeight;
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        screenWidth = size.y;
-        return screenWidth;
+        screenHeight = size.y;
+        return screenHeight;
     }
 
 }

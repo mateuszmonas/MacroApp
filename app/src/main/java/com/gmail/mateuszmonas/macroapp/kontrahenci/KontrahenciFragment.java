@@ -124,16 +124,6 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         presenter.loadKontrachenci(adapter.getItemCount(), nazwa);
@@ -201,7 +191,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
         }
     }
 
-    public interface KontrahenciListListener {
+    interface KontrahenciListListener {
 
         void onKontrachenClick(int kontrahentReference);
 

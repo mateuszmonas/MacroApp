@@ -33,7 +33,7 @@ public class KontrahenciActivity extends AppCompatActivity {
         setContentView(R.layout.activity_kontrahenci);
 
         ButterKnife.bind(this);
-        toolbar.setTitle(R.string.faktury);
+        toolbar.setTitle(R.string.kontrahenci);
         setSupportActionBar(toolbar);
 
         KontrahenciFragment kontrahenciFragment =

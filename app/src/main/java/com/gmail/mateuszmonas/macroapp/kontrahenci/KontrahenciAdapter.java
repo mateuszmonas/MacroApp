@@ -16,12 +16,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class KontrahenciAdapter extends RecyclerView.Adapter<KontrahenciAdapter.ViewHolder> {
+class KontrahenciAdapter extends RecyclerView.Adapter<KontrahenciAdapter.ViewHolder> {
 
     private List<Kontrahent> kontrahenci;
     private KontrahenciFragment.KontrahenciListListener listener;
 
-    public KontrahenciAdapter(List<Kontrahent> kontrahenci, KontrahenciFragment.KontrahenciListListener listener) {
+    KontrahenciAdapter(List<Kontrahent> kontrahenci, KontrahenciFragment.KontrahenciListListener listener) {
         this.kontrahenci = kontrahenci;
         this.listener = listener;
     }
@@ -29,7 +29,7 @@ public class KontrahenciAdapter extends RecyclerView.Adapter<KontrahenciAdapter.
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.kontrahenci_item, parent, false);
-        view.getLayoutParams().height = ActivityUtils.getScreenWidth(parent.getContext()) / 3;
+        view.getLayoutParams().height = ActivityUtils.getScreenHeight(parent.getContext()) / 3;
         return new ViewHolder(view);
     }
 

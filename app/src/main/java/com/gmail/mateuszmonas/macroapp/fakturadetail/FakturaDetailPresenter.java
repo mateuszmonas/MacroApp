@@ -11,7 +11,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FakturaDetailPresenter implements FakturaDetailContract.Presenter {
+class FakturaDetailPresenter implements FakturaDetailContract.Presenter {
 
     private final DataRepository repository;
     private final FakturaDetailContract.View view;
@@ -43,6 +43,7 @@ public class FakturaDetailPresenter implements FakturaDetailContract.Presenter {
             @Override
             public void onResponse(Call<ServerResponseDetaleFaktury> call, Response<ServerResponseDetaleFaktury> response) {
                 view.showDetaleFaktury(response.body().getQ1().getData().get(0));
+                view.setBrakPolaczeniaView(false);
                 view.setLoadingView(false);
             }
 

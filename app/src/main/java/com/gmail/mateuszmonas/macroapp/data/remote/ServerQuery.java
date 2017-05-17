@@ -6,14 +6,14 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServerQuery {
+class ServerQuery {
 
     @SerializedName("exec")
     private List<sqlBean> sql;
 
-    ServerQuery(String id, String sql) {
+    ServerQuery(String sql) {
         ArrayList<sqlBean> bean = new ArrayList<>();
-        bean.add(new sqlBean(id, sql));
+        bean.add(new sqlBean(sql));
         this.sql = bean;
     }
 
@@ -25,18 +25,17 @@ public class ServerQuery {
         this.sql = sql;
     }
 
-    public static class sqlBean {
+    private static class sqlBean {
         /**
-         * @id : q1
+         * "@id" : q1
          * sql : select REFERENCE, KOD,NAZ,NIP,KOLOR from KH
          */
 
         @SerializedName("@id")
-        private String id;
+        private String id = "q1";
         private String sql;
 
-        public sqlBean(String id, String sql) {
-            this.id = id;
+        sqlBean(String sql) {
             this.sql = sql;
         }
 

@@ -125,16 +125,6 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         presenter.loadFaktury(adapter.getItemCount());
