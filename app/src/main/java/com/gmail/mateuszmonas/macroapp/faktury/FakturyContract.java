@@ -15,17 +15,11 @@ interface FakturyContract {
 
         void showFakturaDetails(String fakturaReference);
 
-        void showBrakFakturView();
+        void setBrakFakturView(boolean visible);
 
-        void hideBrakFakturView();
+        void setBrakPolaczeniaView(boolean visible);
 
-        void showBrakPolaczenia();
-
-        void hideBrakPolaczenia();
-
-        void showLoadingView();
-
-        void hideLoadingView();
+        void setLoadingView(boolean visible);
 
     }
 

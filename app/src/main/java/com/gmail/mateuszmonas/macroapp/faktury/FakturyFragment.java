@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import com.gmail.mateuszmonas.macroapp.R;
 import com.gmail.mateuszmonas.macroapp.data.Faktura;
 import com.gmail.mateuszmonas.macroapp.fakturadetail.FakturaDetailActivity;
+import com.gmail.mateuszmonas.macroapp.utils.ScrollChildSwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +34,13 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
     TextView brakPolaczenia;
     @BindView(R.id.brakFaktur)
     TextView brakFaktur;
-    @BindView(R.id.loader)
-    ProgressBar loader;
     @BindView(R.id.fakturyRecyclerViewer)
     RecyclerView fakturyRecyclerViewer;
+    @BindView(R.id.swipeRefresh)ScrollChildSwipeRefreshLayout swipeRefreshLayout;
     FakturyAdapter adapter;
     Unbinder unbinder;
     FakturyContract.Presenter presenter;
+    private boolean forceUpdate = true;
 
     private int previousTotal = 0;
     private boolean loading = true;
@@ -98,6 +101,22 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
             }
         });
 
+        swipeRefreshLayout.setColorSchemeColors(
+                ContextCompat.getColor(getActivity(), R.color.colorPrimary),
+                ContextCompat.getColor(getActivity(), R.color.colorAccent),
+                ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark)
+        );
+
+        swipeRefreshLayout.setScrollUpChild(fakturyRecyclerViewer);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                forceUpdate=true;
+                presenter.loadFaktury(0);
+            }
+        });
+
         return view;
     }
     @Override
@@ -129,12 +148,13 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
 
     @Override
     public void showFaktury(List<Faktura> faktury) {
-        adapter.replaceData(faktury);
-        hideBrakPolaczenia();
+        adapter.replaceData(faktury, forceUpdate);
+        setBrakPolaczeniaView(false);
+        forceUpdate=false;
         if (adapter.getItemCount()==0){
-            showBrakFakturView();
+            setBrakFakturView(true);
         } else {
-            hideBrakFakturView();
+            setBrakFakturView(false);
         }
     }
 
@@ -145,41 +165,32 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
     }
 
     @Override
-    public void showBrakFakturView() {
-        if(getView()!=null && adapter.getItemCount()==0)
-        brakFaktur.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideBrakFakturView() {
-        if(getView()!=null && adapter.getItemCount()!=0)
-        brakFaktur.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showBrakPolaczenia() {
-        if(getView()!=null && adapter.getItemCount()==0) {
-            hideBrakFakturView();
-            brakPolaczenia.setVisibility(View.VISIBLE);
+    public void setBrakFakturView(boolean visible) {
+        if(getView()!=null) {
+            if (visible && adapter.getItemCount() == 0) {
+                brakFaktur.setVisibility(View.VISIBLE);
+            } else {
+                brakFaktur.setVisibility(View.GONE);
+            }
         }
     }
 
     @Override
-    public void hideBrakPolaczenia() {
-        if(getView()!=null)
-        brakPolaczenia.setVisibility(View.GONE);
+    public void setBrakPolaczeniaView(boolean visible) {
+        if(getView()!=null) {
+            if (visible && adapter.getItemCount() == 0) {
+                brakPolaczenia.setVisibility(View.VISIBLE);
+            } else {
+                brakPolaczenia.setVisibility(View.GONE);
+            }
+        }
     }
 
     @Override
-    public void showLoadingView() {
-        if(getView()!=null)
-        loader.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideLoadingView() {
-        if(getView()!=null)
-        loader.setVisibility(View.GONE);
+    public void setLoadingView(boolean visible) {
+        if(getView()!=null) {
+            swipeRefreshLayout.setRefreshing(visible);
+        }
     }
 
     FakturyListListener fakturyListListener = new FakturyListListener() {

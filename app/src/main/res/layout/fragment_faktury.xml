@@ -1,40 +1,36 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.gmail.mateuszmonas.macroapp.utils.ScrollChildSwipeRefreshLayout
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.gmail.mateuszmonas.macroapp.faktury.FakturyFragment">
+    android:layout_height="match_parent">
+    <FrameLayout android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.gmail.mateuszmonas.macroapp.faktury.FakturyFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/fakturyRecyclerViewer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/fakturyRecyclerViewer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/brakFaktur"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="32sp"
-        android:text="@string/brak_faktur"
-        android:visibility="gone"
-        />
+                <TextView
+                    android:id="@+id/brakFaktur"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="32sp"
+                    android:text="@string/brak_faktur"
+                    android:visibility="gone"
+                    />
 
-    <TextView
-        android:id="@+id/brakPolaczenia"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="32sp"
-        android:text="@string/brak_polaczenia"
-        android:visibility="gone"
-        />
+                <TextView
+                    android:id="@+id/brakPolaczenia"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="32sp"
+                    android:text="@string/brak_polaczenia"
+                    android:visibility="gone"
+                    />
 
-    <ProgressBar
-        android:id="@+id/loader"
-        android:visibility="gone"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminate="true" />
-
-</FrameLayout>
+    </FrameLayout>
+</com.gmail.mateuszmonas.macroapp.utils.ScrollChildSwipeRefreshLayout>

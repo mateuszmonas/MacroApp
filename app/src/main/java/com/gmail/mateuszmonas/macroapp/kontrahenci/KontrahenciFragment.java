@@ -37,8 +37,6 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     private boolean forceUpdate;
     @BindView(R.id.brakPolaczenia)
     TextView brakPolaczenia;
-    @BindView(R.id.loader)
-    ProgressBar loader;
     @BindView(R.id.brakKontrahentow)
     TextView brakKontrahentow;
     @BindView(R.id.kontrahenciRecyclerView) RecyclerView kontrachenciRecyclerView;

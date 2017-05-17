@@ -34,20 +34,20 @@ public class FakturyPresenter implements FakturyContract.Presenter {
     @Override
     public void loadFaktury(int offset) {
 
-        view.showLoadingView();
+        view.setLoadingView(true);
 
         Callback<ServerResponseFaktury> callback = new Callback<ServerResponseFaktury>() {
             @Override
             public void onResponse(Call<ServerResponseFaktury> call, Response<ServerResponseFaktury> response) {
-                view.hideLoadingView();
+                view.setLoadingView(false);
                 view.showFaktury(response.body().getQ1().getData());
             }
 
             @Override
             public void onFailure(Call<ServerResponseFaktury> call, Throwable t) {
                 t.printStackTrace();
-                view.hideLoadingView();
-                view.showBrakPolaczenia();
+                view.setLoadingView(false);
+                view.setBrakPolaczeniaView(true);
             }
         };
         repository.getFaktury(callback, kontrahentReference, offset);
