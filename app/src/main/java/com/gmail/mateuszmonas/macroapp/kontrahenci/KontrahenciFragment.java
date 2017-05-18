@@ -29,6 +29,7 @@ import butterknife.Unbinder;
 public class KontrahenciFragment extends Fragment implements KontrahenciContract.View {
 
 
+    private final int visibleThreshold = 4;
     @BindView(R.id.brakPolaczenia)
     TextView brakPolaczenia;
     @BindView(R.id.brakKontrahentow)
@@ -53,7 +54,6 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     private String nazwa = "";
     private int previousTotal = 0;
     private boolean loading = true;
-    private final int visibleThreshold = 4;
 
     public KontrahenciFragment() {
         // Required empty public constructor
@@ -98,7 +98,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
                     }
                     if (!loading && (totalItemCount - visibleItemCount) < (firstVisibleItem + visibleThreshold)) {
 
-                        presenter.loadKontrachenci(adapter.getItemCount(), nazwa);
+                        presenter.loadKontrachenci(adapter.getItemCount(), nazwa, false);
 
                         loading = true;
 
@@ -117,7 +117,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.loadKontrachenci(0, nazwa);
+                presenter.loadKontrachenci(0, nazwa, true);
             }
         });
 
@@ -127,7 +127,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     @Override
     public void onResume() {
         super.onResume();
-        presenter.loadKontrachenci(adapter.getItemCount(), nazwa);
+        presenter.loadKontrachenci(adapter.getItemCount(), nazwa, false);
     }
 
     @Override
@@ -161,7 +161,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     @Override
     public void setNazwa(String nazwa) {
         this.nazwa = nazwa;
-        presenter.loadKontrachenci(0, this.nazwa);
+        presenter.loadKontrachenci(0, this.nazwa, true);
     }
 
     @Override

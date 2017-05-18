@@ -1,7 +1,10 @@
 package com.gmail.mateuszmonas.macroapp.data.remote;
 
 import com.gmail.mateuszmonas.macroapp.data.DataSource;
+import com.gmail.mateuszmonas.macroapp.data.Kontrahent;
 import com.google.gson.Gson;
+
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -9,6 +12,7 @@ import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.http.Body;
 import retrofit2.http.Headers;
@@ -31,10 +35,20 @@ class RemoteDataSource implements DataSource {
     }
 
     @Override
-    public void getKontrahenci(Callback<ServerResponseKontrahenci> callback, int offset, String nazwa) {
+    public void getKontrahenci(final ServerResponseCallback<List<Kontrahent>> callback, int offset, String nazwa) {
         ServerQuery query = new ServerQuery("select REFERENCE, KOD, NAZ, NIP, KOLOR from KH where lower(naz) like lower('%" + nazwa + "%') order by kod offset " + offset + " rows fetch next 10 rows only");
         Call<ServerResponseKontrahenci> call = api.getKontrahenci(query);
-        call.enqueue(callback);
+        call.enqueue(new Callback<ServerResponseKontrahenci>() {
+            @Override
+            public void onResponse(Call<ServerResponseKontrahenci> call, Response<ServerResponseKontrahenci> response) {
+                callback.onResponse(response.body().getQ1().getData());
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponseKontrahenci> call, Throwable t) {
+                callback.onFailure();
+            }
+        });
     }
 
     @Override
@@ -52,6 +66,11 @@ class RemoteDataSource implements DataSource {
         ServerQuery pozycjeFakturyQuery = new ServerQuery("select m.n, fap.cn, fap.il, fap.poz, fap.wn, fap.wb, fap.wv, jm.naz from fap join jm on jm.reference=fap.jm join m on m.reference=fap.m where fap.faks='" + fakturaReference + "'");
         Call<ServerResponsePozycjeFaktury> pozycjeFakturyCall = api.getPozycjeFaktury(pozycjeFakturyQuery);
         pozycjeFakturyCall.enqueue(pozycjeFakturyCallback);
+    }
+
+    @Override
+    public void refreshData() {
+
     }
 
     interface ApiEndpoint {
