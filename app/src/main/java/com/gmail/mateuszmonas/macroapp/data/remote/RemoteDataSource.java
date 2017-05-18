@@ -1,6 +1,7 @@
 package com.gmail.mateuszmonas.macroapp.data.remote;
 
 import com.gmail.mateuszmonas.macroapp.data.DataSource;
+import com.gmail.mateuszmonas.macroapp.data.Faktura;
 import com.gmail.mateuszmonas.macroapp.data.Kontrahent;
 import com.google.gson.Gson;
 
@@ -52,10 +53,20 @@ class RemoteDataSource implements DataSource {
     }
 
     @Override
-    public void getFaktury(Callback<ServerResponseFaktury> callback, String kontrahentReference, int offset, String symbol) {
+    public void getFaktury(final ServerResponseCallback<List<Faktura>> callback, String kontrahentReference, int offset, String symbol) {
         ServerQuery query = new ServerQuery("select faks.reference, faks.sym, faks.brutto, faks.netto, faks.tz, faks.vat, han.naz from faks join han on han.reference=faks.han where lower(faks.sym) like lower('%" + symbol + "%') and faks.brutto>0 and  kh='" + kontrahentReference + "' order by d offset " + offset + " rows FETCH NEXT 10 ROWS ONLY");
         Call<ServerResponseFaktury> call = api.getFaktury(query);
-        call.enqueue(callback);
+        call.enqueue(new Callback<ServerResponseFaktury>() {
+            @Override
+            public void onResponse(Call<ServerResponseFaktury> call, Response<ServerResponseFaktury> response) {
+                callback.onResponse(response.body().getQ1().getData());
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponseFaktury> call, Throwable t) {
+                callback.onFailure();
+            }
+        });
     }
 
     @Override

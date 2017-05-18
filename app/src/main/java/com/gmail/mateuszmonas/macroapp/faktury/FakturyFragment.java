@@ -27,6 +27,7 @@ import butterknife.Unbinder;
 
 public class FakturyFragment extends Fragment implements FakturyContract.View {
 
+    private final int visibleThreshold = 3;
     @BindView(R.id.brakPolaczenia)
     TextView brakPolaczenia;
     @BindView(R.id.brakFaktur)
@@ -38,18 +39,17 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
     private FakturyAdapter adapter;
     private Unbinder unbinder;
     private FakturyContract.Presenter presenter;
-    private int firstVisibleItem;
-    private int visibleItemCount;
-    private int totalItemCount;
     private final FakturyListListener fakturyListListener = new FakturyListListener() {
         @Override
         public void onFakturaClick(String fakturaReference) {
             presenter.openFakturaDetails(fakturaReference);
         }
     };
+    private int firstVisibleItem;
+    private int visibleItemCount;
+    private int totalItemCount;
     private int previousTotal = 0;
     private boolean loading = true;
-    private final int visibleThreshold = 3;
     private String symbol = "";
 
     public FakturyFragment() {
@@ -97,7 +97,7 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
                     }
                     if (!loading && (totalItemCount - visibleItemCount) < (firstVisibleItem + visibleThreshold)) {
 
-                        presenter.loadFaktury(adapter.getItemCount(), symbol);
+                        presenter.loadFaktury(adapter.getItemCount(), symbol, false);
 
                         loading = true;
 
@@ -117,7 +117,7 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.loadFaktury(0, symbol);
+                presenter.loadFaktury(0, symbol, true);
             }
         });
 
@@ -127,7 +127,7 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
     @Override
     public void onResume() {
         super.onResume();
-        presenter.loadFaktury(adapter.getItemCount(), symbol);
+        presenter.loadFaktury(adapter.getItemCount(), symbol, false);
     }
 
     @Override
@@ -187,15 +187,15 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
         }
     }
 
+    @Override
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+        presenter.loadFaktury(0, this.symbol, true);
+    }
+
     interface FakturyListListener {
 
         void onFakturaClick(String fakturaReference);
 
-    }
-
-    @Override
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-        presenter.loadFaktury(0, this.symbol);
     }
 }

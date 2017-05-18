@@ -3,7 +3,6 @@ package com.gmail.mateuszmonas.macroapp.data;
 
 import com.gmail.mateuszmonas.macroapp.data.remote.Remote;
 import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseDetaleFaktury;
-import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseFaktury;
 import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponsePozycjeFaktury;
 
 import java.util.ArrayList;
@@ -30,13 +29,13 @@ public class DataRepository implements DataSource {
 
     @Override
     public void getKontrahenci(final ServerResponseCallback<List<Kontrahent>> callback, int offset, String nazwa) {
-        if (!refreshData && !kontrahentCache.isEmpty()) {
-            callback.onResponse(kontrahentCache);
+        if (!refreshData && !kontrahentCache.isEmpty() && offset + 9 <= kontrahentCache.size()) {
+            callback.onResponse(kontrahentCache.subList(offset - 1, offset + 9));
         } else {
-            kontrahentCache.clear();
             remoteDataSource.getKontrahenci(new ServerResponseCallback<List<Kontrahent>>() {
                 @Override
                 public void onResponse(List<Kontrahent> response) {
+                    kontrahentCache.clear();
                     kontrahentCache.addAll(response);
                     callback.onResponse(response);
                 }
@@ -51,8 +50,25 @@ public class DataRepository implements DataSource {
     }
 
     @Override
-    public void getFaktury(Callback<ServerResponseFaktury> callback, String kontrahentReference, int offset, String symbol) {
-        remoteDataSource.getFaktury(callback, kontrahentReference, offset, symbol);
+    public void getFaktury(final ServerResponseCallback<List<Faktura>> callback, String kontrahentReference, int offset, String symbol) {
+        if (!refreshData && !fakturaCache.isEmpty() && offset + 9 <= fakturaCache.size()) {
+            callback.onResponse(fakturaCache.subList(offset - 1, offset + 9));
+        } else {
+            fakturaCache.clear();
+            remoteDataSource.getFaktury(new ServerResponseCallback<List<Faktura>>() {
+                @Override
+                public void onResponse(List<Faktura> response) {
+                    fakturaCache.addAll(response);
+                    callback.onResponse(response);
+                }
+
+                @Override
+                public void onFailure() {
+                    callback.onFailure();
+                }
+            }, kontrahentReference, offset, symbol);
+            refreshData = false;
+        }
     }
 
     @Override

@@ -27,7 +27,7 @@ interface FakturyContract {
 
     interface Presenter extends BasePresenter {
 
-        void loadFaktury(int offset, String symbol);
+        void loadFaktury(int offset, String symbol, boolean forceUpdate);
 
         void openFakturaDetails(String fakturaReference);
 

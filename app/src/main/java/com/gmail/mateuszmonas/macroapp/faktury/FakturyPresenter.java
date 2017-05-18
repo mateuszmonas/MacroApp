@@ -1,19 +1,19 @@
 package com.gmail.mateuszmonas.macroapp.faktury;
 
 import com.gmail.mateuszmonas.macroapp.data.DataRepository;
-import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseFaktury;
+import com.gmail.mateuszmonas.macroapp.data.DataSource;
+import com.gmail.mateuszmonas.macroapp.data.Faktura;
+
+import java.util.List;
 
 import javax.inject.Inject;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 class FakturyPresenter implements FakturyContract.Presenter {
 
     private final DataRepository repository;
     private final FakturyContract.View view;
     private final String kontrahentReference;
+    private boolean firstLoad;
 
     @Inject
     FakturyPresenter(DataRepository repository, FakturyContract.View view, String kontrahentReference) {
@@ -28,30 +28,32 @@ class FakturyPresenter implements FakturyContract.Presenter {
     }
 
     public void start() {
-        loadFaktury(0, "");
+        loadFaktury(0, "", false);
     }
 
     @Override
-    public void loadFaktury(int offset, String symbol) {
+    public void loadFaktury(final int offset, String symbol, boolean forceUpdate) {
 
-        final boolean forceUpdate = offset==0;
         view.setLoadingView(true);
 
-        Callback<ServerResponseFaktury> callback = new Callback<ServerResponseFaktury>() {
+        if (firstLoad || forceUpdate) {
+            repository.refreshData();
+            firstLoad = false;
+        }
+
+        repository.getFaktury(new DataSource.ServerResponseCallback<List<Faktura>>() {
             @Override
-            public void onResponse(Call<ServerResponseFaktury> call, Response<ServerResponseFaktury> response) {
+            public void onResponse(List<Faktura> response) {
                 view.setLoadingView(false);
-                view.showFaktury(response.body().getQ1().getData(), forceUpdate);
+                view.showFaktury(response, offset == 0);
             }
 
             @Override
-            public void onFailure(Call<ServerResponseFaktury> call, Throwable t) {
-                t.printStackTrace();
+            public void onFailure() {
                 view.setLoadingView(false);
                 view.setBrakPolaczeniaView(true);
             }
-        };
-        repository.getFaktury(callback, kontrahentReference, offset, symbol);
+        }, kontrahentReference, offset, symbol);
     }
 
     @Override
