@@ -13,13 +13,13 @@ import com.gmail.mateuszmonas.macroapp.utils.ActivityUtils;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class FakturaDetailActivity extends AppCompatActivity {
 
+    private static final String EXTRA_FAKTURA_REFERENCE = "FAKTURA_REFERENCE";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    private static final String EXTRA_FAKTURA_REFERENCE = "FAKTURA_REFERENCE";
-
     @Inject
     FakturaDetailPresenter fakturaDetailPresenter;
 
@@ -33,6 +33,8 @@ public class FakturaDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faktura_detail);
+
+        ButterKnife.bind(this);
 
         toolbar.setTitle(R.string.detale_faktury);
         setSupportActionBar(toolbar);

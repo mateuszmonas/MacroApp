@@ -27,7 +27,7 @@ public class MacroApplication extends Application {
                 .build());
 
         dataRepositoryComponent = DaggerDataRepositoryComponent.builder()
-                .netModule(new NetModule())
+                .netModule(new NetModule(getString(R.string.login), getString(R.string.password), getString(R.string.address)))
                 .dataSourceModule(new DataSourceModule()).build();
     }
 

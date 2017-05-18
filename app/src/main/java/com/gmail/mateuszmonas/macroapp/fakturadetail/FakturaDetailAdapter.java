@@ -18,11 +18,11 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FakturaDetailAdapter extends RecyclerView.Adapter<FakturaDetailAdapter.ViewHolder> {
+class FakturaDetailAdapter extends RecyclerView.Adapter<FakturaDetailAdapter.ViewHolder> {
 
     private final List<PozycjaFaktury> pozycjeFaktury = new ArrayList<>();
 
-    public FakturaDetailAdapter(List<PozycjaFaktury> pozycjeFaktury) {
+    FakturaDetailAdapter(List<PozycjaFaktury> pozycjeFaktury) {
         setList(pozycjeFaktury);
     }
 
@@ -44,6 +44,15 @@ public class FakturaDetailAdapter extends RecyclerView.Adapter<FakturaDetailAdap
             holder.wartNetto.setText(new DecimalFormat("0.00").format(pozycjaFaktury.getWartoscNetto()));
             holder.wartVAT.setText(new DecimalFormat("0.00").format(pozycjaFaktury.getWartoscVat()));
             holder.wartBrutto.setText(new DecimalFormat("0.00").format(pozycjaFaktury.getWartoscBrutto()));
+        } else {
+            holder.lp.setText("lp");
+            holder.nazwa.setText("nazwa");
+            holder.ilosc.setText("#");
+            holder.jednostka.setText("JM");
+            holder.cenaNetto.setText("C. net.");
+            holder.wartNetto.setText("W. net.");
+            holder.wartVAT.setText("VAT");
+            holder.wartBrutto.setText("W. brut.");
         }
     }
 
@@ -63,7 +72,7 @@ public class FakturaDetailAdapter extends RecyclerView.Adapter<FakturaDetailAdap
         this.pozycjeFaktury.addAll(pozycjeFaktury);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         final View view;
         @BindView(R.id.lp)
         TextView lp;
@@ -82,7 +91,7 @@ public class FakturaDetailAdapter extends RecyclerView.Adapter<FakturaDetailAdap
         @BindView(R.id.wartBrutto)
         TextView wartBrutto;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             this.view = view;
             ButterKnife.bind(this, view);

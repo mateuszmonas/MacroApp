@@ -58,6 +58,7 @@ class FakturaDetailPresenter implements FakturaDetailContract.Presenter {
             @Override
             public void onResponse(Call<ServerResponsePozycjeFaktury> call, Response<ServerResponsePozycjeFaktury> response) {
                 view.showPozycjeFaktury(response.body().getQ1().getData());
+                view.setBrakPolaczeniaView(false);
                 view.setLoadingView(false);
             }
 

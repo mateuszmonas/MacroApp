@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gmail.mateuszmonas.macroapp.R;
@@ -24,7 +25,6 @@ import butterknife.Unbinder;
 
 public class FakturaDetailFragment extends Fragment implements FakturaDetailContract.View {
 
-    private FakturaDetailContract.Presenter presenter;
     @BindView(R.id.brakPolaczenia)
     TextView brakPolaczenia;
     @BindView(R.id.swipeRefresh)
@@ -39,6 +39,9 @@ public class FakturaDetailFragment extends Fragment implements FakturaDetailCont
     TextView nip;
     @BindView(R.id.suma)
     TextView suma;
+    @BindView(R.id.nabywcaView)
+    LinearLayout nabywcaView;
+    private FakturaDetailContract.Presenter presenter;
     private FakturaDetailAdapter adapter;
     private Unbinder unbinder;
 
@@ -97,9 +100,13 @@ public class FakturaDetailFragment extends Fragment implements FakturaDetailCont
     @Override
     public void setBrakPolaczeniaView(boolean visible) {
         if (getView() != null) {
-            if (visible && adapter.getItemCount() == 0) {
+            if (visible) {
+                nabywcaView.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.GONE);
                 brakPolaczenia.setVisibility(View.VISIBLE);
             } else {
+                nabywcaView.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.VISIBLE);
                 brakPolaczenia.setVisibility(View.GONE);
             }
         }
