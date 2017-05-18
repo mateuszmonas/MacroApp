@@ -12,7 +12,7 @@ public interface DataSource {
 
     void getKontrahenci(Callback<ServerResponseKontrahenci> callback, int offset, String nazwa);
 
-    void getFaktury(Callback<ServerResponseFaktury> callback, String kontrahentReference, int offset);
+    void getFaktury(Callback<ServerResponseFaktury> callback, String kontrahentReference, int offset, String symbol);
 
     void getDetaleFaktury(Callback<ServerResponseDetaleFaktury> detaleFakturyCallback, Callback<ServerResponsePozycjeFaktury> pozycjeFakturyCallback, String fakturaReference);
 

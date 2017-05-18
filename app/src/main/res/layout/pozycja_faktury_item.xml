@@ -22,7 +22,7 @@
                 android:layout_weight="5"
                 android:background="@drawable/border"
                 android:gravity="center"
-                android:text="Lp"
+                android:text="@string/liczba_porzadkowa"
                 android:textSize="@dimen/pozycjaFakturyTextSize" />
 
             <TextView
@@ -32,7 +32,7 @@
                 android:layout_weight="20"
                 android:background="@drawable/border"
                 android:gravity="center"
-                android:text="Nazwa"
+                android:text="@string/nazwa"
                 android:textSize="@dimen/pozycjaFakturyTextSize" />
 
             <TextView
@@ -42,7 +42,7 @@
                 android:layout_weight="5"
                 android:background="@drawable/border"
                 android:gravity="center"
-                android:text="#"
+                android:text="@string/ilosc"
                 android:textSize="@dimen/pozycjaFakturyTextSize" />
 
             <TextView
@@ -52,7 +52,7 @@
                 android:layout_weight="15"
                 android:background="@drawable/border"
                 android:gravity="center"
-                android:text="JM"
+                android:text="@string/jednostka_miary"
                 android:textSize="@dimen/pozycjaFakturyTextSize" />
 
             <TextView
@@ -62,7 +62,7 @@
                 android:layout_weight="15"
                 android:background="@drawable/border"
                 android:gravity="center"
-                android:text="C. net."
+                android:text="@string/cena_netto"
                 android:textSize="@dimen/pozycjaFakturyTextSize" />
 
             <TextView
@@ -72,7 +72,7 @@
                 android:layout_weight="15"
                 android:background="@drawable/border"
                 android:gravity="center"
-                android:text="W.net."
+                android:text="@string/wartosc_netto"
                 android:textSize="@dimen/pozycjaFakturyTextSize" />
 
             <TextView
@@ -82,7 +82,7 @@
                 android:layout_weight="10"
                 android:background="@drawable/border"
                 android:gravity="center"
-                android:text="VAT"
+                android:text="@string/vat"
                 android:textSize="@dimen/pozycjaFakturyTextSize" />
 
             <TextView
@@ -92,7 +92,7 @@
                 android:layout_weight="15"
                 android:background="@drawable/border"
                 android:gravity="center"
-                android:text="W. brut."
+                android:text="@string/wartosc_brutto"
                 android:textSize="@dimen/pozycjaFakturyTextSize" />
 
         </android.support.v7.widget.LinearLayoutCompat>

@@ -17,10 +17,10 @@ import retrofit2.http.POST;
 @Singleton
 class RemoteDataSource implements DataSource {
 
-    private Retrofit retrofit;
-    private Gson gson;
-    private OkHttpClient okHttpClient;
-    private ApiEndpoint api;
+    private final Retrofit retrofit;
+    private final Gson gson;
+    private final OkHttpClient okHttpClient;
+    private final ApiEndpoint api;
 
     @Inject
     RemoteDataSource(Retrofit retrofit, Gson gson, OkHttpClient okHttpClient) {
@@ -38,8 +38,8 @@ class RemoteDataSource implements DataSource {
     }
 
     @Override
-    public void getFaktury(Callback<ServerResponseFaktury> callback, String kontrahentReference, int offset) {
-        ServerQuery query = new ServerQuery("select faks.reference, faks.sym, faks.brutto, faks.netto, faks.tz, faks.vat, han.naz from faks join han on han.reference=faks.han where faks.brutto>0 and  kh='" + kontrahentReference + "' order by d offset " + offset + " rows FETCH NEXT 10 ROWS ONLY");
+    public void getFaktury(Callback<ServerResponseFaktury> callback, String kontrahentReference, int offset, String symbol) {
+        ServerQuery query = new ServerQuery("select faks.reference, faks.sym, faks.brutto, faks.netto, faks.tz, faks.vat, han.naz from faks join han on han.reference=faks.han where lower(faks.sym) like lower('" + symbol + "') and faks.brutto>0 and  kh='" + kontrahentReference + "' order by d offset " + offset + " rows FETCH NEXT 10 ROWS ONLY");
         Call<ServerResponseFaktury> call = api.getFaktury(query);
         call.enqueue(callback);
     }
@@ -58,10 +58,6 @@ class RemoteDataSource implements DataSource {
         @Headers("content-type: application/json")
         @POST("ProcExec/batch-query")
         Call<ServerResponseKontrahenci> getKontrahenci(@Body ServerQuery query);
-
-        @Headers("content-type: application/json")
-        @POST("ProcExec/batch-query")
-        Call<ServerResponseKontrahenci> searchKontrahenci(@Body ServerQuery query);
 
         @Headers("content-type: application/json")
         @POST("ProcExec/batch-query")

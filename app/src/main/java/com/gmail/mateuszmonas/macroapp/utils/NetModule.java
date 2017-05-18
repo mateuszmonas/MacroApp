@@ -56,7 +56,7 @@ public class NetModule {
 //added to okhttp as basic authentication header
 class AuthenticationInterceptor implements Interceptor {
 
-    private String authToken;
+    private final String authToken;
 
     AuthenticationInterceptor(String username, String password) {
         String pass = username + ":" + password;

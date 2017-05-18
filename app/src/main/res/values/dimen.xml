@@ -3,5 +3,4 @@
     <dimen name="textSize">16sp</dimen>
     <dimen name="margin">8dp</dimen>
     <dimen name="pozycjaFakturyTextSize">12sp</dimen>
-    <dimen name="appBarMargin">16dp</dimen>
 </resources>

@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 class KontrahenciAdapter extends RecyclerView.Adapter<KontrahenciAdapter.ViewHolder> {
 
     private List<Kontrahent> kontrahenci;
-    private KontrahenciFragment.KontrahenciListListener listener;
+    private final KontrahenciFragment.KontrahenciListListener listener;
 
     KontrahenciAdapter(List<Kontrahent> kontrahenci, KontrahenciFragment.KontrahenciListListener listener) {
         this.kontrahenci = kontrahenci;

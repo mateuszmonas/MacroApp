@@ -15,8 +15,8 @@ import retrofit2.Response;
 
 class KontrahenciPresenter implements KontrahenciContract.Presenter {
 
-    private KontrahenciContract.View view;
-    private DataRepository repository;
+    private final KontrahenciContract.View view;
+    private final DataRepository repository;
 
     @Inject
     KontrahenciPresenter(DataRepository repository, KontrahenciContract.View view) {

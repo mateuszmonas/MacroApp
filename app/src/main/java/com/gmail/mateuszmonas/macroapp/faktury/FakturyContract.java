@@ -21,13 +21,17 @@ interface FakturyContract {
 
         void setLoadingView(boolean visible);
 
+        void setSymbol(String symbol);
+
     }
 
     interface Presenter extends BasePresenter {
 
-        void loadFaktury(int offset);
+        void loadFaktury(int offset, String symbol);
 
         void openFakturaDetails(String fakturaReference);
+
+        void setSymbol(String symbol);
 
     }
 }

@@ -23,7 +23,7 @@ public class FakturyActivity extends AppCompatActivity {
     private static final String EXTRA_KONTRAHENT_REFERENCE = "KONTRAHENT_REFERENCE";
     private static final String EXTRA_KONTRAHENT_NAME = "KONTRAHENT_NAME";
 
-    boolean searched = false;
+    private boolean searched = false;
     @Inject
     FakturyPresenter presenter;
     @BindView(R.id.toolbar)
@@ -66,6 +66,7 @@ public class FakturyActivity extends AppCompatActivity {
         if (searched || !searchView.isIconified()) {
             searched = false;
             hideSerch();
+            presenter.setSymbol("");
         } else {
             super.onBackPressed();
         }
@@ -83,6 +84,7 @@ public class FakturyActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 searched=true;
                 hideSerch();
+                presenter.setSymbol(query);
                 return false;
             }
 

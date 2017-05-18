@@ -11,9 +11,9 @@ import retrofit2.Response;
 
 class FakturyPresenter implements FakturyContract.Presenter {
 
-    private DataRepository repository;
-    private FakturyContract.View view;
-    private String kontrahentReference;
+    private final DataRepository repository;
+    private final FakturyContract.View view;
+    private final String kontrahentReference;
 
     @Inject
     FakturyPresenter(DataRepository repository, FakturyContract.View view, String kontrahentReference) {
@@ -28,11 +28,11 @@ class FakturyPresenter implements FakturyContract.Presenter {
     }
 
     public void start() {
-        loadFaktury(0);
+        loadFaktury(0, "");
     }
 
     @Override
-    public void loadFaktury(int offset) {
+    public void loadFaktury(int offset, String symbol) {
 
         final boolean forceUpdate = offset==0;
         view.setLoadingView(true);
@@ -51,11 +51,16 @@ class FakturyPresenter implements FakturyContract.Presenter {
                 view.setBrakPolaczeniaView(true);
             }
         };
-        repository.getFaktury(callback, kontrahentReference, offset);
+        repository.getFaktury(callback, kontrahentReference, offset, symbol);
     }
 
     @Override
     public void openFakturaDetails(String fakturaReference) {
         view.showFakturaDetails(fakturaReference);
+    }
+
+    @Override
+    public void setSymbol(String symbol) {
+        view.setSymbol(symbol);
     }
 }

@@ -37,11 +37,13 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     RecyclerView kontrachenciRecyclerView;
     @BindView(R.id.swipeRefresh)
     ScrollChildSwipeRefreshLayout swipeRefreshLayout;
-    Unbinder unbinder;
-    int firstVisibleItem, visibleItemCount, totalItemCount;
+    private Unbinder unbinder;
+    private int firstVisibleItem;
+    private int visibleItemCount;
+    private int totalItemCount;
     private KontrahenciContract.Presenter presenter;
     private KontrahenciAdapter adapter;
-    KontrahenciListListener kontrahenciListListener = new KontrahenciListListener() {
+    private final KontrahenciListListener kontrahenciListListener = new KontrahenciListListener() {
         @Override
         public void onKontrachenClick(int id) {
             presenter.openFaktury(adapter.getKontrahent(id));
@@ -51,7 +53,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     private String nazwa = "";
     private int previousTotal = 0;
     private boolean loading = true;
-    private int visibleThreshold = 4;
+    private final int visibleThreshold = 4;
 
     public KontrahenciFragment() {
         // Required empty public constructor
@@ -159,6 +161,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     @Override
     public void setNazwa(String nazwa) {
         this.nazwa = nazwa;
+        presenter.loadKontrachenci(0, this.nazwa);
     }
 
     @Override

@@ -11,7 +11,7 @@ import com.gmail.mateuszmonas.macroapp.utils.NetModule;
 
 public class MacroApplication extends Application {
 
-    DataRepositoryComponent dataRepositoryComponent;
+    private DataRepositoryComponent dataRepositoryComponent;
 
     @Override
     public void onCreate() {

@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 
 public class FakturaDetailAdapter extends RecyclerView.Adapter<FakturaDetailAdapter.ViewHolder> {
 
-    private List<PozycjaFaktury> pozycjeFaktury = new ArrayList<>();
+    private final List<PozycjaFaktury> pozycjeFaktury = new ArrayList<>();
 
     public FakturaDetailAdapter(List<PozycjaFaktury> pozycjeFaktury) {
         setList(pozycjeFaktury);

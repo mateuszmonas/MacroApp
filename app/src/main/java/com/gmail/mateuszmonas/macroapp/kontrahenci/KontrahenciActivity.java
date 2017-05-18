@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 
 public class KontrahenciActivity extends AppCompatActivity {
 
-    boolean searched = false;
+    private boolean searched = false;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @Inject
@@ -57,7 +57,6 @@ public class KontrahenciActivity extends AppCompatActivity {
         if (searched || !searchView.isIconified()) {
             searched = false;
             presenter.setNazwa("");
-            presenter.loadKontrachenci(0, "");
             hideSerch();
         } else {
             super.onBackPressed();
@@ -74,7 +73,6 @@ public class KontrahenciActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 presenter.setNazwa(query);
-                presenter.loadKontrachenci(0, query);
                 hideSerch();
                 searched = true;
                 return false;

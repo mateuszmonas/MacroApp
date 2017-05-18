@@ -35,11 +35,13 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
     RecyclerView fakturyRecyclerViewer;
     @BindView(R.id.swipeRefresh)
     ScrollChildSwipeRefreshLayout swipeRefreshLayout;
-    FakturyAdapter adapter;
-    Unbinder unbinder;
-    FakturyContract.Presenter presenter;
-    int firstVisibleItem, visibleItemCount, totalItemCount;
-    FakturyListListener fakturyListListener = new FakturyListListener() {
+    private FakturyAdapter adapter;
+    private Unbinder unbinder;
+    private FakturyContract.Presenter presenter;
+    private int firstVisibleItem;
+    private int visibleItemCount;
+    private int totalItemCount;
+    private final FakturyListListener fakturyListListener = new FakturyListListener() {
         @Override
         public void onFakturaClick(String fakturaReference) {
             presenter.openFakturaDetails(fakturaReference);
@@ -47,7 +49,8 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
     };
     private int previousTotal = 0;
     private boolean loading = true;
-    private int visibleThreshold = 3;
+    private final int visibleThreshold = 3;
+    private String symbol = "";
 
     public FakturyFragment() {
         // Required empty public constructor
@@ -94,7 +97,7 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
                     }
                     if (!loading && (totalItemCount - visibleItemCount) < (firstVisibleItem + visibleThreshold)) {
 
-                        presenter.loadFaktury(adapter.getItemCount());
+                        presenter.loadFaktury(adapter.getItemCount(), symbol);
 
                         loading = true;
 
@@ -114,7 +117,7 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.loadFaktury(0);
+                presenter.loadFaktury(0, symbol);
             }
         });
 
@@ -124,7 +127,7 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
     @Override
     public void onResume() {
         super.onResume();
-        presenter.loadFaktury(adapter.getItemCount());
+        presenter.loadFaktury(adapter.getItemCount(), symbol);
     }
 
     @Override
@@ -190,4 +193,9 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
 
     }
 
+    @Override
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+        presenter.loadFaktury(0, this.symbol);
+    }
 }

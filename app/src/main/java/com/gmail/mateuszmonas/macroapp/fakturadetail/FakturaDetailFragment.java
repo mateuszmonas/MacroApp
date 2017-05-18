@@ -24,7 +24,7 @@ import butterknife.Unbinder;
 
 public class FakturaDetailFragment extends Fragment implements FakturaDetailContract.View {
 
-    FakturaDetailContract.Presenter presenter;
+    private FakturaDetailContract.Presenter presenter;
     @BindView(R.id.brakPolaczenia)
     TextView brakPolaczenia;
     @BindView(R.id.swipeRefresh)
@@ -39,8 +39,8 @@ public class FakturaDetailFragment extends Fragment implements FakturaDetailCont
     TextView nip;
     @BindView(R.id.suma)
     TextView suma;
-    FakturaDetailAdapter adapter;
-    Unbinder unbinder;
+    private FakturaDetailAdapter adapter;
+    private Unbinder unbinder;
 
     public FakturaDetailFragment() {
         // Required empty public constructor

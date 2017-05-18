@@ -15,12 +15,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FakturyAdapter extends RecyclerView.Adapter<FakturyAdapter.ViewHolder> {
+class FakturyAdapter extends RecyclerView.Adapter<FakturyAdapter.ViewHolder> {
 
     private List<Faktura> faktury;
-    private FakturyFragment.FakturyListListener listener;
+    private final FakturyFragment.FakturyListListener listener;
 
-    public FakturyAdapter(List<Faktura> faktury, FakturyFragment.FakturyListListener listener) {
+    FakturyAdapter(List<Faktura> faktury, FakturyFragment.FakturyListListener listener) {
         this.faktury = faktury;
         this.listener = listener;
     }
@@ -67,7 +67,7 @@ public class FakturyAdapter extends RecyclerView.Adapter<FakturyAdapter.ViewHold
         return faktury.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         final View view;
         Faktura item;
         @BindView(R.id.symbol)

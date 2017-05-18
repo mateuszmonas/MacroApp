@@ -8,7 +8,7 @@ public class FakturaDetailPresenterModule {
 
     private final FakturaDetailContract.View view;
 
-    private String fakturaReference;
+    private final String fakturaReference;
 
     public FakturaDetailPresenterModule(FakturaDetailContract.View view, String fakturaReference) {
         this.view = view;
