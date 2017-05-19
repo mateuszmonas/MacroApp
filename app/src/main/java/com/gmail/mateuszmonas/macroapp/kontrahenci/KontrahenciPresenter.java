@@ -2,21 +2,18 @@ package com.gmail.mateuszmonas.macroapp.kontrahenci;
 
 
 import com.gmail.mateuszmonas.macroapp.data.DataRepository;
+import com.gmail.mateuszmonas.macroapp.data.DataSource;
 import com.gmail.mateuszmonas.macroapp.data.Kontrahent;
-import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseKontrahenci;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 class KontrahenciPresenter implements KontrahenciContract.Presenter {
 
     private final KontrahenciContract.View view;
     private final DataRepository repository;
+    private boolean firstLoad = true;
 
     @Inject
     KontrahenciPresenter(DataRepository repository, KontrahenciContract.View view) {
@@ -31,32 +28,31 @@ class KontrahenciPresenter implements KontrahenciContract.Presenter {
 
     @Override
     public void start() {
-        loadKontrachenci(0, "");
+        if (firstLoad) {
+            loadKontrachenci(0, "");
+            firstLoad = false;
+        }
     }
 
 
     @Override
-    public void loadKontrachenci(int offset, String nazwa) {
-
-        final boolean forceUpdate = offset == 0;
+    public void loadKontrachenci(final int offset, String nazwa) {
 
         view.setLoadingView(true);
 
-        Callback<ServerResponseKontrahenci> callback = new Callback<ServerResponseKontrahenci>() {
+        repository.getKontrahenci(new DataSource.CallbackServerResponse<List<Kontrahent>>() {
             @Override
-            public void onResponse(Call<ServerResponseKontrahenci> call, Response<ServerResponseKontrahenci> response) {
+            public void onResponse(List<Kontrahent> response) {
                 view.setLoadingView(false);
-                List<Kontrahent> kontrahenci = response.body().getQ1().getData();
-                view.showKontrachenci(kontrahenci, forceUpdate);
+                view.showKontrachenci(response, offset == 0);
             }
 
             @Override
-            public void onFailure(Call<ServerResponseKontrahenci> call, Throwable t) {
+            public void onFailure() {
                 view.setLoadingView(false);
                 view.setBrakPolaczeniaView(true);
             }
-        };
-        repository.getKontrahenci(callback, offset, nazwa);
+        }, offset, nazwa);
     }
 
     @Override

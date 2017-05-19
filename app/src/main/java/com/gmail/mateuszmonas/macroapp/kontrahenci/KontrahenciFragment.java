@@ -29,6 +29,7 @@ import butterknife.Unbinder;
 public class KontrahenciFragment extends Fragment implements KontrahenciContract.View {
 
 
+    private final int visibleThreshold = 4;
     @BindView(R.id.brakPolaczenia)
     TextView brakPolaczenia;
     @BindView(R.id.brakKontrahentow)
@@ -53,7 +54,6 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     private String nazwa = "";
     private int previousTotal = 0;
     private boolean loading = true;
-    private final int visibleThreshold = 4;
 
     public KontrahenciFragment() {
         // Required empty public constructor
@@ -127,7 +127,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     @Override
     public void onResume() {
         super.onResume();
-        presenter.loadKontrachenci(adapter.getItemCount(), nazwa);
+        presenter.start();
     }
 
     @Override

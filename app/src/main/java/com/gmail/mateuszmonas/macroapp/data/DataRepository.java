@@ -3,9 +3,9 @@ package com.gmail.mateuszmonas.macroapp.data;
 
 import com.gmail.mateuszmonas.macroapp.data.remote.Remote;
 import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseDetaleFaktury;
-import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseFaktury;
-import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseKontrahenci;
 import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponsePozycjeFaktury;
+
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -23,12 +23,12 @@ public class DataRepository implements DataSource {
     }
 
     @Override
-    public void getKontrahenci(Callback<ServerResponseKontrahenci> callback, int offset, String nazwa) {
+    public void getKontrahenci(CallbackServerResponse<List<Kontrahent>> callback, int offset, String nazwa) {
         remoteDataSource.getKontrahenci(callback, offset, nazwa);
     }
 
     @Override
-    public void getFaktury(Callback<ServerResponseFaktury> callback, String kontrahentReference, int offset, String symbol) {
+    public void getFaktury(CallbackServerResponse<List<Faktura>> callback, String kontrahentReference, int offset, String symbol) {
         remoteDataSource.getFaktury(callback, kontrahentReference, offset, symbol);
     }
 
