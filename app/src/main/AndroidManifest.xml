@@ -5,9 +5,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:fullBackupContent="true"
         android:name=".MacroApplication"
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -20,9 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".fakturadetail.FakturaDetailActivity"
-            android:screenOrientation="landscape" />
+        <activity android:name=".fakturadetail.FakturaDetailActivity" />
         <activity android:name=".faktury.FakturyActivity" />
     </application>
 

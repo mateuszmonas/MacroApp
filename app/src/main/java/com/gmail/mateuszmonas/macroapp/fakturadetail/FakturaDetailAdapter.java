@@ -1,6 +1,7 @@
 package com.gmail.mateuszmonas.macroapp.fakturadetail;
 
 
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,20 +37,24 @@ class FakturaDetailAdapter extends RecyclerView.Adapter<FakturaDetailAdapter.Vie
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (position != 0) {
             PozycjaFaktury pozycjaFaktury = pozycjeFaktury.get(position);
-            holder.lp.setText(String.format(Locale.getDefault(), "%d", pozycjaFaktury.getPozycja()));
+            if (holder.lp != null && holder.jednostka != null && holder.cenaNetto != null) {
+                holder.lp.setText(String.format(Locale.getDefault(), "%d", pozycjaFaktury.getPozycja()));
+                holder.jednostka.setText(pozycjaFaktury.getJednostka());
+                holder.cenaNetto.setText(new DecimalFormat("0.00").format(pozycjaFaktury.getCenaNetto()));
+            }
             holder.nazwa.setText(pozycjaFaktury.getNazwa());
             holder.ilosc.setText(new DecimalFormat("#.##").format(pozycjaFaktury.getIlosc()));
-            holder.jednostka.setText(pozycjaFaktury.getJednostka());
-            holder.cenaNetto.setText(new DecimalFormat("0.00").format(pozycjaFaktury.getCenaNetto()));
             holder.wartNetto.setText(new DecimalFormat("0.00").format(pozycjaFaktury.getWartoscNetto()));
             holder.wartVAT.setText(new DecimalFormat("0.00").format(pozycjaFaktury.getWartoscVat()));
             holder.wartBrutto.setText(new DecimalFormat("0.00").format(pozycjaFaktury.getWartoscBrutto()));
         } else {
-            holder.lp.setText("lp");
+            if (holder.lp != null && holder.jednostka != null && holder.cenaNetto != null) {
+                holder.lp.setText("lp");
+                holder.jednostka.setText("JM");
+                holder.cenaNetto.setText("C. net.");
+            }
             holder.nazwa.setText("nazwa");
             holder.ilosc.setText("#");
-            holder.jednostka.setText("JM");
-            holder.cenaNetto.setText("C. net.");
             holder.wartNetto.setText("W. net.");
             holder.wartVAT.setText("VAT");
             holder.wartBrutto.setText("W. brut.");
@@ -75,14 +80,17 @@ class FakturaDetailAdapter extends RecyclerView.Adapter<FakturaDetailAdapter.Vie
     class ViewHolder extends RecyclerView.ViewHolder {
         final View view;
         @BindView(R.id.lp)
+        @Nullable
         TextView lp;
         @BindView(R.id.nazwa)
         TextView nazwa;
         @BindView(R.id.ilosc)
         TextView ilosc;
         @BindView(R.id.jednostka)
+        @Nullable
         TextView jednostka;
         @BindView(R.id.cenaNetto)
+        @Nullable
         TextView cenaNetto;
         @BindView(R.id.wartNetto)
         TextView wartNetto;
