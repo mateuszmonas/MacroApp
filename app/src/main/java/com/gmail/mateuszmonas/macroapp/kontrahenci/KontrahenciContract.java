@@ -26,7 +26,7 @@ interface KontrahenciContract {
 
     interface Presenter extends BasePresenter {
 
-        void loadKontrachenci(int offset, String nazwa);
+        void loadKontrachenci(int offset, String nazwa, boolean forceUpdate);
 
         void openFaktury(Kontrahent kontrahent);
 
