@@ -2,11 +2,13 @@ package com.gmail.mateuszmonas.macroapp.kontrahenci;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +40,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     RecyclerView kontrachenciRecyclerView;
     @BindView(R.id.swipeRefresh)
     ScrollChildSwipeRefreshLayout swipeRefreshLayout;
+    private String EXTRA_KONTRAHENT_NAME = "KONTRAHENT_NAME";
     private Unbinder unbinder;
     private int firstVisibleItem;
     private int visibleItemCount;
@@ -97,8 +100,12 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
                         }
                     }
                     if (!loading && (totalItemCount - visibleItemCount) < (firstVisibleItem + visibleThreshold)) {
-
-                        presenter.loadKontrachenci(adapter.getItemCount(), nazwa);
+                        try {
+                            presenter.loadKontrachenci(adapter.getItemCount(), nazwa, false);
+                        } catch (IllegalStateException e) {
+                            Log.w("RecyclerView", e.getLocalizedMessage());
+                            previousTotal = 0;
+                        }
 
                         loading = true;
 
@@ -117,7 +124,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.loadKontrachenci(0, nazwa);
+                presenter.loadKontrachenci(0, nazwa, true);
             }
         });
 
@@ -127,7 +134,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     @Override
     public void onResume() {
         super.onResume();
-        presenter.start();
+        presenter.loadKontrachenci(0, nazwa, false);
     }
 
     @Override
@@ -161,7 +168,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     @Override
     public void setNazwa(String nazwa) {
         this.nazwa = nazwa;
-        presenter.loadKontrachenci(0, this.nazwa);
+        presenter.loadKontrachenci(0, this.nazwa, true);
     }
 
     @Override
@@ -191,6 +198,20 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
         if (getView() != null) {
             swipeRefreshLayout.setRefreshing(visible);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString(EXTRA_KONTRAHENT_NAME, nazwa);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            nazwa = savedInstanceState.getString(EXTRA_KONTRAHENT_NAME);
+        }
+        super.onActivityCreated(savedInstanceState);
     }
 
     interface KontrahenciListListener {

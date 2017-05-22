@@ -18,11 +18,12 @@ import butterknife.ButterKnife;
 
 public class KontrahenciActivity extends AppCompatActivity {
 
-    private boolean searched = false;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @Inject
     KontrahenciPresenter presenter;
+    private String EXTRA_SEARCHED = "SEARCHED";
+    private boolean searched = false;
     private SearchView searchView;
     private MenuItem menuItem;
 
@@ -34,6 +35,10 @@ public class KontrahenciActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         toolbar.setTitle(R.string.kontrahenci);
         setSupportActionBar(toolbar);
+
+        if (savedInstanceState != null) {
+            searched = savedInstanceState.getBoolean(EXTRA_SEARCHED);
+        }
 
         KontrahenciFragment kontrahenciFragment =
                 (KontrahenciFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
@@ -84,6 +89,12 @@ public class KontrahenciActivity extends AppCompatActivity {
             }
         });
         return true;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(EXTRA_SEARCHED, searched);
+        super.onSaveInstanceState(outState);
     }
 
     private void hideSerch() {

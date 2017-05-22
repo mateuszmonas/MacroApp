@@ -13,7 +13,6 @@ class KontrahenciPresenter implements KontrahenciContract.Presenter {
 
     private final KontrahenciContract.View view;
     private final DataRepository repository;
-    private boolean firstLoad = true;
 
     @Inject
     KontrahenciPresenter(DataRepository repository, KontrahenciContract.View view) {
@@ -28,15 +27,16 @@ class KontrahenciPresenter implements KontrahenciContract.Presenter {
 
     @Override
     public void start() {
-        if (firstLoad) {
-            loadKontrachenci(0, "");
-            firstLoad = false;
-        }
+        loadKontrachenci(0, "", false);
     }
 
 
     @Override
-    public void loadKontrachenci(final int offset, String nazwa) {
+    public void loadKontrachenci(final int offset, String nazwa, boolean forceUpdate) {
+
+        if (forceUpdate) {
+            repository.refreschCache();
+        }
 
         view.setLoadingView(true);
 
