@@ -18,10 +18,10 @@ public class DataRepository implements DataSource {
     private final DetaleFaktury detaleFakturyCache = new DetaleFaktury();
     private final List<PozycjaFaktury> pozycjeFakturyCache = new ArrayList<>();
     private boolean kontrahentCacheDirty = true;
-    private String currentKontrachentReference = "";
+    private String cachedFakturyReference = "";
     private boolean fakturaCacheDirty = true;
     private boolean fakturaDetailCacheDirty = true;
-    private String currentFakturaReference = "";
+    private String cachedFakturaDetailReference = "";
 
     @Inject
     public DataRepository(@Remote DataSource remoteDataSource) {
@@ -30,6 +30,7 @@ public class DataRepository implements DataSource {
 
     @Override
     public void getKontrahenci(final CallbackServerResponse<List<Kontrahent>> callback, final int offset, String nazwa) {
+        //if cache size is not multiplicity of 10, it means that we reached the end of Kontrahents provided by server
         if (!kontrahentCacheDirty && !kontrahentCache.isEmpty() && (kontrahentCache.size() >= offset + 10 || kontrahentCache.size() % 10 != 0)) {
             if (kontrahentCache.size() % 10 != 0 && kontrahentCache.size() < offset + 10) {
                 callback.onResponse(kontrahentCache.subList(offset, kontrahentCache.size()));
@@ -58,7 +59,8 @@ public class DataRepository implements DataSource {
 
     @Override
     public void getFaktury(final CallbackServerResponse<List<Faktura>> callback, final String kontrahentReference, int offset, String symbol) {
-        if (!fakturaCacheDirty && !fakturaCache.isEmpty() && (fakturaCache.size() >= offset + 10 || fakturaCache.size() % 10 != 0) && currentKontrachentReference.equals(kontrahentReference)) {
+        //if cache size is not multiplicity of 10, it means that we reached the end of Fakturas provided by server
+        if (!fakturaCacheDirty && !fakturaCache.isEmpty() && (fakturaCache.size() >= offset + 10 || fakturaCache.size() % 10 != 0) && cachedFakturyReference.equals(kontrahentReference)) {
             if (fakturaCache.size() % 10 != 0 && fakturaCache.size() < offset + 10) {
                 callback.onResponse(fakturaCache.subList(offset, fakturaCache.size()));
             } else {
@@ -68,13 +70,13 @@ public class DataRepository implements DataSource {
             remoteDataSource.getFaktury(new CallbackServerResponse<List<Faktura>>() {
                 @Override
                 public void onResponse(List<Faktura> response) {
-                    if (fakturaCacheDirty || !currentKontrachentReference.equals(kontrahentReference)) {
+                    if (fakturaCacheDirty || !cachedFakturyReference.equals(kontrahentReference)) {
                         fakturaCache.clear();
                     }
                     fakturaCache.addAll(response);
                     callback.onResponse(response);
                     fakturaCacheDirty = false;
-                    currentKontrachentReference = kontrahentReference;
+                    cachedFakturyReference = kontrahentReference;
                 }
 
                 @Override
@@ -87,7 +89,7 @@ public class DataRepository implements DataSource {
 
     @Override
     public void getDetaleFaktury(final CallbackServerResponse<DetaleFaktury> detaleFakturyCallback, final CallbackServerResponse<List<PozycjaFaktury>> pozycjeFakturyCallback, final String fakturaReference) {
-        if (!fakturaDetailCacheDirty && currentFakturaReference.equals(fakturaReference)) {
+        if (!fakturaDetailCacheDirty && cachedFakturaDetailReference.equals(fakturaReference)) {
             detaleFakturyCallback.onResponse(detaleFakturyCache);
             pozycjeFakturyCallback.onResponse(pozycjeFakturyCache);
         } else {
@@ -96,7 +98,7 @@ public class DataRepository implements DataSource {
                 public void onResponse(DetaleFaktury response) {
                     detaleFakturyCache.setDetaleFaktury(response);
                     detaleFakturyCallback.onResponse(response);
-                    currentFakturaReference = fakturaReference;
+                    cachedFakturaDetailReference = fakturaReference;
                     fakturaDetailCacheDirty = false;
                 }
 

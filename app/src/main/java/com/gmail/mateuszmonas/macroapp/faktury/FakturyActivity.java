@@ -26,7 +26,6 @@ public class FakturyActivity extends AppCompatActivity {
     FakturyPresenter presenter;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    String kontrahentReference = "";
     private String EXTRA_SEARCHED = "SEARCHED";
     private boolean searched = false;
     private SearchView searchView;
@@ -53,7 +52,7 @@ public class FakturyActivity extends AppCompatActivity {
             searched = savedInstanceState.getBoolean(EXTRA_SEARCHED);
         }
 
-        kontrahentReference = getIntent().getStringExtra(EXTRA_KONTRAHENT_REFERENCE);
+        String kontrahentReference = getIntent().getStringExtra(EXTRA_KONTRAHENT_REFERENCE);
 
         FakturyFragment fragment =
                 (FakturyFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
@@ -68,6 +67,7 @@ public class FakturyActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        //if currently displays searched fakturas it goes back to displaying all of them
         if (searched || !searchView.isIconified()) {
             searched = false;
             hideSerch();
@@ -103,6 +103,7 @@ public class FakturyActivity extends AppCompatActivity {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
+        //save if currently displaying only searched facturas on orientation change
         outState.putBoolean(EXTRA_SEARCHED, searched);
         super.onSaveInstanceState(outState);
     }

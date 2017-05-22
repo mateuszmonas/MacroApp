@@ -167,6 +167,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
 
     @Override
     public void setNazwa(String nazwa) {
+        //set currently searched kontrahent nazwa and display them
         this.nazwa = nazwa;
         presenter.loadKontrachenci(0, this.nazwa, true);
     }
@@ -202,6 +203,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
+        //save name of currently searched kontrahent on orientation change
         outState.putString(EXTRA_KONTRAHENT_NAME, nazwa);
         super.onSaveInstanceState(outState);
     }

@@ -51,6 +51,7 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
     private int totalItemCount;
     private int previousTotal = 0;
     private boolean loading = true;
+    //reference to currently searched fakturas
     private String symbol = "";
     private String EXTRA_FAKTURA_SYMBOL = "FAKTURA_SYMBOL";
 
@@ -191,12 +192,14 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
 
     @Override
     public void setSymbol(String symbol) {
+        //change currently searched faktura symbol and display fakturas
         this.symbol = symbol;
         presenter.loadFaktury(0, this.symbol, true);
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
+        //save currently searched symbol on orientation change
         outState.putString(EXTRA_FAKTURA_SYMBOL, symbol);
         super.onSaveInstanceState(outState);
     }

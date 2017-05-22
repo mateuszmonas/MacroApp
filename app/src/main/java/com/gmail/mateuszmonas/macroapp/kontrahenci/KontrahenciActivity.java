@@ -59,6 +59,7 @@ public class KontrahenciActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        //if currently displays searched kontrahents it goes back to displaying all of them
         if (searched || !searchView.isIconified()) {
             searched = false;
             presenter.setNazwa("");
@@ -93,6 +94,7 @@ public class KontrahenciActivity extends AppCompatActivity {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
+        //save if currently displaying only searched kontrahents on orientation change
         outState.putBoolean(EXTRA_SEARCHED, searched);
         super.onSaveInstanceState(outState);
     }

@@ -47,7 +47,9 @@ class FakturaDetailAdapter extends RecyclerView.Adapter<FakturaDetailAdapter.Vie
             holder.wartNetto.setText(new DecimalFormat("0.00").format(pozycjaFaktury.getWartoscNetto()));
             holder.wartVAT.setText(new DecimalFormat("0.00").format(pozycjaFaktury.getWartoscVat()));
             holder.wartBrutto.setText(new DecimalFormat("0.00").format(pozycjaFaktury.getWartoscBrutto()));
-        } else {
+        }
+        //set the header row
+        else {
             if (holder.lp != null && holder.jednostka != null && holder.cenaNetto != null) {
                 holder.lp.setText("lp");
                 holder.jednostka.setText("JM");
@@ -73,6 +75,7 @@ class FakturaDetailAdapter extends RecyclerView.Adapter<FakturaDetailAdapter.Vie
 
     private void setList(List<PozycjaFaktury> pozycjeFaktury) {
         this.pozycjeFaktury.clear();
+        //add header row to the list
         this.pozycjeFaktury.add(new PozycjaFaktury());
         this.pozycjeFaktury.addAll(pozycjeFaktury);
     }
