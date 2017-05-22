@@ -74,7 +74,7 @@ public class FakturaDetailFragment extends Fragment implements FakturaDetailCont
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.loadDetaleFaktury();
+                presenter.loadDetaleFaktury(true);
             }
         });
 

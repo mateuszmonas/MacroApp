@@ -1,12 +1,6 @@
 package com.gmail.mateuszmonas.macroapp.data;
 
-
-import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseDetaleFaktury;
-import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponsePozycjeFaktury;
-
 import java.util.List;
-
-import retrofit2.Callback;
 
 public interface DataSource {
 
@@ -14,7 +8,7 @@ public interface DataSource {
 
     void getFaktury(CallbackServerResponse<List<Faktura>> callback, String kontrahentReference, int offset, String symbol);
 
-    void getDetaleFaktury(Callback<ServerResponseDetaleFaktury> detaleFakturyCallback, Callback<ServerResponsePozycjeFaktury> pozycjeFakturyCallback, String fakturaReference);
+    void getDetaleFaktury(CallbackServerResponse<DetaleFaktury> detaleFakturyCallback, CallbackServerResponse<List<PozycjaFaktury>> pozycjeFakturyCallback, String fakturaReference);
 
     interface CallbackServerResponse<T> {
 

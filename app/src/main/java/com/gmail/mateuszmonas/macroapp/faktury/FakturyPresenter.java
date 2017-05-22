@@ -34,7 +34,7 @@ class FakturyPresenter implements FakturyContract.Presenter {
     public void loadFaktury(final int offset, String symbol, boolean forceUpdate) {
 
         if (forceUpdate) {
-            repository.refreschFakturaCache();
+            repository.refreshFakturaCache();
         }
 
         view.setLoadingView(true);

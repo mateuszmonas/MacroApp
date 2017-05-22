@@ -1,8 +1,10 @@
 package com.gmail.mateuszmonas.macroapp.data.remote;
 
 import com.gmail.mateuszmonas.macroapp.data.DataSource;
+import com.gmail.mateuszmonas.macroapp.data.DetaleFaktury;
 import com.gmail.mateuszmonas.macroapp.data.Faktura;
 import com.gmail.mateuszmonas.macroapp.data.Kontrahent;
+import com.gmail.mateuszmonas.macroapp.data.PozycjaFaktury;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -70,13 +72,33 @@ class RemoteDataSource implements DataSource {
     }
 
     @Override
-    public void getDetaleFaktury(Callback<ServerResponseDetaleFaktury> detaleFakturyCallback, Callback<ServerResponsePozycjeFaktury> pozycjeFakturyCallback, String fakturaReference) {
+    public void getDetaleFaktury(final CallbackServerResponse<DetaleFaktury> detaleFakturyCallback, final CallbackServerResponse<List<PozycjaFaktury>> pozycjeFakturyCallback, String fakturaReference) {
         ServerQuery detaleFakturyQuery = new ServerQuery("select faks.brutto, faks.netto, faks.vat, kh.naz, kh.ul, kh.miasto, kh.kpocz, kh.nip from faks join kh on kh.reference=faks.kh where faks.reference='" + fakturaReference + "'");
         Call<ServerResponseDetaleFaktury> detaleFakturyCall = api.getDetaleKontrahenta(detaleFakturyQuery);
-        detaleFakturyCall.enqueue(detaleFakturyCallback);
+        detaleFakturyCall.enqueue(new Callback<ServerResponseDetaleFaktury>() {
+            @Override
+            public void onResponse(Call<ServerResponseDetaleFaktury> call, Response<ServerResponseDetaleFaktury> response) {
+                detaleFakturyCallback.onResponse(response.body().getQ1().getData().get(0));
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponseDetaleFaktury> call, Throwable t) {
+                detaleFakturyCallback.onFailure();
+            }
+        });
         ServerQuery pozycjeFakturyQuery = new ServerQuery("select m.n, fap.cn, fap.il, fap.poz, fap.wn, fap.wb, fap.wv, jm.naz from fap join jm on jm.reference=fap.jm join m on m.reference=fap.m where fap.faks='" + fakturaReference + "'");
         Call<ServerResponsePozycjeFaktury> pozycjeFakturyCall = api.getPozycjeFaktury(pozycjeFakturyQuery);
-        pozycjeFakturyCall.enqueue(pozycjeFakturyCallback);
+        pozycjeFakturyCall.enqueue(new Callback<ServerResponsePozycjeFaktury>() {
+            @Override
+            public void onResponse(Call<ServerResponsePozycjeFaktury> call, Response<ServerResponsePozycjeFaktury> response) {
+                pozycjeFakturyCallback.onResponse(response.body().getQ1().getData());
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponsePozycjeFaktury> call, Throwable t) {
+                detaleFakturyCallback.onFailure();
+            }
+        });
     }
 
     interface ApiEndpoint {

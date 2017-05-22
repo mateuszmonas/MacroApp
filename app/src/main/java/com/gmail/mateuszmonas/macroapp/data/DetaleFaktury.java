@@ -35,6 +35,18 @@ public class DetaleFaktury {
     @SerializedName("_")
     private int id;
 
+    void setDetaleFaktury(DetaleFaktury detaleFaktury) {
+        this.brutto = detaleFaktury.getBrutto();
+        this.miasto = detaleFaktury.getMiasto();
+        this.netto = detaleFaktury.getNetto();
+        this.nip = detaleFaktury.getNip();
+        this.nazwa = detaleFaktury.getNazwa();
+        this.ulica = detaleFaktury.getUlica();
+        this.kodPocztowy = detaleFaktury.getKodPocztowy();
+        this.vat = detaleFaktury.getVat();
+        this.id = detaleFaktury.getId();
+    }
+
     public double getBrutto() {
         return brutto;
     }

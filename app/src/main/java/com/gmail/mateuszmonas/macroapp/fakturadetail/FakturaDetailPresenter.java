@@ -2,14 +2,13 @@ package com.gmail.mateuszmonas.macroapp.fakturadetail;
 
 
 import com.gmail.mateuszmonas.macroapp.data.DataRepository;
-import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponseDetaleFaktury;
-import com.gmail.mateuszmonas.macroapp.data.remote.ServerResponsePozycjeFaktury;
+import com.gmail.mateuszmonas.macroapp.data.DataSource;
+import com.gmail.mateuszmonas.macroapp.data.DetaleFaktury;
+import com.gmail.mateuszmonas.macroapp.data.PozycjaFaktury;
+
+import java.util.List;
 
 import javax.inject.Inject;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 class FakturaDetailPresenter implements FakturaDetailContract.Presenter {
 
@@ -31,46 +30,44 @@ class FakturaDetailPresenter implements FakturaDetailContract.Presenter {
 
     @Override
     public void start() {
-        loadDetaleFaktury();
+        loadDetaleFaktury(false);
     }
 
     @Override
-    public void loadDetaleFaktury() {
+    public void loadDetaleFaktury(boolean forceUpdate) {
+
+        if (forceUpdate) {
+            repository.refreshFakturaDetailCache();
+        }
 
         view.setLoadingView(true);
 
-        Callback<ServerResponseDetaleFaktury> detaleFakturyCallback = new Callback<ServerResponseDetaleFaktury>() {
+        repository.getDetaleFaktury(new DataSource.CallbackServerResponse<DetaleFaktury>() {
             @Override
-            public void onResponse(Call<ServerResponseDetaleFaktury> call, Response<ServerResponseDetaleFaktury> response) {
-                view.showDetaleFaktury(response.body().getQ1().getData().get(0));
+            public void onResponse(DetaleFaktury response) {
+                view.showDetaleFaktury(response);
                 view.setBrakPolaczeniaView(false);
                 view.setLoadingView(false);
             }
 
             @Override
-            public void onFailure(Call<ServerResponseDetaleFaktury> call, Throwable t) {
+            public void onFailure() {
                 view.setBrakPolaczeniaView(true);
                 view.setLoadingView(false);
             }
-        };
-
-        Callback<ServerResponsePozycjeFaktury> pozycjeFakturyCallback = new Callback<ServerResponsePozycjeFaktury>() {
+        }, new DataSource.CallbackServerResponse<List<PozycjaFaktury>>() {
             @Override
-            public void onResponse(Call<ServerResponsePozycjeFaktury> call, Response<ServerResponsePozycjeFaktury> response) {
-                view.showPozycjeFaktury(response.body().getQ1().getData());
+            public void onResponse(List<PozycjaFaktury> response) {
+                view.showPozycjeFaktury(response);
                 view.setBrakPolaczeniaView(false);
                 view.setLoadingView(false);
             }
 
             @Override
-            public void onFailure(Call<ServerResponsePozycjeFaktury> call, Throwable t) {
-                t.printStackTrace();
+            public void onFailure() {
                 view.setBrakPolaczeniaView(true);
                 view.setLoadingView(false);
             }
-        };
-
-        repository.getDetaleFaktury(detaleFakturyCallback, pozycjeFakturyCallback, fakturaReference);
-
+        }, fakturaReference);
     }
 }

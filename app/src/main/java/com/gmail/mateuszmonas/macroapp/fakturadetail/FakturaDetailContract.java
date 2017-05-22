@@ -24,7 +24,7 @@ interface FakturaDetailContract {
 
     interface Presenter extends BasePresenter {
 
-        void loadDetaleFaktury();
+        void loadDetaleFaktury(boolean forceUpdate);
 
     }
 }

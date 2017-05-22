@@ -26,6 +26,7 @@ public class FakturyActivity extends AppCompatActivity {
     FakturyPresenter presenter;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    String kontrahentReference = "";
     private String EXTRA_SEARCHED = "SEARCHED";
     private boolean searched = false;
     private SearchView searchView;
@@ -52,7 +53,7 @@ public class FakturyActivity extends AppCompatActivity {
             searched = savedInstanceState.getBoolean(EXTRA_SEARCHED);
         }
 
-        String kontrahentReference = getIntent().getStringExtra(EXTRA_KONTRAHENT_REFERENCE);
+        kontrahentReference = getIntent().getStringExtra(EXTRA_KONTRAHENT_REFERENCE);
 
         FakturyFragment fragment =
                 (FakturyFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
