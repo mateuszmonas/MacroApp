@@ -22,12 +22,12 @@ public class FakturyActivity extends AppCompatActivity {
 
     private static final String EXTRA_KONTRAHENT_REFERENCE = "KONTRAHENT_REFERENCE";
     private static final String EXTRA_KONTRAHENT_NAME = "KONTRAHENT_NAME";
-
-    private boolean searched = false;
     @Inject
     FakturyPresenter presenter;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    private String EXTRA_SEARCHED = "SEARCHED";
+    private boolean searched = false;
     private SearchView searchView;
     private MenuItem menuItem;
 
@@ -47,6 +47,10 @@ public class FakturyActivity extends AppCompatActivity {
 
         toolbar.setTitle(getIntent().getStringExtra(EXTRA_KONTRAHENT_NAME));
         setSupportActionBar(toolbar);
+
+        if (savedInstanceState != null) {
+            searched = savedInstanceState.getBoolean(EXTRA_SEARCHED);
+        }
 
         String kontrahentReference = getIntent().getStringExtra(EXTRA_KONTRAHENT_REFERENCE);
 
@@ -94,6 +98,12 @@ public class FakturyActivity extends AppCompatActivity {
             }
         });
         return true;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(EXTRA_SEARCHED, searched);
+        super.onSaveInstanceState(outState);
     }
 
     private void hideSerch() {

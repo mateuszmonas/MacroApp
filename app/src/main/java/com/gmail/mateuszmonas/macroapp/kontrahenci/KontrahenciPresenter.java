@@ -35,7 +35,7 @@ class KontrahenciPresenter implements KontrahenciContract.Presenter {
     public void loadKontrachenci(final int offset, String nazwa, boolean forceUpdate) {
 
         if (forceUpdate) {
-            repository.refreschCache();
+            repository.refreschKontrahentCache();
         }
 
         view.setLoadingView(true);

@@ -18,7 +18,10 @@ public class DataRepository implements DataSource {
 
     private final DataSource remoteDataSource;
     private final List<Kontrahent> kontrahentCache = new ArrayList<>();
-    private boolean cacheDirty = true;
+    private final List<Faktura> fakturaCache = new ArrayList<>();
+    private boolean kontrahentCacheDirty = true;
+    private String currentKontrachentReference = "";
+    private boolean fakturaCacheDirty = true;
 
     @Inject
     public DataRepository(@Remote DataSource remoteDataSource) {
@@ -27,7 +30,7 @@ public class DataRepository implements DataSource {
 
     @Override
     public void getKontrahenci(final CallbackServerResponse<List<Kontrahent>> callback, final int offset, String nazwa) {
-        if (!cacheDirty && !kontrahentCache.isEmpty() && (kontrahentCache.size() >= offset + 10 || kontrahentCache.size() % 10 != 0)) {
+        if (!kontrahentCacheDirty && !kontrahentCache.isEmpty() && (kontrahentCache.size() >= offset + 10 || kontrahentCache.size() % 10 != 0)) {
             if (kontrahentCache.size() % 10 != 0 && kontrahentCache.size() < offset + 10) {
                 callback.onResponse(kontrahentCache.subList(offset, kontrahentCache.size()));
             } else {
@@ -37,12 +40,12 @@ public class DataRepository implements DataSource {
             remoteDataSource.getKontrahenci(new CallbackServerResponse<List<Kontrahent>>() {
                 @Override
                 public void onResponse(List<Kontrahent> response) {
-                    if (cacheDirty) {
+                    if (kontrahentCacheDirty) {
                         kontrahentCache.clear();
                     }
                     kontrahentCache.addAll(response);
                     callback.onResponse(response);
-                    cacheDirty = false;
+                    kontrahentCacheDirty = false;
                 }
 
                 @Override
@@ -54,8 +57,32 @@ public class DataRepository implements DataSource {
     }
 
     @Override
-    public void getFaktury(CallbackServerResponse<List<Faktura>> callback, String kontrahentReference, int offset, String symbol) {
-        remoteDataSource.getFaktury(callback, kontrahentReference, offset, symbol);
+    public void getFaktury(final CallbackServerResponse<List<Faktura>> callback, final String kontrahentReference, int offset, String symbol) {
+        if (!fakturaCacheDirty && !fakturaCache.isEmpty() && (fakturaCache.size() >= offset + 10 || fakturaCache.size() % 10 != 0) && currentKontrachentReference.equals(kontrahentReference)) {
+            if (kontrahentCache.size() % 10 != 0 && kontrahentCache.size() < offset + 10) {
+                callback.onResponse(fakturaCache.subList(offset, fakturaCache.size()));
+            } else {
+                callback.onResponse(fakturaCache.subList(offset, offset + 10));
+            }
+        } else {
+            remoteDataSource.getFaktury(new CallbackServerResponse<List<Faktura>>() {
+                @Override
+                public void onResponse(List<Faktura> response) {
+                    if (fakturaCacheDirty) {
+                        fakturaCache.clear();
+                    }
+                    fakturaCache.addAll(response);
+                    callback.onResponse(response);
+                    fakturaCacheDirty = false;
+                    currentKontrachentReference = kontrahentReference;
+                }
+
+                @Override
+                public void onFailure() {
+                    callback.onFailure();
+                }
+            }, kontrahentReference, offset, symbol);
+        }
     }
 
     @Override
@@ -63,7 +90,11 @@ public class DataRepository implements DataSource {
         remoteDataSource.getDetaleFaktury(detaleFakturyCallback, pozycjeFakturyCallback, fakturaReference);
     }
 
-    public void refreschCache() {
-        cacheDirty = true;
+    public void refreschKontrahentCache() {
+        kontrahentCacheDirty = true;
+    }
+
+    public void refreschFakturaCache() {
+        fakturaCacheDirty = true;
     }
 }

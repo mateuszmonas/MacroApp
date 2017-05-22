@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 
 class FakturyAdapter extends RecyclerView.Adapter<FakturyAdapter.ViewHolder> {
 
-    private List<Faktura> faktury;
+    private final List<Faktura> faktury;
     private final FakturyFragment.FakturyListListener listener;
 
     FakturyAdapter(List<Faktura> faktury, FakturyFragment.FakturyListListener listener) {
@@ -55,10 +55,9 @@ class FakturyAdapter extends RecyclerView.Adapter<FakturyAdapter.ViewHolder> {
 
     private void setList(List<Faktura> faktury, boolean forceUpdate) {
         if (forceUpdate) {
-            this.faktury = faktury;
-        } else {
-            this.faktury.addAll(faktury);
+            this.faktury.clear();
         }
+        this.faktury.addAll(faktury);
     }
 
     @Override

@@ -13,7 +13,6 @@ class FakturyPresenter implements FakturyContract.Presenter {
     private final DataRepository repository;
     private final FakturyContract.View view;
     private final String kontrahentReference;
-    private boolean firstLoad = true;
 
     @Inject
     FakturyPresenter(DataRepository repository, FakturyContract.View view, String kontrahentReference) {
@@ -28,14 +27,15 @@ class FakturyPresenter implements FakturyContract.Presenter {
     }
 
     public void start() {
-        if (firstLoad) {
-            loadFaktury(0, "");
-            firstLoad = false;
-        }
+        loadFaktury(0, "", false);
     }
 
     @Override
-    public void loadFaktury(final int offset, String symbol) {
+    public void loadFaktury(final int offset, String symbol, boolean forceUpdate) {
+
+        if (forceUpdate) {
+            repository.refreschFakturaCache();
+        }
 
         view.setLoadingView(true);
 
