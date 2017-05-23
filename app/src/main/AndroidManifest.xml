@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".fakturadetail.FakturaDetailActivity" />
         <activity android:name=".faktury.FakturyActivity" />
+        <activity android:name=".fakturasearch.FakturaSearchActivity" />
     </application>
 
 </manifest>

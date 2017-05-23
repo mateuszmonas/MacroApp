@@ -15,4 +15,9 @@
     <string name="vat">VAT</string>
     <string name="wartosc_brutto">W. brut.</string>
     <string name="wartosc_netto">W.net.</string>
+    <string name="dateMin">1900.01.01</string>
+    <string name="dateMax">2099.12.31</string>
+    <string name="cenaMax">cena max</string>
+    <string name="cenaMin">cena min</string>
+    <string name="symbolHint">symbol</string>
 </resources>

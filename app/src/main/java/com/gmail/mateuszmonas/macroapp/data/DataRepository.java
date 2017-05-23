@@ -2,6 +2,7 @@ package com.gmail.mateuszmonas.macroapp.data;
 
 
 import com.gmail.mateuszmonas.macroapp.data.remote.Remote;
+import com.gmail.mateuszmonas.macroapp.fakturasearch.FakturaSearchParameters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,9 @@ public class DataRepository implements DataSource {
             remoteDataSource.getKontrahenci(new CallbackServerResponse<List<Kontrahent>>() {
                 @Override
                 public void onResponse(List<Kontrahent> response) {
+                    if (response == null) {
+                        response = new ArrayList<>();
+                    }
                     if (kontrahentCacheDirty) {
                         kontrahentCache.clear();
                     }
@@ -58,7 +62,7 @@ public class DataRepository implements DataSource {
     }
 
     @Override
-    public void getFaktury(final CallbackServerResponse<List<Faktura>> callback, final String kontrahentReference, int offset, String symbol) {
+    public void getFaktury(final CallbackServerResponse<List<Faktura>> callback, final String kontrahentReference, int offset, FakturaSearchParameters searchParameters) {
         //if cache size is not multiplicity of 10, it means that we reached the end of Fakturas provided by server
         if (!fakturaCacheDirty && !fakturaCache.isEmpty() && (fakturaCache.size() >= offset + 10 || fakturaCache.size() % 10 != 0) && cachedFakturyReference.equals(kontrahentReference)) {
             if (fakturaCache.size() % 10 != 0 && fakturaCache.size() < offset + 10) {
@@ -70,6 +74,9 @@ public class DataRepository implements DataSource {
             remoteDataSource.getFaktury(new CallbackServerResponse<List<Faktura>>() {
                 @Override
                 public void onResponse(List<Faktura> response) {
+                    if (response == null) {
+                        response = new ArrayList<>();
+                    }
                     if (fakturaCacheDirty || !cachedFakturyReference.equals(kontrahentReference)) {
                         fakturaCache.clear();
                     }
@@ -83,7 +90,7 @@ public class DataRepository implements DataSource {
                 public void onFailure() {
                     callback.onFailure();
                 }
-            }, kontrahentReference, offset, symbol);
+            }, kontrahentReference, offset, searchParameters);
         }
     }
 
@@ -96,6 +103,9 @@ public class DataRepository implements DataSource {
             remoteDataSource.getDetaleFaktury(new CallbackServerResponse<DetaleFaktury>() {
                 @Override
                 public void onResponse(DetaleFaktury response) {
+                    if (response == null) {
+                        response = new DetaleFaktury();
+                    }
                     detaleFakturyCache.setDetaleFaktury(response);
                     detaleFakturyCallback.onResponse(response);
                     cachedFakturaDetailReference = fakturaReference;
@@ -109,6 +119,9 @@ public class DataRepository implements DataSource {
             }, new CallbackServerResponse<List<PozycjaFaktury>>() {
                 @Override
                 public void onResponse(List<PozycjaFaktury> response) {
+                    if (response == null) {
+                        response = new ArrayList<>();
+                    }
                     pozycjeFakturyCache.clear();
                     pozycjeFakturyCache.addAll(response);
                     pozycjeFakturyCallback.onResponse(response);

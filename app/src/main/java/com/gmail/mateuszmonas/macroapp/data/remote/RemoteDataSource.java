@@ -5,6 +5,7 @@ import com.gmail.mateuszmonas.macroapp.data.DetaleFaktury;
 import com.gmail.mateuszmonas.macroapp.data.Faktura;
 import com.gmail.mateuszmonas.macroapp.data.Kontrahent;
 import com.gmail.mateuszmonas.macroapp.data.PozycjaFaktury;
+import com.gmail.mateuszmonas.macroapp.fakturasearch.FakturaSearchParameters;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -54,9 +55,19 @@ class RemoteDataSource implements DataSource {
         });
     }
 
+    //// TODO: 2017-05-23 Nie można porównać wartości łańcuchowej i daty
     @Override
-    public void getFaktury(final CallbackServerResponse<List<Faktura>> callback, String kontrahentReference, int offset, String symbol) {
-        ServerQuery query = new ServerQuery("select faks.reference, faks.sym, faks.brutto, faks.netto, faks.tz, faks.vat, han.naz from faks join han on han.reference=faks.han where lower(faks.sym) like lower('%" + symbol + "%') and faks.brutto>0 and  kh='" + kontrahentReference + "' order by d offset " + offset + " rows FETCH NEXT 10 ROWS ONLY");
+    public void getFaktury(final CallbackServerResponse<List<Faktura>> callback, String kontrahentReference, int offset, FakturaSearchParameters searchParameters) {
+        ServerQuery query = new ServerQuery("select faks.reference, faks.sym, faks.brutto, faks.netto, faks.tz, faks.vat, han.naz " +
+                "from faks join han on han.reference=faks.han " +
+                "where lower(faks.sym) like lower('%" + searchParameters.getSymbol() + "%') " +
+                "and faks.brutto>" + searchParameters.getCenaMin() + " " +
+                "and faks.brutto<" + searchParameters.getCenaMax() + " " +
+                //"and faks.tz>'" + searchParameters.getDateMin() + "' " +
+                //"and faks.tz<'" + searchParameters.getDateMax() + "' " +
+                "and kh='" + kontrahentReference + "' " +
+                "order by tz " +
+                "offset " + offset + " rows FETCH NEXT 10 ROWS ONLY");
         Call<ServerResponseFaktury> call = api.getFaktury(query);
         call.enqueue(new Callback<ServerResponseFaktury>() {
             @Override

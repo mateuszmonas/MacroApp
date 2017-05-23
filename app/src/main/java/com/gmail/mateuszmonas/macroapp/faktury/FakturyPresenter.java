@@ -3,6 +3,7 @@ package com.gmail.mateuszmonas.macroapp.faktury;
 import com.gmail.mateuszmonas.macroapp.data.DataRepository;
 import com.gmail.mateuszmonas.macroapp.data.DataSource;
 import com.gmail.mateuszmonas.macroapp.data.Faktura;
+import com.gmail.mateuszmonas.macroapp.fakturasearch.FakturaSearchParameters;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ class FakturyPresenter implements FakturyContract.Presenter {
     private final DataRepository repository;
     private final FakturyContract.View view;
     private final String kontrahentReference;
+    private FakturaSearchParameters searchParameters = new FakturaSearchParameters();
 
     @Inject
     FakturyPresenter(DataRepository repository, FakturyContract.View view, String kontrahentReference) {
@@ -27,11 +29,11 @@ class FakturyPresenter implements FakturyContract.Presenter {
     }
 
     public void start() {
-        loadFaktury(0, "", false);
+        loadFaktury(0, false);
     }
 
     @Override
-    public void loadFaktury(final int offset, String symbol, boolean forceUpdate) {
+    public void loadFaktury(final int offset, boolean forceUpdate) {
 
         if (forceUpdate) {
             repository.refreshFakturaCache();
@@ -51,7 +53,7 @@ class FakturyPresenter implements FakturyContract.Presenter {
                 view.setLoadingView(false);
                 view.setBrakPolaczeniaView(true);
             }
-        }, kontrahentReference, offset, symbol);
+        }, kontrahentReference, offset, searchParameters);
     }
 
     @Override
@@ -60,7 +62,13 @@ class FakturyPresenter implements FakturyContract.Presenter {
     }
 
     @Override
-    public void setSymbol(String symbol) {
-        view.setSymbol(symbol);
+    public FakturaSearchParameters getSearchParameters() {
+        return searchParameters;
+    }
+
+    @Override
+    public void setSearchParameters(FakturaSearchParameters searchParameters) {
+        this.searchParameters = searchParameters;
+        loadFaktury(0, true);
     }
 }

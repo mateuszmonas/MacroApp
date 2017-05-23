@@ -3,7 +3,6 @@ package com.gmail.mateuszmonas.macroapp.faktury;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -51,8 +50,6 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
     private int totalItemCount;
     private int previousTotal = 0;
     private boolean loading = true;
-    //reference to currently searched fakturas
-    private String symbol = "";
     private String EXTRA_FAKTURA_SYMBOL = "FAKTURA_SYMBOL";
 
     public FakturyFragment() {
@@ -100,7 +97,7 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
                     }
                     if (!loading && (totalItemCount - visibleItemCount) < (firstVisibleItem + visibleThreshold)) {
 
-                        presenter.loadFaktury(adapter.getItemCount(), symbol, false);
+                        presenter.loadFaktury(adapter.getItemCount(), false);
 
                         loading = true;
 
@@ -120,7 +117,7 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.loadFaktury(0, symbol, true);
+                presenter.loadFaktury(0, true);
             }
         });
 
@@ -130,7 +127,7 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
     @Override
     public void onResume() {
         super.onResume();
-        presenter.loadFaktury(0, symbol, false);
+        presenter.start();
     }
 
     @Override
@@ -188,29 +185,6 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
         if (getView() != null) {
             swipeRefreshLayout.setRefreshing(visible);
         }
-    }
-
-    @Override
-    public void setSymbol(String symbol) {
-        //change currently searched faktura symbol and display fakturas
-        this.symbol = symbol;
-        presenter.loadFaktury(0, this.symbol, true);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        //save currently searched symbol on orientation change
-        outState.putString(EXTRA_FAKTURA_SYMBOL, symbol);
-        super.onSaveInstanceState(outState);
-    }
-
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            symbol = savedInstanceState.getString(EXTRA_FAKTURA_SYMBOL);
-        }
-        super.onActivityCreated(savedInstanceState);
     }
 
     interface FakturyListListener {

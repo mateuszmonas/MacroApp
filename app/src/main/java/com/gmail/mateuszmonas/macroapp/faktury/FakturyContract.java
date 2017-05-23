@@ -4,6 +4,7 @@ package com.gmail.mateuszmonas.macroapp.faktury;
 import com.gmail.mateuszmonas.macroapp.BasePresenter;
 import com.gmail.mateuszmonas.macroapp.BaseView;
 import com.gmail.mateuszmonas.macroapp.data.Faktura;
+import com.gmail.mateuszmonas.macroapp.fakturasearch.FakturaSearchParameters;
 
 import java.util.List;
 
@@ -21,17 +22,17 @@ interface FakturyContract {
 
         void setLoadingView(boolean visible);
 
-        void setSymbol(String symbol);
-
     }
 
     interface Presenter extends BasePresenter {
 
-        void loadFaktury(int offset, String symbol, boolean forceUpdate);
+        void loadFaktury(int offset, boolean forceUpdate);
 
         void openFakturaDetails(String fakturaReference);
 
-        void setSymbol(String symbol);
+        FakturaSearchParameters getSearchParameters();
+
+        void setSearchParameters(FakturaSearchParameters searchParameters);
 
     }
 }
