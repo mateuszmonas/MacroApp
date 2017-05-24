@@ -68,7 +68,10 @@ class FakturyPresenter implements FakturyContract.Presenter {
     }
 
     @Override
-    public void setSearchParameters(FakturaSearchParameters searchParameters) {
+    public void setSearchParameters(FakturaSearchParameters searchParameters, boolean refreshCache) {
+        if (refreshCache) {
+            repository.refreshFakturaCache();
+        }
         this.searchParameters = searchParameters;
     }
 }

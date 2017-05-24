@@ -80,14 +80,11 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
         fakturyRecyclerViewer.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-
                 super.onScrolled(recyclerView, dx, dy);
-
                 if (dy > 0) {
                     visibleItemCount = fakturyRecyclerViewer.getChildCount();
                     totalItemCount = layoutManager.getItemCount();
                     firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
-
                     if (loading) {
                         if (totalItemCount > previousTotal) {
                             loading = false;
@@ -95,11 +92,8 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
                         }
                     }
                     if (!loading && (totalItemCount - visibleItemCount) < (firstVisibleItem + visibleThreshold)) {
-
                         presenter.loadFaktury(adapter.getItemCount(), false);
-
                         loading = true;
-
                     }
                 }
             }

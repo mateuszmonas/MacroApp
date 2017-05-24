@@ -66,7 +66,7 @@ public class FakturyActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             searched = savedInstanceState.getBoolean(EXTRA_SEARCHED);
             FakturaSearchParameters searchParameters = savedInstanceState.getParcelable(EXTRA_SEARCH_PARAMETERS);
-            presenter.setSearchParameters(searchParameters);
+            presenter.setSearchParameters(searchParameters, false);
         }
     }
 
@@ -75,7 +75,7 @@ public class FakturyActivity extends AppCompatActivity {
         //if currently displays searched fakturas it goes back to displaying all of them
         if (searched) {
             searched = false;
-            presenter.setSearchParameters(new FakturaSearchParameters());
+            presenter.setSearchParameters(new FakturaSearchParameters(), true);
             presenter.loadFaktury(0, true);
         } else {
             super.onBackPressed();
@@ -105,8 +105,8 @@ public class FakturyActivity extends AppCompatActivity {
         if (requestCode == SEARCH_REQUEST) {
             if (resultCode == RESULT_OK) {
                 FakturaSearchParameters searchParameters = data.getParcelableExtra(EXTRA_SEARCH_PARAMETERS);
-                presenter.setSearchParameters(searchParameters);
-                presenter.loadFaktury(0, true);
+                presenter.setSearchParameters(searchParameters, true);
+                //presenter.loadFaktury(0, true);
                 searched=true;
             }
         }

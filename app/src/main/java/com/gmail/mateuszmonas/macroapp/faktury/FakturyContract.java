@@ -32,7 +32,7 @@ interface FakturyContract {
 
         FakturaSearchParameters getSearchParameters();
 
-        void setSearchParameters(FakturaSearchParameters searchParameters);
+        void setSearchParameters(FakturaSearchParameters searchParameters, boolean refreshCache);
 
     }
 }

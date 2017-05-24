@@ -59,6 +59,25 @@ public class FakturaSearchParameters implements Parcelable {
         dest.writeString(this.cenaMax);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        FakturaSearchParameters fsp = (FakturaSearchParameters) obj;
+        return symbol.equals(fsp.symbol) &&
+                dateMin.equals(fsp.dateMin) &&
+                dateMax.equals(fsp.dateMax) &&
+                cenaMin.equals(fsp.cenaMin) &&
+                cenaMax.equals(fsp.cenaMax);
+    }
+
     public String getSymbol() {
         return symbol;
     }
