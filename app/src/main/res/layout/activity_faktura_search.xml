@@ -27,18 +27,25 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <EditText
-            android:id="@+id/symbol"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/symbolLayout"
             style="@style/searchTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/symbolHint"
-            android:inputType="textPersonName"
-            android:nextFocusDown="@+id/cenaMin"
             app:layout_constraintBottom_toTopOf="@+id/dateMax"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/symbol"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/symbolHint"
+                android:inputType="textPersonName"
+                android:nextFocusDown="@+id/cenaMin" />
+
+        </android.support.design.widget.TextInputLayout>
 
         <TextView
             android:id="@+id/dateMin"
@@ -47,10 +54,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:text="@string/dateMin"
-            app:layout_constraintBottom_toTopOf="@+id/cenaMin"
+            app:layout_constraintBottom_toTopOf="@+id/cenaMinLayout"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/dateMax"
-            app:layout_constraintTop_toBottomOf="@+id/symbol" />
+            app:layout_constraintTop_toBottomOf="@+id/symbolLayout" />
 
         <TextView
             android:id="@+id/dateMax"
@@ -59,47 +66,60 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:text="@string/dateMax"
-            app:layout_constraintBottom_toTopOf="@+id/cenaMax"
+            app:layout_constraintBottom_toTopOf="@+id/cenaMaxLayout"
             app:layout_constraintLeft_toRightOf="@+id/dateMin"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/symbol" />
+            app:layout_constraintTop_toBottomOf="@+id/symbolLayout" />
 
-        <EditText
-            android:id="@+id/cenaMin"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/cenaMinLayout"
             style="@style/searchTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/cenaMin"
-            android:imeOptions="actionNext"
-            android:inputType="number"
-            android:nextFocusForward="@+id/cenaMax"
             app:layout_constraintBottom_toTopOf="@+id/searchFaktury"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/cenaMax"
-            app:layout_constraintTop_toBottomOf="@+id/dateMin" />
+            app:layout_constraintRight_toLeftOf="@id/cenaMaxLayout"
+            app:layout_constraintTop_toBottomOf="@+id/dateMin">
 
-        <EditText
-            android:id="@+id/cenaMax"
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/cenaMin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/cenaMin"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:nextFocusForward="@+id/cenaMax" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/cenaMaxLayout"
             style="@style/searchTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/cenaMax"
-            android:inputType="number"
             app:layout_constraintBottom_toTopOf="@+id/searchFaktury"
-            app:layout_constraintLeft_toRightOf="@+id/cenaMin"
+            app:layout_constraintLeft_toRightOf="@+id/cenaMinLayout"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dateMax" />
+            app:layout_constraintTop_toBottomOf="@+id/dateMax">
 
-        <Button
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/cenaMax"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/cenaMax"
+                android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/searchFaktury"
             style="@style/searchTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/szukaj"
+            app:backgroundTint="@color/colorPrimaryLight"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cenaMax" />
+            app:layout_constraintTop_toBottomOf="@id/cenaMaxLayout" />
 
     </android.support.constraint.ConstraintLayout>
 
