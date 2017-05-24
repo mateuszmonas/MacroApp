@@ -50,7 +50,6 @@ public class FakturyFragment extends Fragment implements FakturyContract.View {
     private int totalItemCount;
     private int previousTotal = 0;
     private boolean loading = true;
-    private String EXTRA_FAKTURA_SYMBOL = "FAKTURA_SYMBOL";
 
     public FakturyFragment() {
         // Required empty public constructor

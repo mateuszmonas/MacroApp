@@ -57,10 +57,10 @@ public class FakturaSearchActivity extends AppCompatActivity {
         DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String date = String.format(Locale.getDefault(), "%d.%d.%d", year, month, dayOfMonth);
+                String date = String.format(Locale.getDefault(), "%d—%02d—%02d", year, month + 1, dayOfMonth);
                 textView.setText(date);
             }
-        }, 1970, 1, 1);
+        }, 2003, 0, 1);
         dialog.show();
     }
 
@@ -70,8 +70,8 @@ public class FakturaSearchActivity extends AppCompatActivity {
         data.putExtra(EXTRA_SEARCH_PARAMETERS, new FakturaSearchParameters(
                 symbol.getText().toString(),
                 dateMin.getText().toString(),
-                dateMax.getText().toString().replace(".", ""),
-                cenaMin.getText().toString().replace(".", ""),
+                dateMax.getText().toString(),
+                cenaMin.getText().toString(),
                 cenaMax.getText().toString()
         ));
         setResult(RESULT_OK, data);

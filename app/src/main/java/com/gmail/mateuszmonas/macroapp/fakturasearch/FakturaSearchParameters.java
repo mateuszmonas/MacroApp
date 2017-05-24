@@ -23,16 +23,16 @@ public class FakturaSearchParameters implements Parcelable {
 
     FakturaSearchParameters(String symbol, String dateMin, String dateMax, String cenaMin, String cenaMax) {
         this.symbol = symbol;
-        this.dateMin = dateMin;
-        this.dateMax = dateMax;
+        this.dateMin = dateMin.replace("—", "-");
+        this.dateMax = dateMax.replace("—", "-");
         this.cenaMin = !cenaMin.isEmpty() ? cenaMin : "0";
         this.cenaMax = !cenaMax.isEmpty() ? cenaMax : "2147483647";
     }
 
     public FakturaSearchParameters() {
         this.symbol = "";
-        this.dateMin = "19000101";
-        this.dateMax = "20991231";
+        this.dateMin = "1900-01-01";
+        this.dateMax = "2100-12-31";
         this.cenaMin = "0";
         this.cenaMax = "2147483647";
     }

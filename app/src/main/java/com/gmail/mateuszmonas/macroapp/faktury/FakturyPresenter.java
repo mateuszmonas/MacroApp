@@ -28,6 +28,7 @@ class FakturyPresenter implements FakturyContract.Presenter {
         view.setPresenter(this);
     }
 
+    @Override
     public void start() {
         loadFaktury(0, false);
     }
@@ -69,6 +70,5 @@ class FakturyPresenter implements FakturyContract.Presenter {
     @Override
     public void setSearchParameters(FakturaSearchParameters searchParameters) {
         this.searchParameters = searchParameters;
-        loadFaktury(0, true);
     }
 }

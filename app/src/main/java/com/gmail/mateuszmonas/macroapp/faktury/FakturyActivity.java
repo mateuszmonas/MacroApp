@@ -76,6 +76,7 @@ public class FakturyActivity extends AppCompatActivity {
         if (searched) {
             searched = false;
             presenter.setSearchParameters(new FakturaSearchParameters());
+            presenter.loadFaktury(0, true);
         } else {
             super.onBackPressed();
         }
@@ -105,6 +106,7 @@ public class FakturyActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 FakturaSearchParameters searchParameters = data.getParcelableExtra(EXTRA_SEARCH_PARAMETERS);
                 presenter.setSearchParameters(searchParameters);
+                presenter.loadFaktury(0, true);
                 searched=true;
             }
         }
