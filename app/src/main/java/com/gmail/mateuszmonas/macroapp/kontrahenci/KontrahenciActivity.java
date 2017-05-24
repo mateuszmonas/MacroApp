@@ -18,11 +18,12 @@ import butterknife.ButterKnife;
 
 public class KontrahenciActivity extends AppCompatActivity {
 
+    private static final String EXTRA_SEARCHED = "SEARCHED";
+    private static final String EXTRA_SEARCH_PARAMETERS = "SEARCH_PARAMETERS";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @Inject
     KontrahenciPresenter presenter;
-    private String EXTRA_SEARCHED = "SEARCHED";
     private boolean searched = false;
     private SearchView searchView;
     private MenuItem menuItem;
@@ -35,10 +36,6 @@ public class KontrahenciActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         toolbar.setTitle(R.string.kontrahenci);
         setSupportActionBar(toolbar);
-
-        if (savedInstanceState != null) {
-            searched = savedInstanceState.getBoolean(EXTRA_SEARCHED);
-        }
 
         KontrahenciFragment kontrahenciFragment =
                 (KontrahenciFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
@@ -55,6 +52,13 @@ public class KontrahenciActivity extends AppCompatActivity {
                         ((MacroApplication) getApplication()).getDataRepositoryComponent()
                 ).kontrahenciPresenterModule(new KontrahenciPresenterModule(kontrahenciFragment))
                 .build().inject(this);
+
+
+        if (savedInstanceState != null) {
+            searched = savedInstanceState.getBoolean(EXTRA_SEARCHED);
+            String nazwa = savedInstanceState.getString(EXTRA_SEARCH_PARAMETERS);
+            presenter.setNazwa(nazwa, false);
+        }
     }
 
     @Override
@@ -62,7 +66,8 @@ public class KontrahenciActivity extends AppCompatActivity {
         //if currently displays searched kontrahents it goes back to displaying all of them
         if (searched || !searchView.isIconified()) {
             searched = false;
-            presenter.setNazwa("");
+            presenter.setNazwa("", true);
+            presenter.loadKontrachenci(0, true);
             hideSerch();
         } else {
             super.onBackPressed();
@@ -78,7 +83,8 @@ public class KontrahenciActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                presenter.setNazwa(query);
+                presenter.setNazwa(query, true);
+                presenter.loadKontrachenci(0, true);
                 hideSerch();
                 searched = true;
                 return false;
@@ -96,6 +102,7 @@ public class KontrahenciActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle outState) {
         //save if currently displaying only searched kontrahents on orientation change
         outState.putBoolean(EXTRA_SEARCHED, searched);
+        outState.putString(EXTRA_SEARCH_PARAMETERS, presenter.getNazwa());
         super.onSaveInstanceState(outState);
     }
 

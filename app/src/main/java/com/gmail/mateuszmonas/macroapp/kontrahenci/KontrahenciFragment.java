@@ -101,7 +101,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
                     }
                     if (!loading && (totalItemCount - visibleItemCount) < (firstVisibleItem + visibleThreshold)) {
                         try {
-                            presenter.loadKontrachenci(adapter.getItemCount(), nazwa, false);
+                            presenter.loadKontrachenci(adapter.getItemCount(), false);
                         } catch (IllegalStateException e) {
                             Log.w("RecyclerView", e.getLocalizedMessage());
                             previousTotal = 0;
@@ -124,7 +124,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.loadKontrachenci(0, nazwa, true);
+                presenter.loadKontrachenci(0, true);
             }
         });
 
@@ -134,7 +134,7 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     @Override
     public void onResume() {
         super.onResume();
-        presenter.loadKontrachenci(0, nazwa, false);
+        presenter.start();
     }
 
     @Override
@@ -163,13 +163,6 @@ public class KontrahenciFragment extends Fragment implements KontrahenciContract
     public void showFaktury(String kontrahentReference, String kontrahentName) {
         Intent intent = FakturyActivity.createIntent(getContext(), kontrahentReference, kontrahentName);
         startActivity(intent);
-    }
-
-    @Override
-    public void setNazwa(String nazwa) {
-        //set currently searched kontrahent nazwa and display them
-        this.nazwa = nazwa;
-        presenter.loadKontrachenci(0, this.nazwa, true);
     }
 
     @Override

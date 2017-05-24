@@ -20,17 +20,17 @@ interface KontrahenciContract {
 
         void setLoadingView(boolean visible);
 
-        void setNazwa(String nazwa);
-
     }
 
     interface Presenter extends BasePresenter {
 
-        void loadKontrachenci(int offset, String nazwa, boolean forceUpdate);
+        void loadKontrachenci(int offset, boolean forceUpdate);
 
         void openFaktury(Kontrahent kontrahent);
 
-        void setNazwa(String nazwa);
+        String getNazwa();
+
+        void setNazwa(String nazwa, boolean refreshCache);
 
     }
 
