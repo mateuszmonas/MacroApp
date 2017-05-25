@@ -22,10 +22,10 @@ import butterknife.ButterKnife;
 public class FakturyActivity extends AppCompatActivity {
 
     public static final int SEARCH_REQUEST = 1;
+    public static final String EXTRA_KONTRAHENT_NAME = "KONTRAHENT_NAME";
+    public static final String EXTRA_SEARCH_PARAMETERS = "SEARCH_PARAMETERS";
     private static final String EXTRA_KONTRAHENT_REFERENCE = "KONTRAHENT_REFERENCE";
-    private static final String EXTRA_KONTRAHENT_NAME = "KONTRAHENT_NAME";
     private static final String EXTRA_SEARCHED = "SEARCHED";
-    private static final String EXTRA_SEARCH_PARAMETERS = "SEARCH_PARAMETERS";
     @Inject
     FakturyPresenter presenter;
     @BindView(R.id.toolbar)

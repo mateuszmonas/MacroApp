@@ -18,10 +18,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.gmail.mateuszmonas.macroapp.faktury.FakturyActivity.EXTRA_KONTRAHENT_NAME;
+import static com.gmail.mateuszmonas.macroapp.faktury.FakturyActivity.EXTRA_SEARCH_PARAMETERS;
+
 public class FakturaSearchActivity extends AppCompatActivity {
 
-    private static final String EXTRA_KONTRAHENT_NAME = "KONTRAHENT_NAME";
-    private static final String EXTRA_SEARCH_PARAMETERS = "SEARCH_PARAMETERS";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.symbol)
@@ -47,6 +48,17 @@ public class FakturaSearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_faktura_search);
 
         ButterKnife.bind(this);
+
+        if (savedInstanceState != null) {
+            FakturaSearchParameters searchParameters = savedInstanceState.getParcelable(EXTRA_SEARCH_PARAMETERS);
+            if (searchParameters != null) {
+                symbol.setText(searchParameters.getSymbol());
+                dateMin.setText(searchParameters.getDateMin());
+                dateMax.setText(searchParameters.getDateMax());
+                cenaMin.setText(searchParameters.getCenaMin());
+                cenaMax.setText(searchParameters.getCenaMax());
+            }
+        }
 
         toolbar.setTitle(getIntent().getStringExtra(EXTRA_KONTRAHENT_NAME));
         setSupportActionBar(toolbar);
@@ -78,4 +90,16 @@ public class FakturaSearchActivity extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        FakturaSearchParameters searchParameters = new FakturaSearchParameters(
+                symbol.getText().toString(),
+                dateMin.getText().toString(),
+                dateMax.getText().toString(),
+                cenaMin.getText().toString(),
+                cenaMax.getText().toString()
+        );
+        outState.putParcelable(EXTRA_SEARCH_PARAMETERS, searchParameters);
+    }
 }
