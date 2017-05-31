@@ -4,6 +4,6 @@ It uses MVP architecture, dagger 2 for dependency injection and Retrofit 2 to co
 
 ![kontrahenci](/screenshots/kontrahenci.png)
 ![faktury](/screenshots/faktury.png)
-![wyszukiwanie_faktur](/screenshots/wyszukiwanie_faktur.png)
-![detale_faktury_portrait](/screenshots/detale_faktury_landscape.png)
-![detale_faktury_landscape](/screenshots/detale_faktury_portrait.png)
+![wyszukiwanie_faktur](/screenshots/wyszukiwanie_faktury.png)
+![detale_faktury_portrait](/screenshots/detale_faktury_portrait.png)
+![detale_faktury_landscape](/screenshots/detale_faktury_landscape.png)
